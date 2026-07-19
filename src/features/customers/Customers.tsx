@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+﻿import React, { useState, useEffect } from 'react';
 import { useApp } from '../../context/AppContext';
 import { MockDatabase, Customer, RepairJob } from '../../services/mockDb';
 import { DatabaseService } from '../../services/dbAdapter';
@@ -98,61 +98,61 @@ export const Customers: React.FC = () => {
         {/* Top KPI Widgets */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {/* Card 1 */}
-          <div className="bg-white border border-slate-100 p-4.5 rounded-2xl shadow-sm flex flex-col items-center justify-center text-center">
+          <div className="bg-white dark:bg-slate-900 dark:bg-slate-900 border border-slate-100 dark:border-slate-800 dark:border-slate-800 p-4.5 rounded-2xl shadow-sm flex flex-col items-center justify-center text-center">
             <div className="flex items-center gap-1.5 text-slate-400">
               <Users className="w-4 h-4 text-blue-500" />
               <span className="text-[11px] font-bold uppercase tracking-wider">Total Customers</span>
             </div>
-            <p className="text-3xl font-extrabold text-slate-800 mt-3">{totalCustomersCount}</p>
+            <p className="text-3xl font-extrabold text-slate-800 dark:text-slate-100 mt-3">{totalCustomersCount}</p>
           </div>
 
           {/* Card 2 */}
-          <div className="bg-white border border-slate-100 p-4.5 rounded-2xl shadow-sm flex flex-col items-center justify-center text-center">
+          <div className="bg-white dark:bg-slate-900 dark:bg-slate-900 border border-slate-100 dark:border-slate-800 dark:border-slate-800 p-4.5 rounded-2xl shadow-sm flex flex-col items-center justify-center text-center">
             <div className="flex items-center gap-1.5 text-slate-400">
               <UserPlus className="w-4 h-4 text-green-500" />
               <span className="text-[11px] font-bold uppercase tracking-wider">New This Month</span>
             </div>
-            <p className="text-3xl font-extrabold text-slate-800 mt-3">{newThisMonthCount}</p>
+            <p className="text-3xl font-extrabold text-slate-800 dark:text-slate-100 mt-3">{newThisMonthCount}</p>
           </div>
 
           {/* Card 3 */}
-          <div className="bg-white border border-slate-100 p-4.5 rounded-2xl shadow-sm flex flex-col items-center justify-center text-center">
+          <div className="bg-white dark:bg-slate-900 dark:bg-slate-900 border border-slate-100 dark:border-slate-800 dark:border-slate-800 p-4.5 rounded-2xl shadow-sm flex flex-col items-center justify-center text-center">
             <div className="flex items-center gap-1.5 text-slate-400">
               <Users className="w-4 h-4 text-indigo-500" />
               <span className="text-[11px] font-bold uppercase tracking-wider">Returning Customers</span>
             </div>
-            <p className="text-3xl font-extrabold text-slate-800 mt-3">{returningCount}</p>
+            <p className="text-3xl font-extrabold text-slate-800 dark:text-slate-100 mt-3">{returningCount}</p>
           </div>
 
           {/* Card 4 */}
-          <div className="bg-white border border-slate-100 p-4.5 rounded-2xl shadow-sm flex flex-col items-center justify-center text-center">
+          <div className="bg-white dark:bg-slate-900 dark:bg-slate-900 border border-slate-100 dark:border-slate-800 dark:border-slate-800 p-4.5 rounded-2xl shadow-sm flex flex-col items-center justify-center text-center">
             <div className="flex items-center gap-1.5 text-slate-400">
               <DollarSign className="w-4 h-4 text-red-500" />
               <span className="text-[11px] font-bold uppercase tracking-wider">Total Receivable</span>
             </div>
-            <p className="text-3xl font-extrabold text-slate-800 mt-3">₹{totalReceivableAmount.toLocaleString('en-IN')}</p>
+            <p className="text-3xl font-extrabold text-slate-800 dark:text-slate-100 mt-3">₹{totalReceivableAmount.toLocaleString('en-IN')}</p>
           </div>
         </div>
 
         {/* Filters Header */}
-        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-white border border-slate-100 p-4.5 rounded-2xl shadow-sm">
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-white dark:bg-slate-900 dark:bg-slate-900 border border-slate-100 dark:border-slate-800 dark:border-slate-800 p-4.5 rounded-2xl shadow-sm">
           {/* Tabs */}
-          <div className="flex gap-1.5 p-1 bg-slate-50 border border-slate-100 rounded-xl shrink-0">
+          <div className="flex gap-1.5 p-1 bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-800 rounded-xl shrink-0">
             <button 
               onClick={() => setSelectedTab('all')}
-              className={`px-4 py-2 rounded-lg text-xs font-bold transition cursor-pointer ${selectedTab === 'all' ? 'bg-white text-slate-800 shadow-xs' : 'text-slate-400 hover:text-slate-600'}`}
+              className={`px-4 py-2 rounded-lg text-xs font-bold transition cursor-pointer ${selectedTab === 'all' ? 'bg-white text-slate-800 dark:text-slate-100 shadow-xs' : 'text-slate-400 hover:text-slate-600 dark:text-slate-300'}`}
             >
               All Customers
             </button>
             <button 
               onClick={() => setSelectedTab('new')}
-              className={`px-4 py-2 rounded-lg text-xs font-bold transition cursor-pointer ${selectedTab === 'new' ? 'bg-white text-slate-800 shadow-xs' : 'text-slate-400 hover:text-slate-600'}`}
+              className={`px-4 py-2 rounded-lg text-xs font-bold transition cursor-pointer ${selectedTab === 'new' ? 'bg-white text-slate-800 dark:text-slate-100 shadow-xs' : 'text-slate-400 hover:text-slate-600 dark:text-slate-300'}`}
             >
               New Customers
             </button>
             <button 
               onClick={() => setSelectedTab('returning')}
-              className={`px-4 py-2 rounded-lg text-xs font-bold transition cursor-pointer ${selectedTab === 'returning' ? 'bg-white text-slate-800 shadow-xs' : 'text-slate-400 hover:text-slate-600'}`}
+              className={`px-4 py-2 rounded-lg text-xs font-bold transition cursor-pointer ${selectedTab === 'returning' ? 'bg-white text-slate-800 dark:text-slate-100 shadow-xs' : 'text-slate-400 hover:text-slate-600 dark:text-slate-300'}`}
             >
               Returning Customers
             </button>
@@ -166,17 +166,17 @@ export const Customers: React.FC = () => {
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Search by name or phone..." 
-              className="w-full bg-slate-50 border border-slate-100 hover:border-slate-200 pl-9 pr-4 py-2 rounded-xl text-xs focus:outline-none focus:bg-white transition"
+              className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-800 hover:border-slate-200 dark:border-slate-700 pl-9 pr-4 py-2 rounded-xl text-xs focus:outline-none focus:bg-white dark:focus:bg-slate-800 transition"
             />
           </div>
         </div>
 
         {/* Directory Table */}
-        <div className="bg-white border border-slate-100 rounded-2xl shadow-sm overflow-hidden flex-1 flex flex-col">
+        <div className="bg-white dark:bg-slate-900 dark:bg-slate-900 border border-slate-100 dark:border-slate-800 dark:border-slate-800 rounded-2xl shadow-sm overflow-hidden flex-1 flex flex-col">
           <div className="overflow-x-auto flex-1">
             <table className="w-full text-left border-collapse">
               <thead>
-                <tr className="bg-slate-50/50 text-[10px] font-bold uppercase tracking-wider text-slate-400 border-b border-slate-100">
+                <tr className="bg-slate-50/50 dark:bg-slate-800/30 text-[10px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 border-b border-slate-100 dark:border-slate-800">
                   <th className="px-6 py-4.5">Customer</th>
                   <th className="px-6 py-4.5">Phone Number</th>
                   <th className="px-6 py-4.5">Total Jobs</th>
@@ -186,7 +186,7 @@ export const Customers: React.FC = () => {
                   <th className="px-6 py-4.5 text-right">Actions</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-100 text-xs font-medium text-slate-700">
+              <tbody className="divide-y divide-slate-100 dark:divide-slate-800 text-xs font-medium text-slate-700 dark:text-slate-200">
                 {paginatedCustomers.length > 0 ? (
                   paginatedCustomers.map(c => {
                     const isSelected = selectedCustomer?.id === c.id;
@@ -194,18 +194,18 @@ export const Customers: React.FC = () => {
                       <tr 
                         key={c.id}
                         onClick={() => setSelectedCustomerId(c.id)}
-                        className={`hover:bg-slate-50/50 cursor-pointer transition ${isSelected ? 'bg-blue-50/20' : ''}`}
+                        className={`hover:bg-slate-50/50 dark:hover:bg-slate-800/50 dark:bg-slate-800/30 cursor-pointer transition ${isSelected ? 'bg-blue-50/20' : ''}`}
                       >
                         <td className="px-6 py-4 flex items-center gap-3.5">
                           <div className={`w-8.5 h-8.5 rounded-full flex items-center justify-center font-bold text-xs shrink-0 ${
                             c.isVip 
                               ? 'bg-purple-100 text-purple-700' 
-                              : 'bg-slate-100 text-slate-600'
+                              : 'bg-slate-100 text-slate-600 dark:text-slate-300'
                           }`}>
                             {getInitials(c.name)}
                           </div>
                           <div>
-                            <p className="font-bold text-slate-800 flex items-center gap-1.5">
+                            <p className="font-bold text-slate-800 dark:text-slate-100 flex items-center gap-1.5">
                               {c.name}
                               {c.isVip && (
                                 <span className="px-1.5 py-0.5 bg-purple-50 text-purple-600 text-[8px] font-bold rounded">VIP</span>
@@ -214,9 +214,9 @@ export const Customers: React.FC = () => {
                             <p className="text-[10px] text-slate-400 mt-0.5">{c.city}</p>
                           </div>
                         </td>
-                        <td className="px-6 py-4 font-mono text-slate-600">+91 {c.phone}</td>
-                        <td className="px-6 py-4 text-slate-500 font-semibold">{c.totalJobs}</td>
-                        <td className="px-6 py-4 font-bold text-slate-800">₹{c.totalSpent.toLocaleString('en-IN')}</td>
+                        <td className="px-6 py-4 font-mono text-slate-600 dark:text-slate-300">+91 {c.phone}</td>
+                        <td className="px-6 py-4 text-slate-500 dark:text-slate-400 font-semibold">{c.totalJobs}</td>
+                        <td className="px-6 py-4 font-bold text-slate-800 dark:text-slate-100">₹{c.totalSpent.toLocaleString('en-IN')}</td>
                         <td className="px-6 py-4 font-bold">
                           {c.pendingAmount > 0 ? (
                             <span className="text-red-500">₹{c.pendingAmount.toLocaleString('en-IN')}</span>
@@ -226,7 +226,7 @@ export const Customers: React.FC = () => {
                         </td>
                         <td className="px-6 py-4 text-slate-400">{c.lastVisit}</td>
                         <td className="px-6 py-4 text-right">
-                          <button className="p-1 hover:bg-slate-100 rounded-lg text-slate-400 hover:text-slate-600 transition">
+                          <button className="p-1 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-lg text-slate-400 hover:text-slate-600 dark:text-slate-300 transition">
                             •••
                           </button>
                         </td>
@@ -245,7 +245,7 @@ export const Customers: React.FC = () => {
           </div>
 
           {/* Dynamic Pagination Footer */}
-          <div className="px-6 py-4 border-t border-slate-100 flex items-center justify-between bg-slate-50/50">
+          <div className="px-6 py-4 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between bg-slate-50/50 dark:bg-slate-800/30">
             <span className="text-xs text-slate-400 font-semibold">
               Showing {filteredCustomers.length === 0 ? 0 : startIndex + 1} to {Math.min(startIndex + ITEMS_PER_PAGE, filteredCustomers.length)} of {filteredCustomers.length} customers
             </span>
@@ -254,7 +254,7 @@ export const Customers: React.FC = () => {
                 <button 
                   onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
                   disabled={currentPage === 1}
-                  className={`p-1.5 border border-slate-200 rounded-lg hover:bg-white transition shrink-0 ${currentPage === 1 ? 'opacity-40 cursor-not-allowed' : 'text-slate-400 hover:text-slate-600'}`}
+                  className={`p-1.5 border border-slate-200 dark:border-slate-700 rounded-lg hover:bg-white transition shrink-0 ${currentPage === 1 ? 'opacity-40 cursor-not-allowed' : 'text-slate-400 hover:text-slate-600 dark:text-slate-300'}`}
                 >
                   <ChevronLeft className="w-4 h-4" />
                 </button>
@@ -268,7 +268,7 @@ export const Customers: React.FC = () => {
                       className={`px-3 py-1 text-xs font-bold rounded-lg transition ${
                         isCurrent
                           ? 'bg-blue-600 text-white shadow-xs'
-                          : 'border border-slate-200 text-slate-600 hover:bg-white'
+                          : 'border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:bg-white'
                       }`}
                     >
                       {pNum}
@@ -278,7 +278,7 @@ export const Customers: React.FC = () => {
                 <button 
                   onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
                   disabled={currentPage === totalPages}
-                  className={`p-1.5 border border-slate-200 rounded-lg hover:bg-white transition shrink-0 ${currentPage === totalPages ? 'opacity-40 cursor-not-allowed' : 'text-slate-400 hover:text-slate-600'}`}
+                  className={`p-1.5 border border-slate-200 dark:border-slate-700 rounded-lg hover:bg-white transition shrink-0 ${currentPage === totalPages ? 'opacity-40 cursor-not-allowed' : 'text-slate-400 hover:text-slate-600 dark:text-slate-300'}`}
                 >
                   <ChevronRight className="w-4 h-4" />
                 </button>
@@ -290,17 +290,17 @@ export const Customers: React.FC = () => {
 
       {/* Slide-out Customer Profile Sidebar Panel */}
       {selectedCustomer && (
-        <div className="w-[420px] border-l border-slate-100 bg-white h-full shadow-2xl flex flex-col text-left">
+        <div className="w-[420px] border-l border-slate-100 dark:border-slate-800 bg-white dark:bg-slate-900 h-full shadow-2xl flex flex-col text-left">
           {/* Panel Header */}
-          <div className="px-6 py-5 border-b border-slate-100 flex items-center justify-between">
+          <div className="px-6 py-5 border-b border-slate-100 dark:border-slate-800 flex items-center justify-between">
             <div className="flex items-center gap-3">
               <div className={`w-11 h-11 rounded-full flex items-center justify-center font-bold text-sm shrink-0 ${
-                selectedCustomer.isVip ? 'bg-purple-100 text-purple-700' : 'bg-slate-100 text-slate-600'
+                selectedCustomer.isVip ? 'bg-purple-100 text-purple-700' : 'bg-slate-100 text-slate-600 dark:text-slate-300'
               }`}>
                 {getInitials(selectedCustomer.name)}
               </div>
               <div>
-                <h3 className="text-sm font-bold text-slate-800 leading-tight flex items-center gap-1.5">
+                <h3 className="text-sm font-bold text-slate-800 dark:text-slate-100 leading-tight flex items-center gap-1.5">
                   {selectedCustomer.name}
                   {selectedCustomer.isVip && (
                     <span className="px-1.5 py-0.5 bg-purple-50 text-purple-600 text-[8px] font-bold rounded">VIP Customer</span>
@@ -319,7 +319,7 @@ export const Customers: React.FC = () => {
                     setEditCity(selectedCustomer.city);
                     setIsEditing(true);
                   }}
-                  className="text-xs text-slate-400 hover:text-slate-700 font-bold border border-slate-200 px-3 py-1.5 rounded-lg"
+                  className="text-xs text-slate-400 hover:text-slate-700 dark:text-slate-200 font-bold border border-slate-200 dark:border-slate-700 px-3 py-1.5 rounded-lg"
                 >
                   Edit
                 </button>
@@ -346,7 +346,7 @@ export const Customers: React.FC = () => {
                   </button>
                   <button
                     onClick={() => setIsEditing(false)}
-                    className="text-xs text-slate-400 hover:text-slate-700 font-bold border border-slate-200 px-3 py-1.5 rounded-lg"
+                    className="text-xs text-slate-400 hover:text-slate-700 dark:text-slate-200 font-bold border border-slate-200 dark:border-slate-700 px-3 py-1.5 rounded-lg"
                   >
                     Cancel
                   </button>
@@ -357,7 +357,7 @@ export const Customers: React.FC = () => {
                   setSelectedCustomerId(null);
                   setIsEditing(false);
                 }}
-                className="p-1.5 text-slate-400 hover:text-slate-600 hover:bg-slate-100 rounded-lg transition"
+                className="p-1.5 text-slate-400 hover:text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-lg transition"
                 title="Close Profile"
               >
                 <X className="w-4.5 h-4.5" />
@@ -368,24 +368,24 @@ export const Customers: React.FC = () => {
           {/* Panel Body */}
           <div className="flex-1 overflow-y-auto p-6 space-y-6">
             {/* Contact Details card */}
-            <div className="space-y-3.5 text-xs font-semibold text-slate-600 border-b border-slate-50 pb-5">
+            <div className="space-y-3.5 text-xs font-semibold text-slate-600 dark:text-slate-300 border-b border-slate-100 dark:border-slate-800 pb-5">
               {isEditing ? (
                 <div className="space-y-3">
                   <div>
                     <label className="text-[10px] font-bold text-slate-400 uppercase block mb-1">Name</label>
-                    <input value={editName} onChange={e => setEditName(e.target.value)} className="w-full border border-slate-200 rounded-lg px-3 py-2 text-xs font-semibold text-slate-700 focus:ring-2 focus:ring-blue-200 focus:border-blue-400 outline-none" />
+                    <input value={editName} onChange={e => setEditName(e.target.value)} className="w-full border border-slate-200 dark:border-slate-700 rounded-lg px-3 py-2 text-xs font-semibold text-slate-700 dark:text-slate-200 focus:ring-2 focus:ring-blue-200 focus:border-blue-400 outline-none" />
                   </div>
                   <div>
                     <label className="text-[10px] font-bold text-slate-400 uppercase block mb-1">Phone</label>
-                    <input value={editPhone} onChange={e => setEditPhone(e.target.value)} className="w-full border border-slate-200 rounded-lg px-3 py-2 text-xs font-semibold text-slate-700 focus:ring-2 focus:ring-blue-200 focus:border-blue-400 outline-none" />
+                    <input value={editPhone} onChange={e => setEditPhone(e.target.value)} className="w-full border border-slate-200 dark:border-slate-700 rounded-lg px-3 py-2 text-xs font-semibold text-slate-700 dark:text-slate-200 focus:ring-2 focus:ring-blue-200 focus:border-blue-400 outline-none" />
                   </div>
                   <div>
                     <label className="text-[10px] font-bold text-slate-400 uppercase block mb-1">Email</label>
-                    <input value={editEmail} onChange={e => setEditEmail(e.target.value)} placeholder="email@example.com" className="w-full border border-slate-200 rounded-lg px-3 py-2 text-xs font-semibold text-slate-700 focus:ring-2 focus:ring-blue-200 focus:border-blue-400 outline-none" />
+                    <input value={editEmail} onChange={e => setEditEmail(e.target.value)} placeholder="email@example.com" className="w-full border border-slate-200 dark:border-slate-700 rounded-lg px-3 py-2 text-xs font-semibold text-slate-700 dark:text-slate-200 focus:ring-2 focus:ring-blue-200 focus:border-blue-400 outline-none" />
                   </div>
                   <div>
                     <label className="text-[10px] font-bold text-slate-400 uppercase block mb-1">City</label>
-                    <input value={editCity} onChange={e => setEditCity(e.target.value)} className="w-full border border-slate-200 rounded-lg px-3 py-2 text-xs font-semibold text-slate-700 focus:ring-2 focus:ring-blue-200 focus:border-blue-400 outline-none" />
+                    <input value={editCity} onChange={e => setEditCity(e.target.value)} className="w-full border border-slate-200 dark:border-slate-700 rounded-lg px-3 py-2 text-xs font-semibold text-slate-700 dark:text-slate-200 focus:ring-2 focus:ring-blue-200 focus:border-blue-400 outline-none" />
                   </div>
                 </div>
               ) : (
@@ -412,30 +412,30 @@ export const Customers: React.FC = () => {
 
             {/* Quick Metrics grid */}
             <div className="grid grid-cols-2 gap-3">
-              <div className="bg-slate-50 p-3 rounded-xl">
+              <div className="bg-slate-50 dark:bg-slate-800 p-3 rounded-xl">
                 <span className="text-[9px] font-bold text-slate-400 uppercase tracking-wider block">Total Jobs</span>
-                <span className="text-sm font-extrabold text-slate-800 mt-1 block">{selectedCustomer.totalJobs}</span>
+                <span className="text-sm font-extrabold text-slate-800 dark:text-slate-100 mt-1 block">{selectedCustomer.totalJobs}</span>
               </div>
-              <div className="bg-slate-50 p-3 rounded-xl">
+              <div className="bg-slate-50 dark:bg-slate-800 p-3 rounded-xl">
                 <span className="text-[9px] font-bold text-slate-400 uppercase tracking-wider block">Total Spent</span>
-                <span className="text-sm font-extrabold text-slate-800 mt-1 block">₹{selectedCustomer.totalSpent.toLocaleString('en-IN')}</span>
+                <span className="text-sm font-extrabold text-slate-800 dark:text-slate-100 mt-1 block">₹{selectedCustomer.totalSpent.toLocaleString('en-IN')}</span>
               </div>
-              <div className="bg-slate-50 p-3 rounded-xl">
+              <div className="bg-slate-50 dark:bg-slate-800 p-3 rounded-xl">
                 <span className="text-[9px] font-bold text-slate-400 uppercase tracking-wider block">Pending Amount</span>
                 <span className={`text-sm font-extrabold mt-1 block ${selectedCustomer.pendingAmount > 0 ? 'text-red-500' : 'text-green-600'}`}>
                   ₹{selectedCustomer.pendingAmount.toLocaleString('en-IN')}
                 </span>
               </div>
-              <div className="bg-slate-50 p-3 rounded-xl">
+              <div className="bg-slate-50 dark:bg-slate-800 p-3 rounded-xl">
                 <span className="text-[9px] font-bold text-slate-400 uppercase tracking-wider block">Last Visit</span>
-                <span className="text-sm font-extrabold text-slate-800 mt-1 block truncate">{selectedCustomer.lastVisit}</span>
+                <span className="text-sm font-extrabold text-slate-800 dark:text-slate-100 mt-1 block truncate">{selectedCustomer.lastVisit}</span>
               </div>
             </div>
 
             {/* Recent Repair History */}
             <div className="space-y-3.5">
               <div className="flex justify-between items-center">
-                <h4 className="text-[11px] font-bold text-slate-700 uppercase tracking-wider">Recent Repair History</h4>
+                <h4 className="text-[11px] font-bold text-slate-700 dark:text-slate-200 uppercase tracking-wider">Recent Repair History</h4>
                 <a href="#" className="text-[10px] text-blue-600 font-bold hover:underline">View All</a>
               </div>
               <div className="space-y-2.5">
@@ -443,15 +443,15 @@ export const Customers: React.FC = () => {
                   customerRepairs.map(job => (
                     <div 
                       key={job.id} 
-                      className="border border-slate-100 rounded-xl p-3 flex justify-between items-center text-xs"
+                      className="border border-slate-100 dark:border-slate-800 rounded-xl p-3 flex justify-between items-center text-xs"
                     >
                       <div>
-                        <p className="font-bold text-slate-700">{job.device.brand} {job.device.model}</p>
+                        <p className="font-bold text-slate-700 dark:text-slate-200">{job.device.brand} {job.device.model}</p>
                         <p className="text-[10px] text-slate-400 mt-1">Job #{job.id} • {job.receivedAt}</p>
                       </div>
                       <div className="text-right">
                         <span className="px-1.5 py-0.5 bg-green-50 text-green-600 text-[9px] font-bold rounded">Completed</span>
-                        <p className="font-extrabold text-slate-700 mt-1.5">₹{job.estimatedCost}</p>
+                        <p className="font-extrabold text-slate-700 dark:text-slate-200 mt-1.5">₹{job.estimatedCost}</p>
                       </div>
                     </div>
                   ))
@@ -463,14 +463,14 @@ export const Customers: React.FC = () => {
 
             {/* Quick Actions Panel */}
             <div className="space-y-3 border-t border-slate-50 pt-5">
-              <h4 className="text-[11px] font-bold text-slate-700 uppercase tracking-wider">Quick Actions</h4>
-              <div className="grid grid-cols-4 gap-2 text-center text-[10px] font-bold text-slate-600">
+              <h4 className="text-[11px] font-bold text-slate-700 dark:text-slate-200 uppercase tracking-wider">Quick Actions</h4>
+              <div className="grid grid-cols-4 gap-2 text-center text-[10px] font-bold text-slate-600 dark:text-slate-300">
                 <button 
                   onClick={() => {
                     const event = new CustomEvent('open-new-repair', { detail: { customer: selectedCustomer } });
                     window.dispatchEvent(event);
                   }}
-                  className="p-3 bg-slate-50 hover:bg-slate-100/70 border border-slate-50 rounded-xl flex flex-col items-center gap-1.5 transition cursor-pointer"
+                  className="p-3 bg-slate-50 dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700/70 border border-slate-50 rounded-xl flex flex-col items-center gap-1.5 transition cursor-pointer"
                 >
                   <Wrench className="w-4 h-4 text-blue-600" />
                   <span>New Job</span>
@@ -482,7 +482,7 @@ export const Customers: React.FC = () => {
                     }
                     setActiveTab('billing');
                   }}
-                  className="p-3 bg-slate-50 hover:bg-slate-100/70 border border-slate-50 rounded-xl flex flex-col items-center gap-1.5 transition cursor-pointer"
+                  className="p-3 bg-slate-50 dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700/70 border border-slate-50 rounded-xl flex flex-col items-center gap-1.5 transition cursor-pointer"
                 >
                   <FileText className="w-4 h-4 text-green-600" />
                   <span>Invoice</span>
@@ -494,7 +494,7 @@ export const Customers: React.FC = () => {
                     }
                     setActiveTab('repairs');
                   }}
-                  className="p-3 bg-slate-50 hover:bg-slate-100/70 border border-slate-50 rounded-xl flex flex-col items-center gap-1.5 transition cursor-pointer"
+                  className="p-3 bg-slate-50 dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700/70 border border-slate-50 rounded-xl flex flex-col items-center gap-1.5 transition cursor-pointer"
                 >
                   <FileText className="w-4 h-4 text-amber-600" />
                   <span>History</span>
@@ -506,7 +506,7 @@ export const Customers: React.FC = () => {
                     }
                     setActiveTab('billing');
                   }}
-                  className="p-3 bg-slate-50 hover:bg-slate-100/70 border border-slate-50 rounded-xl flex flex-col items-center gap-1.5 transition cursor-pointer"
+                  className="p-3 bg-slate-50 dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700/70 border border-slate-50 rounded-xl flex flex-col items-center gap-1.5 transition cursor-pointer"
                 >
                   <DollarSign className="w-4 h-4 text-indigo-600" />
                   <span>Payment</span>

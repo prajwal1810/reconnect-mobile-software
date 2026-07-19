@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+﻿import React, { useState, useEffect } from 'react';
 import { useApp } from '../../context/AppContext';
 import { DatabaseService } from '../../services/dbAdapter';
 import { RepairJob, InventoryItem } from '../../services/mockDb';
@@ -202,10 +202,10 @@ export const TechnicianWorkspace: React.FC = () => {
       {/* Top: CS and DS Queue Tables side by side */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* CS Queue */}
-        <div className="bg-white border border-slate-100 rounded-2xl p-5 shadow-sm">
-          <div className="flex items-center gap-2 pb-3 border-b border-slate-50">
+        <div className="bg-white dark:bg-slate-900 dark:bg-slate-900 border border-slate-100 dark:border-slate-800 dark:border-slate-800 rounded-2xl p-5 shadow-sm">
+          <div className="flex items-center gap-2 pb-3 border-b border-slate-100 dark:border-slate-800">
             <span className="w-6 h-6 rounded-lg bg-blue-600 text-white flex items-center justify-center text-[10px] font-bold">CS</span>
-            <span className="font-bold text-slate-800 text-sm">Check & Service</span>
+            <span className="font-bold text-slate-800 dark:text-slate-100 text-sm">Check & Service</span>
             <span className="ml-auto text-[10px] font-bold text-blue-600 bg-blue-50 px-2 py-0.5 rounded-full">
               {repairs.filter(r => r.type === 'CS' && r.status !== 'Delivered' && r.status !== 'Cancelled' && r.status !== 'Completed' && r.status !== 'Ready').length}
             </span>
@@ -213,7 +213,7 @@ export const TechnicianWorkspace: React.FC = () => {
           <div className="overflow-x-auto mt-3">
             <table className="w-full text-left border-collapse">
               <thead>
-                <tr className="text-[10px] font-bold uppercase tracking-wider text-slate-400 border-b border-slate-50">
+                <tr className="text-[10px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 border-b border-slate-100 dark:border-slate-800">
                   <th className="py-2">Job ID</th>
                   <th className="py-2">Device</th>
                   <th className="py-2">Customer</th>
@@ -221,7 +221,7 @@ export const TechnicianWorkspace: React.FC = () => {
                   <th className="py-2">Technician</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-50 text-xs font-medium text-slate-700">
+              <tbody className="divide-y divide-slate-100 dark:divide-slate-800 dark:divide-slate-800 text-xs font-medium text-slate-700 dark:text-slate-200">
                 {repairs.filter(r => r.type === 'CS' && r.status !== 'Delivered' && r.status !== 'Cancelled' && r.status !== 'Completed' && r.status !== 'Ready').length === 0 ? (
                   <tr><td colSpan={5} className="py-6 text-center text-slate-400 text-xs font-semibold">No active CS jobs.</td></tr>
                 ) : (
@@ -229,15 +229,15 @@ export const TechnicianWorkspace: React.FC = () => {
                     <tr
                       key={r.id}
                       onClick={() => setSelectedRepairId(r.id)}
-                      className={`cursor-pointer transition ${activeRepair?.id === r.id ? 'bg-blue-50/50' : 'hover:bg-slate-50/50'}`}
+                      className={`cursor-pointer transition ${activeRepair?.id === r.id ? 'bg-blue-50/50' : 'hover:bg-slate-50/50 dark:hover:bg-slate-800/50 dark:bg-slate-800/30'}`}
                     >
-                      <td className="py-2.5 font-bold text-slate-800">#{r.id}</td>
+                      <td className="py-2.5 font-bold text-slate-800 dark:text-slate-100">#{r.id}</td>
                       <td className="py-2.5">{r.device.brand} {r.device.model}</td>
-                      <td className="py-2.5 text-slate-500">{r.customerName}</td>
+                      <td className="py-2.5 text-slate-500 dark:text-slate-400">{r.customerName}</td>
                       <td className="py-2.5">
-                        <span className="px-1.5 py-0.5 rounded text-[9px] font-bold bg-slate-100 text-slate-600">{r.status}</span>
+                        <span className="px-1.5 py-0.5 rounded text-[9px] font-bold bg-slate-100 text-slate-600 dark:text-slate-300">{r.status}</span>
                       </td>
-                      <td className="py-2.5 text-slate-500">{r.technician}</td>
+                      <td className="py-2.5 text-slate-500 dark:text-slate-400">{r.technician}</td>
                     </tr>
                   ))
                 )}
@@ -247,10 +247,10 @@ export const TechnicianWorkspace: React.FC = () => {
         </div>
 
         {/* DS Queue */}
-        <div className="bg-white border border-slate-100 rounded-2xl p-5 shadow-sm">
-          <div className="flex items-center gap-2 pb-3 border-b border-slate-50">
+        <div className="bg-white dark:bg-slate-900 dark:bg-slate-900 border border-slate-100 dark:border-slate-800 dark:border-slate-800 rounded-2xl p-5 shadow-sm">
+          <div className="flex items-center gap-2 pb-3 border-b border-slate-100 dark:border-slate-800">
             <span className="w-6 h-6 rounded-lg bg-green-600 text-white flex items-center justify-center text-[10px] font-bold">DS</span>
-            <span className="font-bold text-slate-800 text-sm">Direct Service</span>
+            <span className="font-bold text-slate-800 dark:text-slate-100 text-sm">Direct Service</span>
             <span className="ml-auto text-[10px] font-bold text-green-600 bg-green-50 px-2 py-0.5 rounded-full">
               {repairs.filter(r => r.type === 'DS' && r.status !== 'Delivered' && r.status !== 'Cancelled' && r.status !== 'Completed' && r.status !== 'Ready').length}
             </span>
@@ -258,7 +258,7 @@ export const TechnicianWorkspace: React.FC = () => {
           <div className="overflow-x-auto mt-3">
             <table className="w-full text-left border-collapse">
               <thead>
-                <tr className="text-[10px] font-bold uppercase tracking-wider text-slate-400 border-b border-slate-50">
+                <tr className="text-[10px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 border-b border-slate-100 dark:border-slate-800">
                   <th className="py-2">Job ID</th>
                   <th className="py-2">Device</th>
                   <th className="py-2">Customer</th>
@@ -266,7 +266,7 @@ export const TechnicianWorkspace: React.FC = () => {
                   <th className="py-2">Technician</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-50 text-xs font-medium text-slate-700">
+              <tbody className="divide-y divide-slate-100 dark:divide-slate-800 dark:divide-slate-800 text-xs font-medium text-slate-700 dark:text-slate-200">
                 {repairs.filter(r => r.type === 'DS' && r.status !== 'Delivered' && r.status !== 'Cancelled' && r.status !== 'Completed' && r.status !== 'Ready').length === 0 ? (
                   <tr><td colSpan={5} className="py-6 text-center text-slate-400 text-xs font-semibold">No active DS jobs.</td></tr>
                 ) : (
@@ -274,15 +274,15 @@ export const TechnicianWorkspace: React.FC = () => {
                     <tr
                       key={r.id}
                       onClick={() => setSelectedRepairId(r.id)}
-                      className={`cursor-pointer transition ${activeRepair?.id === r.id ? 'bg-green-50/50' : 'hover:bg-slate-50/50'}`}
+                      className={`cursor-pointer transition ${activeRepair?.id === r.id ? 'bg-green-50/50' : 'hover:bg-slate-50/50 dark:hover:bg-slate-800/50 dark:bg-slate-800/30'}`}
                     >
-                      <td className="py-2.5 font-bold text-slate-800">#{r.id}</td>
+                      <td className="py-2.5 font-bold text-slate-800 dark:text-slate-100">#{r.id}</td>
                       <td className="py-2.5">{r.device.brand} {r.device.model}</td>
-                      <td className="py-2.5 text-slate-500">{r.customerName}</td>
+                      <td className="py-2.5 text-slate-500 dark:text-slate-400">{r.customerName}</td>
                       <td className="py-2.5">
-                        <span className="px-1.5 py-0.5 rounded text-[9px] font-bold bg-slate-100 text-slate-600">{r.status}</span>
+                        <span className="px-1.5 py-0.5 rounded text-[9px] font-bold bg-slate-100 text-slate-600 dark:text-slate-300">{r.status}</span>
                       </td>
-                      <td className="py-2.5 text-slate-500">{r.technician}</td>
+                      <td className="py-2.5 text-slate-500 dark:text-slate-400">{r.technician}</td>
                     </tr>
                   ))
                 )}
@@ -296,12 +296,12 @@ export const TechnicianWorkspace: React.FC = () => {
         /* Workspace Main Body */
         <div className="space-y-6">
           {/* Header Dashboard panel */}
-          <div className="bg-white border border-slate-100 p-5 rounded-2xl shadow-xs flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div className="bg-white dark:bg-slate-900 dark:bg-slate-900 border border-slate-100 dark:border-slate-800 dark:border-slate-800 p-5 rounded-2xl shadow-xs flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             <div>
               <div className="flex items-center gap-2.5">
-                <h2 className="text-base font-extrabold text-slate-800">Job: #{activeRepair.id}</h2>
+                <h2 className="text-base font-extrabold text-slate-800 dark:text-slate-100">Job: #{activeRepair.id}</h2>
                 <span className={`px-2 py-0.5 rounded text-[10px] font-bold uppercase ${
-                  activeRepair.type === 'CS' ? 'bg-blue-50 text-blue-600' : 'bg-green-50 text-green-600'
+                  activeRepair.type === 'CS' ? 'bg-blue-50 dark:bg-blue-900/30 text-blue-600' : 'bg-green-50 text-green-600'
                 }`}>
                   {activeRepair.type === 'CS' ? 'Check & Service' : 'Direct Service'}
                 </span>
@@ -313,15 +313,15 @@ export const TechnicianWorkspace: React.FC = () => {
             </div>
 
             {/* Timer Panel */}
-            <div className="flex items-center gap-3 bg-slate-50 border border-slate-100 px-4 py-2.5 rounded-xl">
+            <div className="flex items-center gap-3 bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-800 px-4 py-2.5 rounded-xl">
               <Clock className="w-5 h-5 text-slate-400" />
               <div className="text-left">
                 <span className="text-[9px] font-bold text-slate-400 uppercase tracking-wider block">Elapsed Repair Time</span>
-                <span className="font-mono text-sm font-extrabold text-slate-800 tracking-tight">{formatTimer(timerSeconds)}</span>
+                <span className="font-mono text-sm font-extrabold text-slate-800 dark:text-slate-100 tracking-tight">{formatTimer(timerSeconds)}</span>
               </div>
               <button 
                 onClick={() => setTimerActive(!timerActive)}
-                className="w-7.5 h-7.5 rounded-lg bg-white border border-slate-200 flex items-center justify-center text-slate-500 hover:text-slate-700 transition cursor-pointer shrink-0"
+                className="w-7.5 h-7.5 rounded-lg bg-white dark:bg-slate-900 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 dark:border-slate-700 flex items-center justify-center text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:text-slate-200 transition cursor-pointer shrink-0"
               >
                 {timerActive ? <Pause className="w-3.5 h-3.5" /> : <Play className="w-3.5 h-3.5" />}
               </button>
@@ -335,67 +335,75 @@ export const TechnicianWorkspace: React.FC = () => {
             <div className="lg:col-span-2 space-y-6">
               
               {/* Box 1: Device specifications & complaints */}
-              <div className="bg-white border border-slate-100 rounded-2xl p-5 shadow-xs space-y-4">
-                <div className="flex justify-between items-center pb-2.5 border-b border-slate-50">
-                  <h3 className="text-xs font-bold text-slate-700 uppercase tracking-wider flex items-center gap-1.5">
+              <div className="bg-white dark:bg-slate-900 dark:bg-slate-900 border border-slate-100 dark:border-slate-800 dark:border-slate-800 rounded-2xl p-5 shadow-xs space-y-4">
+                <div className="flex justify-between items-center pb-2.5 border-b border-slate-100 dark:border-slate-800">
+                  <h3 className="text-xs font-bold text-slate-700 dark:text-slate-200 uppercase tracking-wider flex items-center gap-1.5">
                     <Smartphone className="w-4 h-4 text-blue-500" />
                     <span>Intake Specifications</span>
                   </h3>
                   <p className="text-[10px] text-slate-400 font-semibold">Reported Customer Complaints</p>
                 </div>
 
-                <div className="grid grid-cols-2 gap-4 text-xs font-semibold text-slate-600">
+                <div className="grid grid-cols-2 gap-4 text-xs font-semibold text-slate-600 dark:text-slate-300">
                   <div>
                     <span className="text-[10px] text-slate-400 uppercase tracking-wide">Brand & Model</span>
-                    <p className="font-bold text-slate-800 mt-1">{activeRepair.device.brand} {activeRepair.device.model} ({activeRepair.device.color || 'No Color'})</p>
+                    <p className="font-bold text-slate-800 dark:text-slate-100 mt-1">{activeRepair.device.brand} {activeRepair.device.model} ({activeRepair.device.color || 'No Color'})</p>
                   </div>
                   <div>
                     <span className="text-[10px] text-slate-400 uppercase tracking-wide">IMEI / Serial</span>
                     <p className="font-bold text-slate-850 mt-1">IMEI: {activeRepair.device.imei || 'N/A'}</p>
                   </div>
+
+                  {/* Customer Information Row */}
+                  <div className="col-span-2 p-3.5 bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-800 rounded-xl">
+                    <span className="text-[9px] font-bold text-slate-400 uppercase tracking-wider">Customer Details</span>
+                    <p className="font-bold text-slate-800 dark:text-slate-100 mt-0.5">{activeRepair.customerName}</p>
+                    <p className="text-[10px] text-slate-400 font-semibold mt-0.5">{activeRepair.customerPhone}</p>
+                  </div>
+
                   <div className="col-span-2 p-3 bg-red-50/30 border border-red-50 rounded-xl">
                     <span className="text-[9px] font-bold text-red-500 uppercase tracking-wider">Customer Complaint</span>
-                    <p className="font-bold text-slate-700 mt-1">{activeRepair.complaint}</p>
+                    <p className="font-bold text-slate-700 dark:text-slate-200 mt-1">{activeRepair.complaint}</p>
                   </div>
                 </div>
               </div>
 
               {/* Box 2: Diagnosis Section */}
-              <div className="bg-white border border-slate-100 rounded-2xl p-5 shadow-xs space-y-4">
-                <div className="pb-2.5 border-b border-slate-50">
-                  <h3 className="text-xs font-bold text-slate-700 uppercase tracking-wider">Technical Diagnosis</h3>
+              <div className="bg-white dark:bg-slate-900 dark:bg-slate-900 border border-slate-100 dark:border-slate-800 dark:border-slate-800 rounded-2xl p-5 shadow-xs space-y-4">
+                <div className="pb-2.5 border-b border-slate-100 dark:border-slate-800">
+                  <h3 className="text-xs font-bold text-slate-700 dark:text-slate-200 uppercase tracking-wider">Technical Diagnosis</h3>
                   <p className="text-[10px] text-slate-400 font-semibold mt-0.5">Record exact observations and repair strategies</p>
                 </div>
 
                 <div className="space-y-4 text-xs">
                   <div>
-                    <label className="block font-bold text-slate-500 mb-1.5">Observed Issue / Symptom *</label>
+                    <label className="block font-bold text-slate-500 dark:text-slate-400 mb-1.5">Observed Issue / Symptom *</label>
                     <input 
                       type="text" 
                       value={observedIssue}
                       onChange={e => setObservedIssue(e.target.value)}
                       placeholder="e.g. Substantial current draw, power IC short"
-                      className="w-full border border-slate-200 px-3.5 py-2.5 rounded-xl text-slate-700 font-semibold focus:outline-none"
+                      className="w-full border border-slate-200 dark:border-slate-700 px-3.5 py-2.5 rounded-xl text-slate-700 dark:text-slate-200 font-semibold focus:outline-none"
                     />
                   </div>
                   <div>
-                    <label className="block font-bold text-slate-500 mb-1.5">Root Cause Description *</label>
+                    <label className="block font-bold text-slate-500 dark:text-slate-400 mb-1.5">Root Cause Description *</label>
                     <input 
                       type="text" 
                       value={rootCause}
                       onChange={e => setRootCause(e.target.value)}
                       placeholder="e.g. PMIC short-circuited due to cheap charger adapter"
-                      className="w-full border border-slate-200 px-3.5 py-2.5 rounded-xl text-slate-700 font-semibold focus:outline-none"
+                      className="w-full border border-slate-200 dark:border-slate-700 px-3.5 py-2.5 rounded-xl text-slate-700 dark:text-slate-200 font-semibold focus:outline-none"
                     />
                   </div>
                   <div>
-                    <label className="block font-bold text-slate-500 mb-1.5">Internal Repair Strategy / Notes</label>
+                    <label className="block font-bold text-slate-500 dark:text-slate-400 mb-1.5">Internal Repair Strategy / Notes</label>
                     <textarea 
                       rows={3}
                       value={diagNotes}
                       onChange={e => setDiagNotes(e.target.value)}
                       placeholder="Enter reballing profiles, motherboard voltages or jumper details..."
-                      className="w-full border border-slate-200 p-3 rounded-xl focus:outline-none resize-none"
+                      className="w-full border border-slate-200 dark:border-slate-700 p-3 rounded-xl focus:outline-none resize-none"
                     />
                   </div>
                   
@@ -409,9 +417,9 @@ export const TechnicianWorkspace: React.FC = () => {
               </div>
 
               {/* Box 3: Parts consumed */}
-              <div className="bg-white border border-slate-100 rounded-2xl p-5 shadow-xs space-y-4">
-                <div className="pb-2.5 border-b border-slate-50">
-                  <h3 className="text-xs font-bold text-slate-700 uppercase tracking-wider">Spare Parts Consumption</h3>
+              <div className="bg-white dark:bg-slate-900 dark:bg-slate-900 border border-slate-100 dark:border-slate-800 dark:border-slate-800 rounded-2xl p-5 shadow-xs space-y-4">
+                <div className="pb-2.5 border-b border-slate-100 dark:border-slate-800">
+                  <h3 className="text-xs font-bold text-slate-700 dark:text-slate-200 uppercase tracking-wider">Spare Parts Consumption</h3>
                   <p className="text-[10px] text-slate-400 font-semibold mt-0.5">Deduct spare parts directly from active inventory</p>
                 </div>
 
@@ -420,7 +428,7 @@ export const TechnicianWorkspace: React.FC = () => {
                     <select 
                       value={selectedPartId}
                       onChange={e => setSelectedPartId(e.target.value)}
-                      className="w-full bg-slate-50 border border-slate-200 px-3 py-2.5 rounded-xl text-xs font-semibold text-slate-700 focus:outline-none"
+                      className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 px-3 py-2.5 rounded-xl text-xs font-semibold text-slate-700 dark:text-slate-200 focus:outline-none"
                     >
                       <option value="">-- Choose inventory item --</option>
                       {inventory.filter(item => (item.location || 'Main Stock') === 'Main Stock').map(item => (
@@ -441,7 +449,7 @@ export const TechnicianWorkspace: React.FC = () => {
                       min={1}
                       value={partQty}
                       onChange={e => setPartQty(parseInt(e.target.value) || 1)}
-                      className="w-full border border-slate-200 px-3 py-2.5 rounded-xl text-xs font-bold text-center focus:outline-none"
+                      className="w-full border border-slate-200 dark:border-slate-700 px-3 py-2.5 rounded-xl text-xs font-bold text-center focus:outline-none"
                     />
                   </div>
 
@@ -451,7 +459,7 @@ export const TechnicianWorkspace: React.FC = () => {
                     className={`px-4.5 py-2.5 text-xs font-bold rounded-xl cursor-pointer transition ${
                       selectedPartId 
                         ? 'bg-green-600 hover:bg-green-700 text-white shadow-xs' 
-                        : 'bg-slate-100 text-slate-400 cursor-not-allowed border border-slate-200'
+                        : 'bg-slate-100 text-slate-400 cursor-not-allowed border border-slate-200 dark:border-slate-700'
                     }`}
                   >
                     Add Part
@@ -461,14 +469,14 @@ export const TechnicianWorkspace: React.FC = () => {
                 {/* List of currently consumed parts */}
                 <div className="space-y-2 text-xs">
                   <h4 className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Added Parts for this repair</h4>
-                  <div className="divide-y divide-slate-50">
+                  <div className="divide-y divide-slate-100 dark:divide-slate-800 dark:divide-slate-800">
                     {activeRepair.billingItems.filter(item => item.id.startsWith('BILL-') || item.name !== 'Labour Charges').map((item, i) => (
-                      <div key={i} className="py-2.5 flex justify-between items-center font-semibold text-slate-700">
+                      <div key={i} className="py-2.5 flex justify-between items-center font-semibold text-slate-700 dark:text-slate-200">
                         <div>
                           <p>{item.name}</p>
                           <p className="text-[9px] text-slate-400 mt-0.5">{item.description}</p>
                         </div>
-                        <span className="font-bold text-slate-800">₹{item.amount}</span>
+                        <span className="font-bold text-slate-800 dark:text-slate-100">₹{item.amount}</span>
                       </div>
                     ))}
                   </div>
@@ -481,8 +489,8 @@ export const TechnicianWorkspace: React.FC = () => {
             <div className="space-y-6">
               
               {/* Widget 1: Status stages */}
-              <div className="bg-white border border-slate-100 rounded-2xl p-5 shadow-xs space-y-4">
-                <h3 className="text-xs font-bold text-slate-700 uppercase tracking-wider border-b border-slate-50 pb-2">Repair Status Workflow</h3>
+              <div className="bg-white dark:bg-slate-900 dark:bg-slate-900 border border-slate-100 dark:border-slate-800 dark:border-slate-800 rounded-2xl p-5 shadow-xs space-y-4">
+                <h3 className="text-xs font-bold text-slate-700 dark:text-slate-200 uppercase tracking-wider border-b border-slate-100 dark:border-slate-800 pb-2">Repair Status Workflow</h3>
                 
                 <div className="space-y-2 flex flex-col">
                   {['Received', 'Diagnosis', 'Waiting Approval', 'In Repair', 'Testing', 'Completed'].map(stage => {
@@ -494,7 +502,7 @@ export const TechnicianWorkspace: React.FC = () => {
                         className={`w-full px-4 py-2.5 rounded-xl font-bold text-xs text-left transition flex items-center justify-between cursor-pointer ${
                           isCurrent 
                             ? 'bg-blue-600 text-white shadow-sm shadow-blue-150' 
-                            : 'bg-slate-50 hover:bg-slate-100 border border-slate-100/50 text-slate-600'
+                            : 'bg-slate-50 hover:bg-slate-100 dark:hover:bg-slate-700 border border-slate-100 dark:border-slate-800/50 text-slate-600 dark:text-slate-300'
                         }`}
                       >
                         <span>{stage}</span>
@@ -506,19 +514,19 @@ export const TechnicianWorkspace: React.FC = () => {
               </div>
 
               {/* Widget 2: QA Testing checklist */}
-              <div className="bg-white border border-slate-100 rounded-2xl p-5 shadow-xs space-y-4">
-                <h3 className="text-xs font-bold text-slate-700 uppercase tracking-wider border-b border-slate-50 pb-2">QA testing checklist</h3>
+              <div className="bg-white dark:bg-slate-900 dark:bg-slate-900 border border-slate-100 dark:border-slate-800 dark:border-slate-800 rounded-2xl p-5 shadow-xs space-y-4">
+                <h3 className="text-xs font-bold text-slate-700 dark:text-slate-200 uppercase tracking-wider border-b border-slate-100 dark:border-slate-800 pb-2">QA testing checklist</h3>
                 
                 <div className="space-y-3.5 max-h-80 overflow-y-auto pr-1">
                   {tests.map(test => (
-                    <div key={test.name} className="flex justify-between items-center text-xs font-bold text-slate-700">
+                    <div key={test.name} className="flex justify-between items-center text-xs font-bold text-slate-700 dark:text-slate-200">
                       <span>{test.name}</span>
                       
-                      <div className="flex gap-1.5 p-0.5 bg-slate-50 border border-slate-100 rounded-lg shrink-0">
+                      <div className="flex gap-1.5 p-0.5 bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-800 rounded-lg shrink-0">
                         <button 
                           onClick={() => handleTestChange(test.name, 'pass')}
                           className={`px-2 py-1 rounded text-[9px] transition cursor-pointer ${
-                            test.status === 'pass' ? 'bg-green-600 text-white shadow-xs' : 'text-slate-400 hover:text-slate-600'
+                            test.status === 'pass' ? 'bg-green-600 text-white shadow-xs' : 'text-slate-400 hover:text-slate-600 dark:text-slate-300'
                           }`}
                         >
                           Pass
@@ -526,7 +534,7 @@ export const TechnicianWorkspace: React.FC = () => {
                         <button 
                           onClick={() => handleTestChange(test.name, 'fail')}
                           className={`px-2 py-1 rounded text-[9px] transition cursor-pointer ${
-                            test.status === 'fail' ? 'bg-red-500 text-white shadow-xs' : 'text-slate-400 hover:text-slate-600'
+                            test.status === 'fail' ? 'bg-red-500 text-white shadow-xs' : 'text-slate-400 hover:text-slate-600 dark:text-slate-300'
                           }`}
                         >
                           Fail
@@ -534,7 +542,7 @@ export const TechnicianWorkspace: React.FC = () => {
                         <button 
                           onClick={() => handleTestChange(test.name, 'na')}
                           className={`px-2 py-1 rounded text-[9px] transition cursor-pointer ${
-                            test.status === 'na' ? 'bg-slate-200 text-slate-600' : 'text-slate-400 hover:text-slate-600'
+                            test.status === 'na' ? 'bg-slate-200 text-slate-600 dark:text-slate-300' : 'text-slate-400 hover:text-slate-600 dark:text-slate-300'
                           }`}
                         >
                           N/A
@@ -546,19 +554,19 @@ export const TechnicianWorkspace: React.FC = () => {
               </div>
 
               {/* Widget 3: Live Timeline logs */}
-              <div className="bg-white border border-slate-100 rounded-2xl p-5 shadow-xs space-y-4">
-                <h3 className="text-xs font-bold text-slate-700 uppercase tracking-wider border-b border-slate-50 pb-2 flex items-center gap-2">
+              <div className="bg-white dark:bg-slate-900 dark:bg-slate-900 border border-slate-100 dark:border-slate-800 dark:border-slate-800 rounded-2xl p-5 shadow-xs space-y-4">
+                <h3 className="text-xs font-bold text-slate-700 dark:text-slate-200 uppercase tracking-wider border-b border-slate-100 dark:border-slate-800 pb-2 flex items-center gap-2">
                   <Activity className="w-4 h-4 text-blue-500" />
                   <span>Repair Timeline</span>
                 </h3>
                 
-                <div className="space-y-4 max-h-56 overflow-y-auto pr-1 text-left relative pl-4 border-l border-slate-100">
+                <div className="space-y-4 max-h-56 overflow-y-auto pr-1 text-left relative pl-4 border-l border-slate-100 dark:border-slate-800">
                   {activeRepair.timeline.slice().reverse().map((evt, i) => (
                     <div key={i} className="text-xs relative space-y-0.5">
                       <div className="absolute -left-6.5 top-0.5 w-3 h-3 bg-blue-500 border-2 border-white rounded-full"></div>
-                      <p className="font-bold text-slate-700">{evt.status}</p>
+                      <p className="font-bold text-slate-700 dark:text-slate-200">{evt.status}</p>
                       <p className="text-[10px] text-slate-400 font-semibold">{evt.date} at {evt.time} • {evt.user}</p>
-                      <p className="text-slate-500 text-[11px] mt-1 leading-normal font-medium">{evt.notes}</p>
+                      <p className="text-slate-500 dark:text-slate-400 text-[11px] mt-1 leading-normal font-medium">{evt.notes}</p>
                     </div>
                   ))}
                 </div>
@@ -569,7 +577,7 @@ export const TechnicianWorkspace: React.FC = () => {
           </div>
         </div>
       ) : (
-        <div className="bg-white border border-slate-100 rounded-2xl p-10 shadow-sm flex items-center justify-center">
+        <div className="bg-white dark:bg-slate-900 dark:bg-slate-900 border border-slate-100 dark:border-slate-800 dark:border-slate-800 rounded-2xl p-10 shadow-sm flex items-center justify-center">
           <p className="text-slate-400 text-sm font-semibold">Select a repair job from the tables above to view details.</p>
         </div>
       )}

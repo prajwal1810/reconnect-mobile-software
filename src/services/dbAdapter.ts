@@ -803,7 +803,7 @@ export class DatabaseService {
 
     const payload = { repair, newId, timeStr, dateStr };
 
-    return this.executeAction(
+    const result = await this.executeAction(
       async () => {
         const { data: repData, error } = await supabase.from('repairs').insert([{
           id: newId,
@@ -867,11 +867,16 @@ export class DatabaseService {
       'addRepair',
       payload
     );
+
+    // Background automated dispatch
+    this.sendAutomatedWhatsApp(result, 'intake');
+
+    return result;
   }
 
   static async updateRepairStatus(id: string, newStatus: RepairJob['status'], notes?: string): Promise<RepairJob | undefined> {
     const payload = { id, newStatus, notes };
-    return this.executeAction(
+    const result = await this.executeAction(
       async () => {
         const now = new Date();
         const timeStr = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
@@ -898,6 +903,13 @@ export class DatabaseService {
       'updateRepairStatus',
       payload
     );
+
+    // Background automated dispatch if completed or ready for collection
+    if (result && (newStatus === 'Completed' || newStatus === 'Ready')) {
+      this.sendAutomatedWhatsApp(result, 'ready');
+    }
+
+    return result;
   }
 
   static async addBillingItem(repairId: string, item: Omit<BillingItem, 'id'>): Promise<RepairJob | undefined> {
@@ -1245,6 +1257,129 @@ export class DatabaseService {
       null,
       false
     );
+  }
+
+  static async sendAutomatedWhatsApp(job: RepairJob, type: 'intake' | 'ready') {
+    const gateway = localStorage.getItem('cfg_wa_gateway') || 'Meta Cloud API';
+    
+    let phoneClean = (job.customerPhone || '').replace(/\D/g, '');
+    if (phoneClean.length === 10) {
+      phoneClean = '91' + phoneClean;
+    }
+    
+    const trackingUrl = `${window.location.origin}/`;
+    const deviceDetails = `${job.device.brand} ${job.device.model} (${job.device.color || 'No Color'})`;
+    const advancePaidStr = job.advancePaid > 0 ? `Advance Paid: ₹${job.advancePaid}` : '';
+
+    // 1. Meta Cloud API Dispatch
+    if (gateway === 'Meta Cloud API') {
+      const phoneId = localStorage.getItem('cfg_wa_phone_number_id');
+      const token = localStorage.getItem('cfg_wa_access_token');
+      if (!phoneId || !token) return;
+
+      const tplIntake = localStorage.getItem('cfg_wa_tpl_intake') || 'repair_intake_alert';
+      const tplReady = localStorage.getItem('cfg_wa_tpl_ready') || 'repair_ready_alert';
+      const activeTemplate = type === 'intake' ? tplIntake : tplReady;
+      
+      let parameters: any[] = [];
+      if (type === 'intake') {
+        parameters = [
+          { type: 'text', text: job.customerName },
+          { type: 'text', text: deviceDetails },
+          { type: 'text', text: job.id },
+          { type: 'text', text: advancePaidStr || 'No Advance Payment' },
+          { type: 'text', text: trackingUrl }
+        ];
+      } else {
+        parameters = [
+          { type: 'text', text: job.customerName },
+          { type: 'text', text: deviceDetails },
+          { type: 'text', text: job.id },
+          { type: 'text', text: String(job.estimatedCost) },
+          { type: 'text', text: String(job.advancePaid) },
+          { type: 'text', text: String(job.remainingBalance) },
+          { type: 'text', text: trackingUrl }
+        ];
+      }
+
+      try {
+        const response = await fetch(`https://graph.facebook.com/v20.0/${phoneId}/messages`, {
+          method: 'POST',
+          headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            messaging_product: 'whatsapp',
+            to: phoneClean,
+            type: 'template',
+            template: {
+              name: activeTemplate,
+              language: { code: 'en_US' },
+              components: [
+                {
+                  type: 'body',
+                  parameters: parameters
+                }
+              ]
+            }
+          })
+        });
+        
+        const resData = await response.json();
+        if (!response.ok) {
+          console.error('Automated WhatsApp Meta API error:', resData);
+        } else {
+          console.log('Automated WhatsApp message sent successfully via Meta API', resData.messages?.[0]?.id);
+        }
+      } catch (err) {
+        console.error('Automated WhatsApp send failed:', err);
+      }
+    }
+    
+    // 2. Custom Webhook API Dispatch
+    if (gateway === 'Custom Webhook') {
+      const customUrl = localStorage.getItem('cfg_wa_custom_url');
+      const customToken = localStorage.getItem('cfg_wa_custom_token');
+      if (!customUrl) return;
+
+      const headers: Record<string, string> = {
+        'Content-Type': 'application/json'
+      };
+      if (customToken) {
+        headers['Authorization'] = customToken.startsWith('Bearer') || customToken.startsWith('Key')
+          ? customToken
+          : `Bearer ${customToken}`;
+      }
+
+      try {
+        const response = await fetch(customUrl, {
+          method: 'POST',
+          headers,
+          body: JSON.stringify({
+            recipient: phoneClean,
+            type: type,
+            jobId: job.id,
+            customerName: job.customerName,
+            device: deviceDetails,
+            advancePaid: job.advancePaid,
+            estimatedCost: job.estimatedCost,
+            remainingBalance: job.remainingBalance,
+            complaint: job.complaint,
+            trackingUrl: trackingUrl
+          })
+        });
+
+        if (!response.ok) {
+          const errMsg = await response.text();
+          console.error('Automated WhatsApp Webhook error status:', response.status, errMsg);
+        } else {
+          console.log('Automated WhatsApp message sent successfully via Custom Webhook');
+        }
+      } catch (err) {
+        console.error('Automated WhatsApp Webhook send failed:', err);
+      }
+    }
   }
 }
 

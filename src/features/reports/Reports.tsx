@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+﻿import React, { useState, useEffect } from 'react';
 import { useApp } from '../../context/AppContext';
 import { 
   TrendingUp, 
@@ -360,9 +360,9 @@ export const Reports: React.FC = () => {
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
               
               {/* Chart 1: Revenue Overview */}
-              <div className="bg-white border border-slate-100 rounded-2xl p-5 shadow-sm space-y-4">
-                <div className="flex justify-between items-center pb-2 border-b border-slate-50">
-                  <h3 className="text-xs font-bold text-slate-700 uppercase tracking-wider">Revenue Overview</h3>
+              <div className="bg-white dark:bg-slate-900 dark:bg-slate-900 border border-slate-100 dark:border-slate-800 dark:border-slate-800 rounded-2xl p-5 shadow-sm space-y-4">
+                <div className="flex justify-between items-center pb-2 border-b border-slate-100 dark:border-slate-800">
+                  <h3 className="text-xs font-bold text-slate-700 dark:text-slate-200 uppercase tracking-wider">Revenue Overview</h3>
                   <span className="text-[10px] text-slate-400 font-bold">Last 7 Days</span>
                 </div>
 
@@ -462,9 +462,9 @@ export const Reports: React.FC = () => {
               </div>
 
               {/* Chart 2: Jobs Overview */}
-              <div className="bg-white border border-slate-100 rounded-2xl p-5 shadow-sm space-y-4">
-                <div className="flex justify-between items-center pb-2 border-b border-slate-50">
-                  <h3 className="text-xs font-bold text-slate-700 uppercase tracking-wider">Jobs Overview</h3>
+              <div className="bg-white dark:bg-slate-900 dark:bg-slate-900 border border-slate-100 dark:border-slate-800 dark:border-slate-800 rounded-2xl p-5 shadow-sm space-y-4">
+                <div className="flex justify-between items-center pb-2 border-b border-slate-100 dark:border-slate-800">
+                  <h3 className="text-xs font-bold text-slate-700 dark:text-slate-200 uppercase tracking-wider">Jobs Overview</h3>
                   <span className="text-[10px] text-slate-400 font-bold">Last 7 Days</span>
                 </div>
 
@@ -580,7 +580,7 @@ export const Reports: React.FC = () => {
                     ))}
                   </div>
                   
-                  <div className="flex justify-center gap-4 text-[10px] font-bold text-slate-500 pt-1.5">
+                  <div className="flex justify-center gap-4 text-[10px] font-bold text-slate-500 dark:text-slate-400 pt-1.5">
                     <div className="flex items-center gap-1">
                       <span className="w-2.5 h-1 bg-green-500 rounded"></span>
                       <span>Completed</span>
@@ -594,9 +594,9 @@ export const Reports: React.FC = () => {
               </div>
 
               {/* Chart 3: Payment Status Donut */}
-              <div className="bg-white border border-slate-100 rounded-2xl p-5 shadow-sm space-y-4">
-                <div className="flex justify-between items-center pb-2 border-b border-slate-50">
-                  <h3 className="text-xs font-bold text-slate-700 uppercase tracking-wider">Payment Status</h3>
+              <div className="bg-white dark:bg-slate-900 dark:bg-slate-900 border border-slate-100 dark:border-slate-800 dark:border-slate-800 rounded-2xl p-5 shadow-sm space-y-4">
+                <div className="flex justify-between items-center pb-2 border-b border-slate-100 dark:border-slate-800">
+                  <h3 className="text-xs font-bold text-slate-700 dark:text-slate-200 uppercase tracking-wider">Payment Status</h3>
                   <span className="text-[10px] text-slate-400 font-bold uppercase">This Range</span>
                 </div>
 
@@ -612,25 +612,25 @@ export const Reports: React.FC = () => {
                       )}
                     </svg>
                     <div className="absolute inset-0 flex flex-col items-center justify-center text-center">
-                      <span className="text-sm font-extrabold text-slate-700">₹{totalPaid.toLocaleString('en-IN')}</span>
+                      <span className="text-sm font-extrabold text-slate-700 dark:text-slate-200">₹{totalPaid.toLocaleString('en-IN')}</span>
                       <span className="text-[8px] font-bold text-slate-400 uppercase tracking-wide">Total Collected</span>
                     </div>
                   </div>
 
-                  <div className="space-y-2.5 text-xs font-semibold text-slate-500 flex-1 pl-2">
+                  <div className="space-y-2.5 text-xs font-semibold text-slate-500 dark:text-slate-400 flex-1 pl-2">
                     <div className="flex justify-between items-center">
                       <div className="flex items-center gap-2">
                         <span className="w-2.5 h-2.5 rounded-full bg-green-500"></span>
                         <span>Paid</span>
                       </div>
-                      <span className="font-extrabold text-slate-800">₹{totalPaid.toLocaleString('en-IN')} <span className="text-[10px] text-slate-400 font-medium">({paidPercent}%)</span></span>
+                      <span className="font-extrabold text-slate-800 dark:text-slate-100">₹{totalPaid.toLocaleString('en-IN')} <span className="text-[10px] text-slate-400 font-medium">({paidPercent}%)</span></span>
                     </div>
                     <div className="flex justify-between items-center">
                       <div className="flex items-center gap-2">
                         <span className="w-2.5 h-2.5 rounded-full bg-amber-500"></span>
                         <span>Pending</span>
                       </div>
-                      <span className="font-extrabold text-slate-800">₹{totalRemaining.toLocaleString('en-IN')} <span className="text-[10px] text-slate-400 font-medium">({remainingPercent}%)</span></span>
+                      <span className="font-extrabold text-slate-800 dark:text-slate-100">₹{totalRemaining.toLocaleString('en-IN')} <span className="text-[10px] text-slate-400 font-medium">({remainingPercent}%)</span></span>
                     </div>
                   </div>
                 </div>
@@ -642,9 +642,9 @@ export const Reports: React.FC = () => {
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 text-xs">
               
               {/* Left Widget: Top Repair Categories */}
-              <div className="bg-white border border-slate-100 rounded-2xl p-5 shadow-sm space-y-4">
-                <div className="flex justify-between items-center pb-2 border-b border-slate-50">
-                  <h3 className="text-xs font-bold text-slate-700 uppercase tracking-wider">Top Repair Categories</h3>
+              <div className="bg-white dark:bg-slate-900 dark:bg-slate-900 border border-slate-100 dark:border-slate-800 dark:border-slate-800 rounded-2xl p-5 shadow-sm space-y-4">
+                <div className="flex justify-between items-center pb-2 border-b border-slate-100 dark:border-slate-800">
+                  <h3 className="text-xs font-bold text-slate-700 dark:text-slate-200 uppercase tracking-wider">Top Repair Categories</h3>
                   <span className="text-[10px] text-slate-400 font-bold">This Range</span>
                 </div>
 
@@ -652,9 +652,9 @@ export const Reports: React.FC = () => {
                   {topCategories.length > 0 ? (
                     topCategories.map((item, i) => (
                       <div key={i} className="space-y-2">
-                        <div className="flex justify-between font-semibold text-slate-700">
+                        <div className="flex justify-between font-semibold text-slate-700 dark:text-slate-200">
                           <span className="font-bold">{item.name}</span>
-                          <span className="font-extrabold text-slate-800">
+                          <span className="font-extrabold text-slate-800 dark:text-slate-100">
                             ₹{item.revenue.toLocaleString('en-IN')} <span className="text-[10px] text-slate-400 font-medium">({item.count} jobs)</span>
                           </span>
                         </div>
@@ -670,28 +670,28 @@ export const Reports: React.FC = () => {
               </div>
 
               {/* Right Widget: Top Technicians */}
-              <div className="bg-white border border-slate-100 rounded-2xl p-5 shadow-sm space-y-4">
-                <div className="flex justify-between items-center pb-2 border-b border-slate-50">
-                  <h3 className="text-xs font-bold text-slate-700 uppercase tracking-wider">Top Technicians</h3>
+              <div className="bg-white dark:bg-slate-900 dark:bg-slate-900 border border-slate-100 dark:border-slate-800 dark:border-slate-800 rounded-2xl p-5 shadow-sm space-y-4">
+                <div className="flex justify-between items-center pb-2 border-b border-slate-100 dark:border-slate-800">
+                  <h3 className="text-xs font-bold text-slate-700 dark:text-slate-200 uppercase tracking-wider">Top Technicians</h3>
                   <span className="text-[10px] text-slate-400 font-bold">This Range</span>
                 </div>
 
-                <div className="divide-y divide-slate-50">
+                <div className="divide-y divide-slate-100 dark:divide-slate-800 dark:divide-slate-800">
                   {topTechnicians.length > 0 ? (
                     topTechnicians.map((tech, i) => (
-                      <div key={i} className="py-2.5 flex justify-between items-center font-semibold text-slate-700 font-medium">
+                      <div key={i} className="py-2.5 flex justify-between items-center font-semibold text-slate-700 dark:text-slate-200 font-medium">
                         <div className="flex items-center gap-3">
-                          <div className="w-8.5 h-8.5 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center font-bold text-xs shrink-0">
+                          <div className="w-8.5 h-8.5 rounded-full bg-blue-50 dark:bg-blue-900/30 text-blue-600 flex items-center justify-center font-bold text-xs shrink-0">
                             {tech.name[0]}
                           </div>
                           <div>
-                            <p className="font-bold text-slate-800">{tech.name}</p>
+                            <p className="font-bold text-slate-800 dark:text-slate-100">{tech.name}</p>
                             <p className="text-[10px] text-slate-400 mt-0.5">{tech.count} completed jobs</p>
                           </div>
                         </div>
                         
                         <div className="text-right">
-                          <p className="font-extrabold text-slate-800">₹{tech.revenue.toLocaleString('en-IN')}</p>
+                          <p className="font-extrabold text-slate-800 dark:text-slate-100">₹{tech.revenue.toLocaleString('en-IN')}</p>
                           <div className="flex items-center gap-1 text-[10px] text-amber-500 font-bold mt-1 justify-end">
                             <Star className="w-3.5 h-3.5 fill-amber-400 text-amber-400" />
                             <span>{tech.rating}</span>
@@ -711,19 +711,19 @@ export const Reports: React.FC = () => {
       case 'sales':
         const txs = getSalesTransactions();
         return (
-          <div className="bg-white border border-slate-100 rounded-2xl p-5 shadow-sm space-y-4 text-xs font-semibold animate-scale-up">
-            <div className="flex justify-between items-center pb-2 border-b border-slate-50">
+          <div className="bg-white dark:bg-slate-900 dark:bg-slate-900 border border-slate-100 dark:border-slate-800 dark:border-slate-800 rounded-2xl p-5 shadow-sm space-y-4 text-xs font-semibold animate-scale-up">
+            <div className="flex justify-between items-center pb-2 border-b border-slate-100 dark:border-slate-800">
               <div>
-                <h3 className="text-sm font-bold text-slate-800">Sales Transactions</h3>
+                <h3 className="text-sm font-bold text-slate-800 dark:text-slate-100">Sales Transactions</h3>
                 <p className="text-[10px] text-slate-400 font-semibold mt-0.5">List of all recorded invoice collections and advance payments</p>
               </div>
-              <span className="px-2 py-0.5 bg-blue-50 text-blue-600 text-[10px] font-bold rounded">{txs.length} collections</span>
+              <span className="px-2 py-0.5 bg-blue-50 dark:bg-blue-900/30 text-blue-600 text-[10px] font-bold rounded">{txs.length} collections</span>
             </div>
 
-            <div className="border border-slate-100 rounded-xl overflow-hidden">
-              <table className="w-full text-left border-collapse text-xs font-semibold text-slate-700">
+            <div className="border border-slate-100 dark:border-slate-800 rounded-xl overflow-hidden">
+              <table className="w-full text-left border-collapse text-xs font-semibold text-slate-700 dark:text-slate-200">
                 <thead>
-                  <tr className="bg-slate-50 text-[10px] font-bold uppercase tracking-wider text-slate-400 border-b border-slate-100">
+                  <tr className="bg-slate-50 dark:bg-slate-800 text-[10px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 border-b border-slate-100 dark:border-slate-800">
                     <th className="px-4 py-3">Date</th>
                     <th className="px-4 py-3">Time</th>
                     <th className="px-4 py-3">Job ID</th>
@@ -732,14 +732,14 @@ export const Reports: React.FC = () => {
                     <th className="px-4 py-3 text-right">Amount Paid</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-slate-100">
+                <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
                   {txs.length > 0 ? (
                     txs.map((tx, idx) => (
-                      <tr key={idx} className="hover:bg-slate-50/50 transition">
-                        <td className="px-4 py-3 text-slate-800 font-bold">{tx.date}</td>
+                      <tr key={idx} className="hover:bg-slate-50/50 dark:hover:bg-slate-800/50 dark:bg-slate-800/30 transition">
+                        <td className="px-4 py-3 text-slate-800 dark:text-slate-100 font-bold">{tx.date}</td>
                         <td className="px-4 py-3 text-slate-450 font-medium">{tx.time}</td>
                         <td className="px-4 py-3 font-mono font-bold text-blue-600">#{tx.jobId}</td>
-                        <td className="px-4 py-3 text-slate-800 font-bold">{tx.customerName}</td>
+                        <td className="px-4 py-3 text-slate-800 dark:text-slate-100 font-bold">{tx.customerName}</td>
                         <td className="px-4 py-3">
                           <span className="px-2 py-0.5 bg-slate-100 text-slate-650 text-[10px] font-bold rounded">
                             {tx.method}
@@ -760,19 +760,19 @@ export const Reports: React.FC = () => {
         );
       case 'repairs':
         return (
-          <div className="bg-white border border-slate-100 rounded-2xl p-5 shadow-sm space-y-4 text-xs font-semibold animate-scale-up">
-            <div className="flex justify-between items-center pb-2 border-b border-slate-50">
+          <div className="bg-white dark:bg-slate-900 dark:bg-slate-900 border border-slate-100 dark:border-slate-800 dark:border-slate-800 rounded-2xl p-5 shadow-sm space-y-4 text-xs font-semibold animate-scale-up">
+            <div className="flex justify-between items-center pb-2 border-b border-slate-100 dark:border-slate-800">
               <div>
-                <h3 className="text-sm font-bold text-slate-800">Repair Analytics Directory</h3>
+                <h3 className="text-sm font-bold text-slate-800 dark:text-slate-100">Repair Analytics Directory</h3>
                 <p className="text-[10px] text-slate-400 font-semibold mt-0.5">Summary of all registered repairs, status values, and estimated billings</p>
               </div>
-              <span className="px-2 py-0.5 bg-blue-50 text-blue-600 text-[10px] font-bold rounded">{filteredRepairs.length} repair jobs</span>
+              <span className="px-2 py-0.5 bg-blue-50 dark:bg-blue-900/30 text-blue-600 text-[10px] font-bold rounded">{filteredRepairs.length} repair jobs</span>
             </div>
 
-            <div className="border border-slate-100 rounded-xl overflow-hidden">
-              <table className="w-full text-left border-collapse text-xs font-semibold text-slate-700">
+            <div className="border border-slate-100 dark:border-slate-800 rounded-xl overflow-hidden">
+              <table className="w-full text-left border-collapse text-xs font-semibold text-slate-700 dark:text-slate-200">
                 <thead>
-                  <tr className="bg-slate-50 text-[10px] font-bold uppercase tracking-wider text-slate-400 border-b border-slate-100">
+                  <tr className="bg-slate-50 dark:bg-slate-800 text-[10px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 border-b border-slate-100 dark:border-slate-800">
                     <th className="px-4 py-3">Job ID</th>
                     <th className="px-4 py-3">Date Received</th>
                     <th className="px-4 py-3">Customer</th>
@@ -782,20 +782,20 @@ export const Reports: React.FC = () => {
                     <th className="px-4 py-3 text-right">Pending Balance</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-slate-100">
+                <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
                   {filteredRepairs.length > 0 ? (
                     filteredRepairs.map((rep) => (
-                      <tr key={rep.id} className="hover:bg-slate-50/50 transition">
+                      <tr key={rep.id} className="hover:bg-slate-50/50 dark:hover:bg-slate-800/50 dark:bg-slate-800/30 transition">
                         <td className="px-4 py-3 font-mono font-bold text-blue-600">#{rep.id}</td>
                         <td className="px-4 py-3 text-slate-450 font-medium">{rep.receivedAt}</td>
-                        <td className="px-4 py-3 text-slate-800 font-bold">{rep.customerName}</td>
-                        <td className="px-4 py-3 text-slate-500">{rep.device.brand} {rep.device.model}</td>
+                        <td className="px-4 py-3 text-slate-800 dark:text-slate-100 font-bold">{rep.customerName}</td>
+                        <td className="px-4 py-3 text-slate-500 dark:text-slate-400">{rep.device.brand} {rep.device.model}</td>
                         <td className="px-4 py-3">
-                          <span className="px-2.5 py-0.5 bg-blue-50 text-blue-600 text-[9px] font-bold rounded uppercase tracking-wide">
+                          <span className="px-2.5 py-0.5 bg-blue-50 dark:bg-blue-900/30 text-blue-600 text-[9px] font-bold rounded uppercase tracking-wide">
                             {rep.status}
                           </span>
                         </td>
-                        <td className="px-4 py-3 text-right font-bold text-slate-800">₹{rep.estimatedCost.toLocaleString('en-IN')}</td>
+                        <td className="px-4 py-3 text-right font-bold text-slate-800 dark:text-slate-100">₹{rep.estimatedCost.toLocaleString('en-IN')}</td>
                         <td className="px-4 py-3 text-right font-extrabold text-red-500">₹{rep.remainingBalance.toLocaleString('en-IN')}</td>
                       </tr>
                     ))
@@ -811,18 +811,18 @@ export const Reports: React.FC = () => {
         );
       case 'technicians':
         return (
-          <div className="bg-white border border-slate-100 rounded-2xl p-5 shadow-sm space-y-4 text-xs font-semibold animate-scale-up">
-            <div className="flex justify-between items-center pb-2 border-b border-slate-50">
+          <div className="bg-white dark:bg-slate-900 dark:bg-slate-900 border border-slate-100 dark:border-slate-800 dark:border-slate-800 rounded-2xl p-5 shadow-sm space-y-4 text-xs font-semibold animate-scale-up">
+            <div className="flex justify-between items-center pb-2 border-b border-slate-100 dark:border-slate-800">
               <div>
-                <h3 className="text-sm font-bold text-slate-800">Technician Metrics</h3>
+                <h3 className="text-sm font-bold text-slate-800 dark:text-slate-100">Technician Metrics</h3>
                 <p className="text-[10px] text-slate-400 font-semibold mt-0.5">Assigned jobs count, completions, and billings generated by tech</p>
               </div>
             </div>
 
-            <div className="border border-slate-100 rounded-xl overflow-hidden">
-              <table className="w-full text-left border-collapse text-xs font-semibold text-slate-700">
+            <div className="border border-slate-100 dark:border-slate-800 rounded-xl overflow-hidden">
+              <table className="w-full text-left border-collapse text-xs font-semibold text-slate-700 dark:text-slate-200">
                 <thead>
-                  <tr className="bg-slate-50 text-[10px] font-bold uppercase tracking-wider text-slate-400 border-b border-slate-100">
+                  <tr className="bg-slate-50 dark:bg-slate-800 text-[10px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 border-b border-slate-100 dark:border-slate-800">
                     <th className="px-4 py-3">Technician Name</th>
                     <th className="px-4 py-3">Total Assigned Jobs</th>
                     <th className="px-4 py-3">Completed Jobs</th>
@@ -831,21 +831,21 @@ export const Reports: React.FC = () => {
                     <th className="px-4 py-3 text-right">Revenue Generated</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-slate-100">
+                <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
                   {Object.entries(techMap).map(([name, val], idx) => {
                     const assigned = repairs.filter(r => r.technician === name);
                     const done = assigned.filter(r => r.status === 'Completed' || r.status === 'Delivered').length;
                     const pending = assigned.length - done;
                     const pct = assigned.length > 0 ? Math.round((done / assigned.length) * 100) : 0;
                     return (
-                      <tr key={idx} className="hover:bg-slate-50/50 transition">
+                      <tr key={idx} className="hover:bg-slate-50/50 dark:hover:bg-slate-800/50 dark:bg-slate-800/30 transition">
                         <td className="px-4 py-3 font-bold text-slate-850 flex items-center gap-2">
-                          <div className="w-6.5 h-6.5 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center font-extrabold text-[10px]">
+                          <div className="w-6.5 h-6.5 rounded-full bg-blue-50 dark:bg-blue-900/30 text-blue-600 flex items-center justify-center font-extrabold text-[10px]">
                             {name[0]}
                           </div>
                           <span>{name}</span>
                         </td>
-                        <td className="px-4 py-3 text-slate-800 font-extrabold">{assigned.length}</td>
+                        <td className="px-4 py-3 text-slate-800 dark:text-slate-100 font-extrabold">{assigned.length}</td>
                         <td className="px-4 py-3 text-green-600">{done}</td>
                         <td className="px-4 py-3 text-amber-500">{pending}</td>
                         <td className="px-4 py-3">
@@ -856,7 +856,7 @@ export const Reports: React.FC = () => {
                             </div>
                           </div>
                         </td>
-                        <td className="px-4 py-3 text-right font-extrabold text-slate-800">₹{val.revenue.toLocaleString('en-IN')}</td>
+                        <td className="px-4 py-3 text-right font-extrabold text-slate-800 dark:text-slate-100">₹{val.revenue.toLocaleString('en-IN')}</td>
                       </tr>
                     );
                   })}
@@ -877,29 +877,29 @@ export const Reports: React.FC = () => {
           <div className="space-y-6 animate-scale-up">
             {/* Inventory Metric Cards */}
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-              <div className="bg-white border border-slate-100 p-4.5 rounded-2xl shadow-sm">
+              <div className="bg-white dark:bg-slate-900 dark:bg-slate-900 border border-slate-100 dark:border-slate-800 dark:border-slate-800 p-4.5 rounded-2xl shadow-sm">
                 <span className="text-[9px] font-bold text-slate-400 uppercase tracking-wider block">Total Unique Parts</span>
-                <span className="text-base font-extrabold text-slate-800 mt-1 block">{totalUniqueItems} spares</span>
+                <span className="text-base font-extrabold text-slate-800 dark:text-slate-100 mt-1 block">{totalUniqueItems} spares</span>
               </div>
-              <div className="bg-white border border-slate-100 p-4.5 rounded-2xl shadow-sm">
+              <div className="bg-white dark:bg-slate-900 dark:bg-slate-900 border border-slate-100 dark:border-slate-800 dark:border-slate-800 p-4.5 rounded-2xl shadow-sm">
                 <span className="text-[9px] font-bold text-slate-400 uppercase tracking-wider block">Total Stock Units</span>
-                <span className="text-base font-extrabold text-slate-800 mt-1 block">{totalStockUnits} units</span>
+                <span className="text-base font-extrabold text-slate-800 dark:text-slate-100 mt-1 block">{totalStockUnits} units</span>
               </div>
-              <div className="bg-white border border-slate-100 p-4.5 rounded-2xl shadow-sm">
+              <div className="bg-white dark:bg-slate-900 dark:bg-slate-900 border border-slate-100 dark:border-slate-800 dark:border-slate-800 p-4.5 rounded-2xl shadow-sm">
                 <span className="text-[9px] font-bold text-slate-400 uppercase tracking-wider block">Asset Valuation (Cost)</span>
-                <span className="text-base font-extrabold text-slate-800 mt-1 block">₹{totalCostValue.toLocaleString('en-IN')}</span>
+                <span className="text-base font-extrabold text-slate-800 dark:text-slate-100 mt-1 block">₹{totalCostValue.toLocaleString('en-IN')}</span>
               </div>
-              <div className="bg-white border border-slate-100 p-4.5 rounded-2xl shadow-sm">
+              <div className="bg-white dark:bg-slate-900 dark:bg-slate-900 border border-slate-100 dark:border-slate-800 dark:border-slate-800 p-4.5 rounded-2xl shadow-sm">
                 <span className="text-[9px] font-bold text-slate-400 uppercase tracking-wider block">Retail Valuation (Sale)</span>
-                <span className="text-base font-extrabold text-slate-800 mt-1 block text-green-600">₹{totalSaleValue.toLocaleString('en-IN')}</span>
+                <span className="text-base font-extrabold text-slate-800 dark:text-slate-100 mt-1 block text-green-600">₹{totalSaleValue.toLocaleString('en-IN')}</span>
               </div>
             </div>
 
             {/* Inventory Parts list table */}
-            <div className="bg-white border border-slate-100 rounded-2xl p-5 shadow-sm space-y-4 text-xs font-semibold">
-              <div className="flex justify-between items-center pb-2 border-b border-slate-50">
+            <div className="bg-white dark:bg-slate-900 dark:bg-slate-900 border border-slate-100 dark:border-slate-800 dark:border-slate-800 rounded-2xl p-5 shadow-sm space-y-4 text-xs font-semibold">
+              <div className="flex justify-between items-center pb-2 border-b border-slate-100 dark:border-slate-800">
                 <div>
-                  <h3 className="text-sm font-bold text-slate-800">Inventory Assets Valuation</h3>
+                  <h3 className="text-sm font-bold text-slate-800 dark:text-slate-100">Inventory Assets Valuation</h3>
                   <p className="text-[10px] text-slate-400 font-semibold mt-0.5">Asset costs, current quantities, retail pricing, and status markers</p>
                 </div>
                 {lowStockItems > 0 && (
@@ -910,10 +910,10 @@ export const Reports: React.FC = () => {
                 )}
               </div>
 
-              <div className="border border-slate-100 rounded-xl overflow-hidden">
-                <table className="w-full text-left border-collapse text-xs font-semibold text-slate-700">
+              <div className="border border-slate-100 dark:border-slate-800 rounded-xl overflow-hidden">
+                <table className="w-full text-left border-collapse text-xs font-semibold text-slate-700 dark:text-slate-200">
                   <thead>
-                    <tr className="bg-slate-50 text-[10px] font-bold uppercase tracking-wider text-slate-400 border-b border-slate-100">
+                    <tr className="bg-slate-50 dark:bg-slate-800 text-[10px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 border-b border-slate-100 dark:border-slate-800">
                       <th className="px-4 py-3">Item Spare Name</th>
                       <th className="px-4 py-3">Category</th>
                       <th className="px-4 py-3">Part Number</th>
@@ -923,24 +923,24 @@ export const Reports: React.FC = () => {
                       <th className="px-4 py-3 text-right">Asset Value (Cost)</th>
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-slate-100">
+                  <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
                     {inventory.length > 0 ? (
                       inventory.map((item) => (
-                        <tr key={item.id} className="hover:bg-slate-50/50 transition">
-                          <td className="px-4 py-3 font-bold text-slate-800">
+                        <tr key={item.id} className="hover:bg-slate-50/50 dark:hover:bg-slate-800/50 dark:bg-slate-800/30 transition">
+                          <td className="px-4 py-3 font-bold text-slate-800 dark:text-slate-100">
                             <p>{item.name}</p>
                             <p className="text-[9px] text-slate-400 font-medium mt-0.5">{item.brand} {item.model}</p>
                           </td>
-                          <td className="px-4 py-3 text-slate-500 font-medium">{item.category}</td>
+                          <td className="px-4 py-3 text-slate-500 dark:text-slate-400 font-medium">{item.category}</td>
                           <td className="px-4 py-3 font-mono text-slate-450">{item.partNumber}</td>
                           <td className="px-4 py-3">
                             <span className={`px-2 py-0.5 rounded text-[10px] font-bold ${
-                              item.stock <= 2 ? 'bg-red-50 text-red-650' : 'bg-slate-100 text-slate-600'
+                              item.stock <= 2 ? 'bg-red-50 text-red-650' : 'bg-slate-100 text-slate-600 dark:text-slate-300'
                             }`}>{item.stock} in stock</span>
                           </td>
                           <td className="px-4 py-3">₹{item.costPrice.toLocaleString('en-IN')}</td>
                           <td className="px-4 py-3 text-green-600">₹{item.salePrice.toLocaleString('en-IN')}</td>
-                          <td className="px-4 py-3 text-right font-extrabold text-slate-800">₹{(item.costPrice * item.stock).toLocaleString('en-IN')}</td>
+                          <td className="px-4 py-3 text-right font-extrabold text-slate-800 dark:text-slate-100">₹{(item.costPrice * item.stock).toLocaleString('en-IN')}</td>
                         </tr>
                       ))
                     ) : (
@@ -964,7 +964,7 @@ export const Reports: React.FC = () => {
       {/* Title & Filter Options bar */}
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
         <div>
-          <h1 className="text-xl font-bold text-slate-800 tracking-tight">Reports</h1>
+          <h1 className="text-xl font-bold text-slate-800 dark:text-slate-100 tracking-tight">Reports</h1>
           <p className="text-xs text-slate-400 font-medium mt-1">Analyze your business performance and get insights</p>
         </div>
         
@@ -973,7 +973,7 @@ export const Reports: React.FC = () => {
           {/* Calendar Picker Trigger */}
           <button 
             onClick={() => setShowDatePicker(!showDatePicker)}
-            className="flex items-center gap-2 px-3 py-2 bg-white border border-slate-200 hover:border-slate-350 rounded-xl text-xs font-semibold text-slate-600 shadow-xs cursor-pointer transition animate-pulse-subtle"
+            className="flex items-center gap-2 px-3 py-2 bg-white dark:bg-slate-900 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 dark:border-slate-700 hover:border-slate-350 rounded-xl text-xs font-semibold text-slate-600 dark:text-slate-300 shadow-xs cursor-pointer transition animate-pulse-subtle"
           >
             <Calendar className="w-3.5 h-3.5 text-slate-400" />
             <span>{formatDateRangeText()}</span>
@@ -981,45 +981,45 @@ export const Reports: React.FC = () => {
 
           {/* Date Picker Overlay Card */}
           {showDatePicker && (
-            <div className="absolute right-0 top-11 bg-white border border-slate-150 rounded-2xl shadow-xl p-4.5 z-50 w-72 text-xs space-y-4 animate-scale-up">
+            <div className="absolute right-0 top-11 bg-white dark:bg-slate-900 border border-slate-150 rounded-2xl shadow-xl p-4.5 z-50 w-72 text-xs space-y-4 animate-scale-up">
               <div>
-                <p className="font-bold text-slate-700">Quick Date Presets</p>
+                <p className="font-bold text-slate-700 dark:text-slate-200">Quick Date Presets</p>
                 <div className="grid grid-cols-2 gap-1.5 mt-2">
                   <button 
                     onClick={() => handlePresetChange('today')}
-                    className={`px-3 py-1.5 rounded-lg border text-left font-bold transition ${datePreset === 'today' ? 'bg-blue-50 border-blue-200 text-blue-650' : 'border-slate-150 hover:bg-slate-50 text-slate-500'}`}
+                    className={`px-3 py-1.5 rounded-lg border text-left font-bold transition ${datePreset === 'today' ? 'bg-blue-50 border-blue-200 text-blue-650' : 'border-slate-150 hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-500 dark:text-slate-400'}`}
                   >
                     Today
                   </button>
                   <button 
                     onClick={() => handlePresetChange('7days')}
-                    className={`px-3 py-1.5 rounded-lg border text-left font-bold transition ${datePreset === '7days' ? 'bg-blue-50 border-blue-200 text-blue-650' : 'border-slate-150 hover:bg-slate-50 text-slate-500'}`}
+                    className={`px-3 py-1.5 rounded-lg border text-left font-bold transition ${datePreset === '7days' ? 'bg-blue-50 border-blue-200 text-blue-650' : 'border-slate-150 hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-500 dark:text-slate-400'}`}
                   >
                     Last 7 Days
                   </button>
                   <button 
                     onClick={() => handlePresetChange('30days')}
-                    className={`px-3 py-1.5 rounded-lg border text-left font-bold transition ${datePreset === '30days' ? 'bg-blue-50 border-blue-200 text-blue-650' : 'border-slate-150 hover:bg-slate-50 text-slate-500'}`}
+                    className={`px-3 py-1.5 rounded-lg border text-left font-bold transition ${datePreset === '30days' ? 'bg-blue-50 border-blue-200 text-blue-650' : 'border-slate-150 hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-500 dark:text-slate-400'}`}
                   >
                     Last 30 Days
                   </button>
                   <button 
                     onClick={() => handlePresetChange('thismonth')}
-                    className={`px-3 py-1.5 rounded-lg border text-left font-bold transition ${datePreset === 'thismonth' ? 'bg-blue-50 border-blue-200 text-blue-650' : 'border-slate-150 hover:bg-slate-50 text-slate-500'}`}
+                    className={`px-3 py-1.5 rounded-lg border text-left font-bold transition ${datePreset === 'thismonth' ? 'bg-blue-50 border-blue-200 text-blue-650' : 'border-slate-150 hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-500 dark:text-slate-400'}`}
                   >
                     This Month
                   </button>
                   <button 
                     onClick={() => handlePresetChange('alltime')}
-                    className={`col-span-2 px-3 py-1.5 rounded-lg border text-center font-bold transition ${datePreset === 'alltime' ? 'bg-blue-50 border-blue-200 text-blue-650' : 'border-slate-150 hover:bg-slate-50 text-slate-500'}`}
+                    className={`col-span-2 px-3 py-1.5 rounded-lg border text-center font-bold transition ${datePreset === 'alltime' ? 'bg-blue-50 border-blue-200 text-blue-650' : 'border-slate-150 hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-500 dark:text-slate-400'}`}
                   >
                     All Time
                   </button>
                 </div>
               </div>
 
-              <div className="border-t border-slate-100 pt-3.5 space-y-2.5">
-                <p className="font-bold text-slate-700">Custom Date Range</p>
+              <div className="border-t border-slate-100 dark:border-slate-800 pt-3.5 space-y-2.5">
+                <p className="font-bold text-slate-700 dark:text-slate-200">Custom Date Range</p>
                 <div className="grid grid-cols-2 gap-2">
                   <div>
                     <label className="text-[10px] text-slate-400 font-bold block mb-1">Start Date</label>
@@ -1027,7 +1027,7 @@ export const Reports: React.FC = () => {
                       type="date" 
                       value={startDateStr}
                       onChange={(e) => setStartDateStr(e.target.value)}
-                      className="w-full bg-slate-50 border border-slate-200 px-2 py-1.5 rounded-lg text-[10px] focus:outline-none"
+                      className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 px-2 py-1.5 rounded-lg text-[10px] focus:outline-none"
                     />
                   </div>
                   <div>
@@ -1036,7 +1036,7 @@ export const Reports: React.FC = () => {
                       type="date" 
                       value={endDateStr}
                       onChange={(e) => setEndDateStr(e.target.value)}
-                      className="w-full bg-slate-50 border border-slate-200 px-2 py-1.5 rounded-lg text-[10px] focus:outline-none"
+                      className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 px-2 py-1.5 rounded-lg text-[10px] focus:outline-none"
                     />
                   </div>
                 </div>
@@ -1054,7 +1054,7 @@ export const Reports: React.FC = () => {
           <button 
             onClick={() => setShowFilterCard(!showFilterCard)}
             className={`px-3.5 py-2 border rounded-xl text-xs font-bold transition flex items-center gap-1.5 cursor-pointer shadow-xs ${
-              showFilterCard ? 'bg-blue-50 border-blue-200 text-blue-600' : 'bg-white border-slate-200 hover:bg-slate-50 text-slate-600'
+              showFilterCard ? 'bg-blue-50 border-blue-200 text-blue-600' : 'bg-white border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-300'
             }`}
           >
             <Filter className="w-3.5 h-3.5" />
@@ -1063,9 +1063,9 @@ export const Reports: React.FC = () => {
 
           {/* Filter Card Overlay */}
           {showFilterCard && (
-            <div className="absolute right-0 top-11 bg-white border border-slate-150 rounded-2xl shadow-xl p-4.5 z-50 w-64 text-xs space-y-3.5 animate-scale-up">
-              <div className="flex justify-between items-center border-b border-slate-50 pb-1.5">
-                <span className="font-bold text-slate-700 uppercase tracking-wide text-[10px]">Filter Reports Data</span>
+            <div className="absolute right-0 top-11 bg-white dark:bg-slate-900 border border-slate-150 rounded-2xl shadow-xl p-4.5 z-50 w-64 text-xs space-y-3.5 animate-scale-up">
+              <div className="flex justify-between items-center border-b border-slate-100 dark:border-slate-800 pb-1.5">
+                <span className="font-bold text-slate-700 dark:text-slate-200 uppercase tracking-wide text-[10px]">Filter Reports Data</span>
                 <button 
                   onClick={() => {
                     setStatusFilter('All');
@@ -1084,7 +1084,7 @@ export const Reports: React.FC = () => {
                   <select 
                     value={statusFilter} 
                     onChange={(e) => setStatusFilter(e.target.value)}
-                    className="w-full bg-slate-50 border border-slate-200 px-2.5 py-1.5 rounded-lg text-slate-650 font-bold focus:outline-none"
+                    className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 px-2.5 py-1.5 rounded-lg text-slate-650 font-bold focus:outline-none"
                   >
                     <option value="All">All Statuses</option>
                     <option value="Received">Received</option>
@@ -1103,7 +1103,7 @@ export const Reports: React.FC = () => {
                   <select 
                     value={brandFilter} 
                     onChange={(e) => setBrandFilter(e.target.value)}
-                    className="w-full bg-slate-50 border border-slate-200 px-2.5 py-1.5 rounded-lg text-slate-650 font-bold focus:outline-none"
+                    className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 px-2.5 py-1.5 rounded-lg text-slate-650 font-bold focus:outline-none"
                   >
                     <option value="All">All Brands</option>
                     {uniqueBrands.map((b, i) => (
@@ -1117,7 +1117,7 @@ export const Reports: React.FC = () => {
                   <select 
                     value={techFilter} 
                     onChange={(e) => setTechFilter(e.target.value)}
-                    className="w-full bg-slate-50 border border-slate-200 px-2.5 py-1.5 rounded-lg text-slate-650 font-bold focus:outline-none"
+                    className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 px-2.5 py-1.5 rounded-lg text-slate-650 font-bold focus:outline-none"
                   >
                     <option value="All">All Technicians</option>
                     {uniqueTechs.map((t, i) => (
@@ -1159,7 +1159,7 @@ export const Reports: React.FC = () => {
                 : 'hover:bg-white/50'
             }`}
           >
-            <p className={`text-xs font-bold leading-tight ${activeReportTab === item.id ? 'text-slate-800' : 'text-slate-500'}`}>{item.label}</p>
+            <p className={`text-xs font-bold leading-tight ${activeReportTab === item.id ? 'text-slate-800 dark:text-slate-100' : 'text-slate-500 dark:text-slate-400'}`}>{item.label}</p>
             <span className="text-[10px] text-slate-400 font-medium mt-0.5 inline-block">{item.desc}</span>
           </button>
         ))}
@@ -1167,40 +1167,40 @@ export const Reports: React.FC = () => {
 
       {/* Overview Cards Row */}
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
-        <div className="bg-white border border-slate-100 p-4.5 rounded-2xl shadow-sm text-left">
+        <div className="bg-white dark:bg-slate-900 dark:bg-slate-900 border border-slate-100 dark:border-slate-800 dark:border-slate-800 p-4.5 rounded-2xl shadow-sm text-left">
           <span className="text-[9px] font-bold text-slate-400 uppercase tracking-wider block">Total Revenue</span>
-          <span className="text-lg font-extrabold text-slate-800 mt-1 block">₹{totalRevenue.toLocaleString('en-IN')}</span>
+          <span className="text-lg font-extrabold text-slate-800 dark:text-slate-100 mt-1 block">₹{totalRevenue.toLocaleString('en-IN')}</span>
           <span className="text-[9px] text-green-600 font-bold flex items-center gap-0.5 mt-1.5">
             <TrendingUp className="w-3 h-3" /> +18.6% vs last 7 days
           </span>
         </div>
-        <div className="bg-white border border-slate-100 p-4.5 rounded-2xl shadow-sm text-left">
+        <div className="bg-white dark:bg-slate-900 dark:bg-slate-900 border border-slate-100 dark:border-slate-800 dark:border-slate-800 p-4.5 rounded-2xl shadow-sm text-left">
           <span className="text-[9px] font-bold text-slate-400 uppercase tracking-wider block">Total Jobs</span>
-          <span className="text-lg font-extrabold text-slate-800 mt-1 block">{totalJobs}</span>
+          <span className="text-lg font-extrabold text-slate-800 dark:text-slate-100 mt-1 block">{totalJobs}</span>
           <span className="text-[9px] text-green-600 font-bold flex items-center gap-0.5 mt-1.5">
             <TrendingUp className="w-3 h-3" /> +12.3% vs last 7 days
           </span>
         </div>
-        <div className="bg-white border border-slate-100 p-4.5 rounded-2xl shadow-sm text-left">
+        <div className="bg-white dark:bg-slate-900 dark:bg-slate-900 border border-slate-100 dark:border-slate-800 dark:border-slate-800 p-4.5 rounded-2xl shadow-sm text-left">
           <span className="text-[9px] font-bold text-slate-400 uppercase tracking-wider block">Completed Jobs</span>
-          <span className="text-lg font-extrabold text-slate-800 mt-1 block">{completedJobs}</span>
+          <span className="text-lg font-extrabold text-slate-800 dark:text-slate-100 mt-1 block">{completedJobs}</span>
           <span className="text-[9px] text-green-600 font-bold mt-1.5 block">{completionRate}% Completion Rate</span>
         </div>
-        <div className="bg-white border border-slate-100 p-4.5 rounded-2xl shadow-sm text-left">
+        <div className="bg-white dark:bg-slate-900 dark:bg-slate-900 border border-slate-100 dark:border-slate-800 dark:border-slate-800 p-4.5 rounded-2xl shadow-sm text-left">
           <span className="text-[9px] font-bold text-slate-400 uppercase tracking-wider block">Pending Jobs</span>
-          <span className="text-lg font-extrabold text-slate-800 mt-1 block text-amber-500">{pendingJobs}</span>
+          <span className="text-lg font-extrabold text-slate-800 dark:text-slate-100 mt-1 block text-amber-500">{pendingJobs}</span>
           <span className="text-[9px] text-amber-600 font-bold mt-1.5 block">{pendingRate}% Pending</span>
         </div>
-        <div className="bg-white border border-slate-100 p-4.5 rounded-2xl shadow-sm text-left">
+        <div className="bg-white dark:bg-slate-900 dark:bg-slate-900 border border-slate-100 dark:border-slate-800 dark:border-slate-800 p-4.5 rounded-2xl shadow-sm text-left">
           <span className="text-[9px] font-bold text-slate-400 uppercase tracking-wider block">Average Order Value</span>
-          <span className="text-lg font-extrabold text-slate-800 mt-1 block">₹{avgOrderValue.toLocaleString('en-IN')}</span>
+          <span className="text-lg font-extrabold text-slate-800 dark:text-slate-100 mt-1 block">₹{avgOrderValue.toLocaleString('en-IN')}</span>
           <span className="text-[9px] text-green-600 font-bold flex items-center gap-0.5 mt-1.5">
             <TrendingUp className="w-3 h-3" /> +8.4% vs last 7 days
           </span>
         </div>
-        <div className="bg-white border border-slate-100 p-4.5 rounded-2xl shadow-sm text-left">
+        <div className="bg-white dark:bg-slate-900 dark:bg-slate-900 border border-slate-100 dark:border-slate-800 dark:border-slate-800 p-4.5 rounded-2xl shadow-sm text-left">
           <span className="text-[9px] font-bold text-slate-400 uppercase tracking-wider block">Total Customers</span>
-          <span className="text-lg font-extrabold text-slate-800 mt-1 block">{totalCustomers}</span>
+          <span className="text-lg font-extrabold text-slate-800 dark:text-slate-100 mt-1 block">{totalCustomers}</span>
           <span className="text-[9px] text-green-600 font-bold flex items-center gap-0.5 mt-1.5">
             <TrendingUp className="w-3 h-3" /> +14.5% vs last 7 days
           </span>

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+﻿import React, { useState } from 'react';
 import { useApp } from '../../context/AppContext';
 import { MockDatabase, RepairJob } from '../../services/mockDb';
 import { 
@@ -32,7 +32,7 @@ export const Dashboard: React.FC = () => {
   const completedCount = repairs.filter(r => r.status === 'Completed' || r.status === 'Ready' || r.status === 'Delivered').length;
   const inRepairCount = repairs.filter(r => r.status === 'In Repair').length;
   const waitingApprovalCount = repairs.filter(r => r.status === 'Waiting Approval').length;
-  const readyCount = repairs.filter(r => (r.status === 'Completed' || r.status === 'Ready') && r.remainingBalance > 0).length;
+  const readyCount = repairs.filter(r => (r.status === 'Completed' || r.status === 'Ready') && !(r.estimatedCost > 0 && r.remainingBalance <= 0)).length;
   const criticalCount = repairs.filter(r => r.status === 'Diagnosis').length;
 
   // CS status counts
@@ -53,7 +53,7 @@ export const Dashboard: React.FC = () => {
   const dsQueue = repairs.filter(r => r.type === 'DS' && r.status !== 'Delivered' && r.status !== 'Cancelled' && r.status !== 'Completed' && r.status !== 'Ready').slice(0, 5);
 
   // Ready for delivery list (Completed/Ready status, unpaid or pending collection)
-  const readyForDelivery = repairs.filter(r => (r.status === 'Completed' || r.status === 'Ready') && r.remainingBalance > 0).slice(0, 5);
+  const readyForDelivery = repairs.filter(r => (r.status === 'Completed' || r.status === 'Ready') && !(r.estimatedCost > 0 && r.remainingBalance <= 0)).slice(0, 5);
 
   // Sparkline data generator for visual perfection
   const renderSparkline = (stroke: string, type: 'up' | 'down' | 'flat') => {
@@ -78,13 +78,13 @@ export const Dashboard: React.FC = () => {
 
   const getStatusBadge = (status: string) => {
     switch (status) {
-      case 'Received': return <span className="px-2 py-0.5 bg-blue-50 text-blue-600 text-[10px] font-bold rounded-full">Received</span>;
+      case 'Received': return <span className="px-2 py-0.5 bg-blue-50 dark:bg-blue-900/30 text-blue-600 text-[10px] font-bold rounded-full">Received</span>;
       case 'Diagnosis': return <span className="px-2 py-0.5 bg-sky-50 text-sky-600 text-[10px] font-bold rounded-full">Diagnosis</span>;
       case 'Waiting Approval': return <span className="px-2 py-0.5 bg-amber-50 text-amber-600 text-[10px] font-bold rounded-full">Waiting Approval</span>;
       case 'In Repair': return <span className="px-2 py-0.5 bg-indigo-50 text-indigo-600 text-[10px] font-bold rounded-full">In Repair</span>;
       case 'Testing': return <span className="px-2 py-0.5 bg-purple-50 text-purple-600 text-[10px] font-bold rounded-full">Testing</span>;
       case 'Completed': return <span className="px-2 py-0.5 bg-green-50 text-green-600 text-[10px] font-bold rounded-full">Completed</span>;
-      default: return <span className="px-2 py-0.5 bg-slate-50 text-slate-600 text-[10px] font-bold rounded-full">{status}</span>;
+      default: return <span className="px-2 py-0.5 bg-slate-50 dark:bg-slate-800 text-slate-600 dark:text-slate-300 text-[10px] font-bold rounded-full">{status}</span>;
     }
   };
 
@@ -97,77 +97,77 @@ export const Dashboard: React.FC = () => {
     <div className="space-y-6 max-w-[1600px] mx-auto pb-10">
       {/* Greetings Header */}
       <div className="text-left">
-        <h1 className="text-2xl font-bold text-slate-800 tracking-tight">Good morning, {userName} 👋</h1>
+        <h1 className="text-2xl font-bold text-slate-800 dark:text-slate-100 dark:text-slate-100 tracking-tight">Good morning, {userName} 👋</h1>
         <p className="text-sm text-slate-400 font-medium mt-1">Here's what's happening in your repair shop today.</p>
       </div>
 
       {/* KPI Cards Row */}
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
         {/* KPI 1 */}
-        <div className="bg-white border border-slate-100 p-4.5 rounded-2xl shadow-sm flex flex-col items-center justify-center text-center">
+        <div className="bg-white dark:bg-slate-900 dark:bg-slate-900 border border-slate-100 dark:border-slate-800 dark:border-slate-800 p-4.5 rounded-2xl shadow-sm flex flex-col items-center justify-center text-center">
           <div className="flex items-center gap-1.5 text-slate-400">
             <FileText className="w-4 h-4 text-blue-500" />
             <span className="text-[11px] font-bold uppercase tracking-wider">Total Jobs Today</span>
           </div>
-          <p className="text-3xl font-extrabold text-slate-800 mt-3">{totalJobsCount}</p>
+          <p className="text-3xl font-extrabold text-slate-800 dark:text-slate-100 dark:text-slate-100 mt-3">{totalJobsCount}</p>
         </div>
 
         {/* KPI 2 */}
-        <div className="bg-white border border-slate-100 p-4.5 rounded-2xl shadow-sm flex flex-col items-center justify-center text-center">
+        <div className="bg-white dark:bg-slate-900 dark:bg-slate-900 border border-slate-100 dark:border-slate-800 dark:border-slate-800 p-4.5 rounded-2xl shadow-sm flex flex-col items-center justify-center text-center">
           <div className="flex items-center gap-1.5 text-slate-400">
             <ClipboardCheck className="w-4 h-4 text-green-500" />
             <span className="text-[11px] font-bold uppercase tracking-wider">Completed</span>
           </div>
-          <p className="text-3xl font-extrabold text-slate-800 mt-3">{completedCount}</p>
+          <p className="text-3xl font-extrabold text-slate-800 dark:text-slate-100 dark:text-slate-100 mt-3">{completedCount}</p>
         </div>
 
         {/* KPI 3 */}
-        <div className="bg-white border border-slate-100 p-4.5 rounded-2xl shadow-sm flex flex-col items-center justify-center text-center">
+        <div className="bg-white dark:bg-slate-900 dark:bg-slate-900 border border-slate-100 dark:border-slate-800 dark:border-slate-800 p-4.5 rounded-2xl shadow-sm flex flex-col items-center justify-center text-center">
           <div className="flex items-center gap-1.5 text-slate-400">
             <Wrench className="w-4 h-4 text-indigo-500" />
             <span className="text-[11px] font-bold uppercase tracking-wider">In Repair</span>
           </div>
-          <p className="text-3xl font-extrabold text-slate-800 mt-3">{inRepairCount}</p>
+          <p className="text-3xl font-extrabold text-slate-800 dark:text-slate-100 dark:text-slate-100 mt-3">{inRepairCount}</p>
         </div>
 
         {/* KPI 4 */}
-        <div className="bg-white border border-slate-100 p-4.5 rounded-2xl shadow-sm flex flex-col items-center justify-center text-center">
+        <div className="bg-white dark:bg-slate-900 dark:bg-slate-900 border border-slate-100 dark:border-slate-800 dark:border-slate-800 p-4.5 rounded-2xl shadow-sm flex flex-col items-center justify-center text-center">
           <div className="flex items-center gap-1.5 text-slate-400">
             <Clock className="w-4 h-4 text-amber-500" />
             <span className="text-[11px] font-bold uppercase tracking-wider">Waiting Approval</span>
           </div>
-          <p className="text-3xl font-extrabold text-slate-800 mt-3">{waitingApprovalCount}</p>
+          <p className="text-3xl font-extrabold text-slate-800 dark:text-slate-100 dark:text-slate-100 mt-3">{waitingApprovalCount}</p>
         </div>
 
         {/* KPI 5 */}
-        <div className="bg-white border border-slate-100 p-4.5 rounded-2xl shadow-sm flex flex-col items-center justify-center text-center">
+        <div className="bg-white dark:bg-slate-900 dark:bg-slate-900 border border-slate-100 dark:border-slate-800 dark:border-slate-800 p-4.5 rounded-2xl shadow-sm flex flex-col items-center justify-center text-center">
           <div className="flex items-center gap-1.5 text-slate-400">
             <Sparkles className="w-4 h-4 text-purple-500" />
             <span className="text-[11px] font-bold uppercase tracking-wider">Ready for Delivery</span>
           </div>
-          <p className="text-3xl font-extrabold text-slate-800 mt-3">{readyCount}</p>
+          <p className="text-3xl font-extrabold text-slate-800 dark:text-slate-100 dark:text-slate-100 mt-3">{readyCount}</p>
         </div>
 
         {/* KPI 6 */}
-        <div className="bg-white border border-slate-100 p-4.5 rounded-2xl shadow-sm flex flex-col items-center justify-center text-center">
+        <div className="bg-white dark:bg-slate-900 dark:bg-slate-900 border border-slate-100 dark:border-slate-800 dark:border-slate-800 p-4.5 rounded-2xl shadow-sm flex flex-col items-center justify-center text-center">
           <div className="flex items-center gap-1.5 text-slate-400">
             <AlertTriangle className="w-4 h-4 text-red-500" />
             <span className="text-[11px] font-bold uppercase tracking-wider">Critical Delays</span>
           </div>
-          <p className="text-3xl font-extrabold text-slate-800 mt-3">{criticalCount}</p>
+          <p className="text-3xl font-extrabold text-slate-800 dark:text-slate-100 dark:text-slate-100 mt-3">{criticalCount}</p>
         </div>
       </div>
 
       {/* Main Queues Columns */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Left column: CS Queue */}
-        <div className="bg-white border border-slate-100 rounded-2xl p-5 space-y-4 shadow-sm flex flex-col text-left">
-          <div className="flex justify-between items-center pb-2 border-b border-slate-50">
+        <div className="bg-white dark:bg-slate-900 dark:bg-slate-900 border border-slate-100 dark:border-slate-800 dark:border-slate-800 rounded-2xl p-5 space-y-4 shadow-sm flex flex-col text-left">
+          <div className="flex justify-between items-center pb-2 border-b border-slate-100 dark:border-slate-800 dark:border-slate-800">
             <div className="flex items-center gap-2">
-              <div className="w-6 h-6 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center font-bold text-xs shrink-0">
+              <div className="w-6 h-6 rounded-lg bg-blue-50 dark:bg-blue-900/30 text-blue-600 flex items-center justify-center font-bold text-xs shrink-0">
                 CS
               </div>
-              <span className="font-bold text-slate-800 text-sm">CS — Check & Service</span>
+              <span className="font-bold text-slate-800 dark:text-slate-100 dark:text-slate-100 text-sm">CS — Check & Service</span>
             </div>
             <button onClick={() => setActiveTab('repairs')} className="text-xs text-blue-600 font-bold hover:underline flex items-center gap-0.5 cursor-pointer">
               View All →
@@ -175,26 +175,26 @@ export const Dashboard: React.FC = () => {
           </div>
 
           {/* Counts summary inside queue header */}
-          <div className="grid grid-cols-5 gap-2 bg-slate-50 p-2.5 rounded-xl text-center">
+          <div className="grid grid-cols-5 gap-2 bg-slate-50 dark:bg-slate-800 dark:bg-slate-800 p-2.5 rounded-xl text-center">
             <div>
               <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wide">Received</p>
-              <p className="text-sm font-extrabold text-slate-700 mt-0.5">{csReceived}</p>
+              <p className="text-sm font-extrabold text-slate-700 dark:text-slate-200 dark:text-slate-200 mt-0.5">{csReceived}</p>
             </div>
             <div>
               <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wide">Diagnosis</p>
-              <p className="text-sm font-extrabold text-slate-700 mt-0.5">{csDiagnosis}</p>
+              <p className="text-sm font-extrabold text-slate-700 dark:text-slate-200 dark:text-slate-200 mt-0.5">{csDiagnosis}</p>
             </div>
             <div>
               <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wide">Approval</p>
-              <p className="text-sm font-extrabold text-slate-700 mt-0.5">{csApproval}</p>
+              <p className="text-sm font-extrabold text-slate-700 dark:text-slate-200 dark:text-slate-200 mt-0.5">{csApproval}</p>
             </div>
             <div>
               <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wide">In Repair</p>
-              <p className="text-sm font-extrabold text-slate-700 mt-0.5">{csInRepair}</p>
+              <p className="text-sm font-extrabold text-slate-700 dark:text-slate-200 dark:text-slate-200 mt-0.5">{csInRepair}</p>
             </div>
             <div>
               <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wide">Completed</p>
-              <p className="text-sm font-extrabold text-slate-700 mt-0.5">{csCompleted}</p>
+              <p className="text-sm font-extrabold text-slate-700 dark:text-slate-200 dark:text-slate-200 mt-0.5">{csCompleted}</p>
             </div>
           </div>
 
@@ -202,7 +202,7 @@ export const Dashboard: React.FC = () => {
           <div className="overflow-x-auto">
             <table className="w-full text-left border-collapse">
               <thead>
-                <tr className="text-[10px] font-bold uppercase tracking-wider text-slate-400 border-b border-slate-50">
+                <tr className="text-[10px] font-bold uppercase tracking-wider text-slate-400 border-b border-slate-200 dark:border-slate-700 dark:border-slate-700">
                   <th className="py-2.5">Job ID</th>
                   <th className="py-2.5">Device</th>
                   <th className="py-2.5">Customer</th>
@@ -212,7 +212,7 @@ export const Dashboard: React.FC = () => {
                   <th className="py-2.5"></th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-50 text-xs font-medium text-slate-700">
+              <tbody className="divide-y divide-slate-100 dark:divide-slate-800 dark:divide-slate-800 text-xs font-medium text-slate-700 dark:text-slate-200 dark:text-slate-300">
                 {csQueue.length === 0 ? (
                   <tr>
                     <td colSpan={7} className="py-8 text-center text-slate-400 text-xs font-semibold">
@@ -224,13 +224,13 @@ export const Dashboard: React.FC = () => {
                     <tr 
                       key={job.id} 
                       onClick={() => handleRowClick(job.id)}
-                      className="hover:bg-slate-50/50 cursor-pointer transition"
+                      className="hover:bg-slate-50/50 dark:hover:bg-slate-800/50 dark:bg-slate-800/30 dark:hover:bg-slate-800/50 cursor-pointer transition"
                     >
-                      <td className="py-3 font-bold text-slate-800">#{job.id}</td>
+                      <td className="py-3 font-bold text-slate-800 dark:text-slate-100 dark:text-slate-100">#{job.id}</td>
                       <td className="py-3">{job.device.brand} {job.device.model}</td>
-                      <td className="py-3 text-slate-500">{job.customerName}</td>
+                      <td className="py-3 text-slate-500 dark:text-slate-400">{job.customerName}</td>
                       <td className="py-3">{getStatusBadge(job.status)}</td>
-                      <td className="py-3 text-slate-500">{job.technician}</td>
+                      <td className="py-3 text-slate-500 dark:text-slate-400">{job.technician}</td>
                       <td className="py-3 text-slate-400">{job.time}</td>
                       <td className="py-3 text-slate-300 text-right"><ArrowRight className="w-3.5 h-3.5 inline" /></td>
                     </tr>
@@ -242,13 +242,13 @@ export const Dashboard: React.FC = () => {
         </div>
 
         {/* Right column: DS Queue */}
-        <div className="bg-white border border-slate-100 rounded-2xl p-5 space-y-4 shadow-sm flex flex-col text-left">
-          <div className="flex justify-between items-center pb-2 border-b border-slate-50">
+        <div className="bg-white dark:bg-slate-900 dark:bg-slate-900 border border-slate-100 dark:border-slate-800 dark:border-slate-800 rounded-2xl p-5 space-y-4 shadow-sm flex flex-col text-left">
+          <div className="flex justify-between items-center pb-2 border-b border-slate-100 dark:border-slate-800 dark:border-slate-800">
             <div className="flex items-center gap-2">
               <div className="w-6 h-6 rounded-lg bg-green-50 text-green-600 flex items-center justify-center font-bold text-xs shrink-0">
                 DS
               </div>
-              <span className="font-bold text-slate-800 text-sm">DS — Direct Service</span>
+              <span className="font-bold text-slate-800 dark:text-slate-100 dark:text-slate-100 text-sm">DS — Direct Service</span>
             </div>
             <button onClick={() => setActiveTab('repairs')} className="text-xs text-blue-600 font-bold hover:underline flex items-center gap-0.5 cursor-pointer">
               View All →
@@ -256,22 +256,22 @@ export const Dashboard: React.FC = () => {
           </div>
 
           {/* Counts summary inside queue header */}
-          <div className="grid grid-cols-4 gap-2 bg-slate-50 p-2.5 rounded-xl text-center">
+          <div className="grid grid-cols-4 gap-2 bg-slate-50 dark:bg-slate-800 dark:bg-slate-800 p-2.5 rounded-xl text-center">
             <div>
               <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wide">Waiting</p>
-              <p className="text-sm font-extrabold text-slate-700 mt-0.5">{dsWaiting}</p>
+              <p className="text-sm font-extrabold text-slate-700 dark:text-slate-200 dark:text-slate-200 mt-0.5">{dsWaiting}</p>
             </div>
             <div>
               <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wide">In Repair</p>
-              <p className="text-sm font-extrabold text-slate-700 mt-0.5">{dsInRepair}</p>
+              <p className="text-sm font-extrabold text-slate-700 dark:text-slate-200 dark:text-slate-200 mt-0.5">{dsInRepair}</p>
             </div>
             <div>
               <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wide">Testing</p>
-              <p className="text-sm font-extrabold text-slate-700 mt-0.5">{dsTesting}</p>
+              <p className="text-sm font-extrabold text-slate-700 dark:text-slate-200 dark:text-slate-200 mt-0.5">{dsTesting}</p>
             </div>
             <div>
               <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wide">Completed</p>
-              <p className="text-sm font-extrabold text-slate-700 mt-0.5">{dsCompleted}</p>
+              <p className="text-sm font-extrabold text-slate-700 dark:text-slate-200 dark:text-slate-200 mt-0.5">{dsCompleted}</p>
             </div>
           </div>
 
@@ -279,7 +279,7 @@ export const Dashboard: React.FC = () => {
           <div className="overflow-x-auto">
             <table className="w-full text-left border-collapse">
               <thead>
-                <tr className="text-[10px] font-bold uppercase tracking-wider text-slate-400 border-b border-slate-50">
+                <tr className="text-[10px] font-bold uppercase tracking-wider text-slate-400 border-b border-slate-200 dark:border-slate-700 dark:border-slate-700">
                   <th className="py-2.5">Job ID</th>
                   <th className="py-2.5">Device</th>
                   <th className="py-2.5">Customer</th>
@@ -289,7 +289,7 @@ export const Dashboard: React.FC = () => {
                   <th className="py-2.5"></th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-50 text-xs font-medium text-slate-700">
+              <tbody className="divide-y divide-slate-100 dark:divide-slate-800 dark:divide-slate-800 text-xs font-medium text-slate-700 dark:text-slate-200 dark:text-slate-300">
                 {dsQueue.length === 0 ? (
                   <tr>
                     <td colSpan={7} className="py-8 text-center text-slate-400 text-xs font-semibold">
@@ -301,13 +301,13 @@ export const Dashboard: React.FC = () => {
                     <tr 
                       key={job.id} 
                       onClick={() => handleRowClick(job.id)}
-                      className="hover:bg-slate-50/50 cursor-pointer transition"
+                      className="hover:bg-slate-50/50 dark:hover:bg-slate-800/50 dark:bg-slate-800/30 dark:hover:bg-slate-800/50 cursor-pointer transition"
                     >
-                      <td className="py-3 font-bold text-slate-800">#{job.id}</td>
+                      <td className="py-3 font-bold text-slate-800 dark:text-slate-100 dark:text-slate-100">#{job.id}</td>
                       <td className="py-3">{job.device.brand} {job.device.model}</td>
-                      <td className="py-3 text-slate-500">{job.customerName}</td>
+                      <td className="py-3 text-slate-500 dark:text-slate-400">{job.customerName}</td>
                       <td className="py-3">{getStatusBadge(job.status)}</td>
-                      <td className="py-3 text-slate-500">{job.technician}</td>
+                      <td className="py-3 text-slate-500 dark:text-slate-400">{job.technician}</td>
                       <td className="py-3 text-slate-400">{job.time}</td>
                       <td className="py-3 text-slate-300 text-right"><ArrowRight className="w-3.5 h-3.5 inline" /></td>
                     </tr>
@@ -319,27 +319,27 @@ export const Dashboard: React.FC = () => {
         </div>
 
         {/* Column 3: Ready for Delivery Queue */}
-        <div className="bg-white border border-slate-100 rounded-2xl p-5 space-y-4 shadow-sm flex flex-col text-left">
-          <div className="flex justify-between items-center pb-2 border-b border-slate-50">
+        <div className="bg-white dark:bg-slate-900 dark:bg-slate-900 border border-slate-100 dark:border-slate-800 dark:border-slate-800 rounded-2xl p-5 space-y-4 shadow-sm flex flex-col text-left">
+          <div className="flex justify-between items-center pb-2 border-b border-slate-100 dark:border-slate-800 dark:border-slate-800">
             <div className="flex items-center gap-2">
               <div className="w-6 h-6 rounded-lg bg-purple-50 text-purple-600 flex items-center justify-center font-bold text-xs shrink-0">
                 RD
               </div>
-              <span className="font-bold text-slate-800 text-sm">Ready for Delivery</span>
+              <span className="font-bold text-slate-800 dark:text-slate-100 dark:text-slate-100 text-sm">Ready for Delivery</span>
             </div>
           </div>
 
           {/* Counts summary inside queue header */}
-          <div className="bg-slate-50 p-2.5 rounded-xl text-center flex items-center justify-between px-4">
+          <div className="bg-slate-50 dark:bg-slate-800 dark:bg-slate-800 p-2.5 rounded-xl text-center flex items-center justify-between px-4">
             <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wide">Awaiting Pickup</span>
-            <span className="text-xs font-extrabold text-slate-700">{readyForDelivery.length} devices</span>
+            <span className="text-xs font-extrabold text-slate-700 dark:text-slate-200 dark:text-slate-200">{readyForDelivery.length} devices</span>
           </div>
 
           {/* Live Ready for Delivery Jobs table */}
           <div className="overflow-x-auto">
             <table className="w-full text-left border-collapse">
               <thead>
-                <tr className="text-[10px] font-bold uppercase tracking-wider text-slate-400 border-b border-slate-50">
+                <tr className="text-[10px] font-bold uppercase tracking-wider text-slate-400 border-b border-slate-200 dark:border-slate-700 dark:border-slate-700">
                   <th className="py-2.5">Job ID</th>
                   <th className="py-2.5">Device</th>
                   <th className="py-2.5">Customer</th>
@@ -347,7 +347,7 @@ export const Dashboard: React.FC = () => {
                   <th className="py-2.5">Balance</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-50 text-xs font-medium text-slate-700">
+              <tbody className="divide-y divide-slate-100 dark:divide-slate-800 dark:divide-slate-800 text-xs font-medium text-slate-700 dark:text-slate-200 dark:text-slate-300">
                 {readyForDelivery.length === 0 ? (
                   <tr>
                     <td colSpan={5} className="py-8 text-center text-slate-400 text-xs font-semibold">
@@ -362,21 +362,23 @@ export const Dashboard: React.FC = () => {
                         setSelectedRepairId(job.id);
                         setActiveTab('billing');
                       }}
-                      className="hover:bg-slate-50/50 cursor-pointer transition"
+                      className="hover:bg-slate-50/50 dark:hover:bg-slate-800/50 dark:bg-slate-800/30 dark:hover:bg-slate-800/50 cursor-pointer transition"
                     >
-                      <td className="py-3 font-bold text-slate-800">#{job.id}</td>
+                      <td className="py-3 font-bold text-slate-800 dark:text-slate-100 dark:text-slate-100">#{job.id}</td>
                       <td className="py-3">{job.device.brand} {job.device.model}</td>
-                      <td className="py-3 text-slate-500">{job.customerName}</td>
+                      <td className="py-3 text-slate-500 dark:text-slate-400">{job.customerName}</td>
                       <td className="py-3">
                         <span className="px-2 py-0.5 rounded-full text-[9px] font-bold bg-green-50 text-green-600">
                           Ready
                         </span>
                       </td>
-                      <td className="py-3 font-bold text-slate-700">
-                        {job.remainingBalance === 0 ? (
+                      <td className="py-3 font-bold text-slate-700 dark:text-slate-200">
+                        {job.estimatedCost === 0 ? (
+                          <span className="text-amber-600">Unbilled</span>
+                        ) : job.remainingBalance === 0 ? (
                           <span className="text-green-600">Paid</span>
                         ) : (
-                          <span className="text-slate-800">₹{job.remainingBalance}</span>
+                          <span className="text-slate-800 dark:text-slate-100">₹{job.remainingBalance}</span>
                         )}
                       </td>
                     </tr>
@@ -396,14 +398,14 @@ export const Dashboard: React.FC = () => {
             const event = new CustomEvent('open-new-repair', { detail: 'CS' });
             window.dispatchEvent(event);
           }}
-          className="p-5 bg-blue-50/40 hover:bg-blue-50 border border-dashed border-blue-200 rounded-2xl flex items-center justify-between transition cursor-pointer text-left"
+          className="p-5 bg-blue-50/40 dark:bg-blue-900/20 hover:bg-blue-50 dark:hover:bg-blue-900/30 border border-dashed border-blue-200 dark:border-blue-800 rounded-2xl flex items-center justify-between transition cursor-pointer text-left"
         >
           <div className="flex gap-4 items-center">
             <div className="w-12 h-12 rounded-xl bg-blue-600 text-white flex items-center justify-center font-bold shadow-md shadow-blue-200">
               CS
             </div>
             <div>
-              <h4 className="text-sm font-bold text-slate-800">+ New CS Repair</h4>
+              <h4 className="text-sm font-bold text-slate-800 dark:text-slate-100 dark:text-slate-100">+ New CS Repair</h4>
               <p className="text-xs text-slate-400 font-medium mt-0.5">Check & Service: diagnosis first, approval later</p>
             </div>
           </div>
@@ -416,14 +418,14 @@ export const Dashboard: React.FC = () => {
             const event = new CustomEvent('open-new-repair', { detail: 'DS' });
             window.dispatchEvent(event);
           }}
-          className="p-5 bg-green-50/30 hover:bg-green-50/50 border border-dashed border-green-200 rounded-2xl flex items-center justify-between transition cursor-pointer text-left"
+          className="p-5 bg-green-50/30 dark:bg-green-900/20 hover:bg-green-50/50 dark:hover:bg-green-900/30 border border-dashed border-green-200 dark:border-green-800 rounded-2xl flex items-center justify-between transition cursor-pointer text-left"
         >
           <div className="flex gap-4 items-center">
             <div className="w-12 h-12 rounded-xl bg-green-600 text-white flex items-center justify-center font-bold shadow-md shadow-green-200">
               DS
             </div>
             <div>
-              <h4 className="text-sm font-bold text-slate-800">+ New DS Repair</h4>
+              <h4 className="text-sm font-bold text-slate-800 dark:text-slate-100 dark:text-slate-100">+ New DS Repair</h4>
               <p className="text-xs text-slate-400 font-medium mt-0.5">Direct Service: start work immediately on approved estimate</p>
             </div>
           </div>
@@ -434,25 +436,25 @@ export const Dashboard: React.FC = () => {
       {/* Under widgets: At a glance */}
       <div className="text-left">
         {/* Widget: Today at a Glance */}
-        <div className="bg-white border border-slate-100 rounded-2xl p-5 shadow-sm space-y-4.5">
-          <h3 className="text-xs font-bold text-slate-700 uppercase tracking-wider border-b border-slate-50 pb-2">Today at a Glance</h3>
+        <div className="bg-white dark:bg-slate-900 dark:bg-slate-900 border border-slate-100 dark:border-slate-800 dark:border-slate-800 rounded-2xl p-5 shadow-sm space-y-4.5">
+          <h3 className="text-xs font-bold text-slate-700 dark:text-slate-200 dark:text-slate-300 uppercase tracking-wider border-b border-slate-100 dark:border-slate-800 dark:border-slate-800 pb-2">Today at a Glance</h3>
           
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            <div className="bg-slate-50 p-3.5 rounded-2xl flex flex-col justify-between">
+            <div className="bg-slate-50 dark:bg-slate-800 dark:bg-slate-800 p-3.5 rounded-2xl flex flex-col justify-between">
               <span className="text-[10px] font-bold text-slate-400 uppercase">Total Collection</span>
-              <span className="text-lg font-extrabold text-slate-800 mt-1">₹{totalCollection.toLocaleString('en-IN')}</span>
+              <span className="text-lg font-extrabold text-slate-800 dark:text-slate-100 dark:text-slate-100 mt-1">₹{totalCollection.toLocaleString('en-IN')}</span>
             </div>
-            <div className="bg-slate-50 p-3.5 rounded-2xl flex flex-col justify-between">
+            <div className="bg-slate-50 dark:bg-slate-800 dark:bg-slate-800 p-3.5 rounded-2xl flex flex-col justify-between">
               <span className="text-[10px] font-bold text-slate-400 uppercase">Advance Pending</span>
-              <span className="text-lg font-extrabold text-slate-800 mt-1">₹{totalPending.toLocaleString('en-IN')}</span>
+              <span className="text-lg font-extrabold text-slate-800 dark:text-slate-100 dark:text-slate-100 mt-1">₹{totalPending.toLocaleString('en-IN')}</span>
             </div>
-            <div className="bg-slate-50 p-3.5 rounded-2xl flex flex-col justify-between">
+            <div className="bg-slate-50 dark:bg-slate-800 dark:bg-slate-800 p-3.5 rounded-2xl flex flex-col justify-between">
               <span className="text-[10px] font-bold text-slate-400 uppercase">Avg Repair Time</span>
-              <span className="text-lg font-extrabold text-slate-800 mt-1">{avgRepairTime}</span>
+              <span className="text-lg font-extrabold text-slate-800 dark:text-slate-100 dark:text-slate-100 mt-1">{avgRepairTime}</span>
             </div>
-            <div className="bg-slate-50 p-3.5 rounded-2xl flex flex-col justify-between">
+            <div className="bg-slate-50 dark:bg-slate-800 dark:bg-slate-800 p-3.5 rounded-2xl flex flex-col justify-between">
               <span className="text-[10px] font-bold text-slate-400 uppercase">New Customers</span>
-              <span className="text-lg font-extrabold text-slate-800 mt-1">{newCustomersCount}</span>
+              <span className="text-lg font-extrabold text-slate-800 dark:text-slate-100 dark:text-slate-100 mt-1">{newCustomersCount}</span>
             </div>
           </div>
         </div>

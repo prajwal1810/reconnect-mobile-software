@@ -153,14 +153,14 @@ export const Billing: React.FC = () => {
       <div className="space-y-6 print:hidden">
         {/* Page Title & Breadcrumbs */}
         <div>
-          <h1 className="text-xl font-bold text-slate-800 tracking-tight">Billing</h1>
+          <h1 className="text-xl font-bold text-slate-800 dark:text-slate-100 tracking-tight">Billing</h1>
           <p className="text-xs text-slate-400 font-medium mt-1">Home &gt; Billing &gt; Customer Lookup</p>
         </div>
 
       {/* Customer Lookup Search Card */}
-      <div className="bg-white border border-slate-100 p-5 rounded-2xl shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-4">
+      <div className="bg-white dark:bg-slate-900 dark:bg-slate-900 border border-slate-100 dark:border-slate-800 dark:border-slate-800 p-5 rounded-2xl shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
-          <h2 className="text-sm font-bold text-slate-800">Lookup Customer / Job ID</h2>
+          <h2 className="text-sm font-bold text-slate-800 dark:text-slate-100">Lookup Customer / Job ID</h2>
           <p className="text-xs text-slate-400 font-medium mt-0.5">Enter customer phone number or Job ID to view recent repair and payment details</p>
         </div>
         
@@ -178,7 +178,7 @@ export const Billing: React.FC = () => {
                 }
               }}
               placeholder="Enter Phone or Job ID (e.g. R-93119)" 
-              className="border border-slate-200 focus:border-blue-500 px-4 py-2 rounded-xl text-xs font-semibold focus:outline-none w-64 transition"
+              className="border border-slate-200 dark:border-slate-700 focus:border-blue-500 px-4 py-2 rounded-xl text-xs font-semibold focus:outline-none w-64 transition"
             />
           </div>
           <button 
@@ -194,15 +194,15 @@ export const Billing: React.FC = () => {
       {activeCustomer ? (
         <>
           {/* Customer Overview Info Panel */}
-          <div className="bg-white border border-slate-100 p-5 rounded-2xl shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-5">
+          <div className="bg-white dark:bg-slate-900 dark:bg-slate-900 border border-slate-100 dark:border-slate-800 dark:border-slate-800 p-5 rounded-2xl shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-5">
             <div className="flex items-center gap-4">
-              <div className="w-12 h-12 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center font-bold text-sm shrink-0">
+              <div className="w-12 h-12 rounded-full bg-blue-50 dark:bg-blue-900/30 text-blue-600 flex items-center justify-center font-bold text-sm shrink-0">
                 {getInitials(activeCustomer.name)}
               </div>
               <div className="space-y-0.5">
-                <p className="text-sm font-bold text-slate-800 flex items-center gap-2">
+                <p className="text-sm font-bold text-slate-800 dark:text-slate-100 flex items-center gap-2">
                   {activeCustomer.name}
-                  <span className="px-2 py-0.5 bg-blue-50 text-blue-600 text-[9px] font-bold rounded-md uppercase">Existing Customer</span>
+                  <span className="px-2 py-0.5 bg-blue-50 dark:bg-blue-900/30 text-blue-600 text-[9px] font-bold rounded-md uppercase">Existing Customer</span>
                 </p>
                 <p className="text-xs text-slate-400 font-semibold flex items-center gap-1">
                   <span>📱 +91 {activeCustomer.phone}</span>
@@ -213,19 +213,19 @@ export const Billing: React.FC = () => {
             </div>
 
             {activeRepair ? (
-              <div className="flex flex-wrap gap-4.5 border-t md:border-t-0 pt-4 md:pt-0 border-slate-100">
+              <div className="flex flex-wrap gap-4.5 border-t md:border-t-0 pt-4 md:pt-0 border-slate-100 dark:border-slate-800">
                 <div className="text-xs">
                   <span className="text-[10px] text-slate-400 font-bold block">Recent Repair</span>
-                  <span className="font-bold text-slate-700 block mt-0.5">#{activeRepair.id}</span>
+                  <span className="font-bold text-slate-700 dark:text-slate-200 block mt-0.5">#{activeRepair.id}</span>
                   <span className="text-[9px] text-slate-400 font-medium block">{activeRepair.device.brand} {activeRepair.device.model}</span>
                 </div>
                 <div className="text-xs">
                   <span className="text-[10px] text-slate-400 font-bold block">Status</span>
-                  <span className="px-2 py-0.5 bg-blue-50 text-blue-600 text-[9px] font-bold rounded mt-1.5 inline-block">{activeRepair.status}</span>
+                  <span className="px-2 py-0.5 bg-blue-50 dark:bg-blue-900/30 text-blue-600 text-[9px] font-bold rounded mt-1.5 inline-block">{activeRepair.status}</span>
                 </div>
                 <div className="text-xs">
                   <span className="text-[10px] text-slate-400 font-bold block">Total Amount</span>
-                  <span className="font-extrabold text-slate-800 block mt-0.5">₹{activeRepair.estimatedCost.toLocaleString('en-IN')}</span>
+                  <span className="font-extrabold text-slate-800 dark:text-slate-100 block mt-0.5">₹{activeRepair.estimatedCost.toLocaleString('en-IN')}</span>
                 </div>
                 <div className="text-xs">
                   <span className="text-[10px] text-slate-400 font-bold block">Paid Amount</span>
@@ -259,8 +259,8 @@ export const Billing: React.FC = () => {
                 disabled={!activeRepair}
                 className={`px-3.5 py-2 border text-xs font-bold rounded-xl transition cursor-pointer flex items-center gap-1.5 ${
                   !activeRepair 
-                    ? 'border-slate-200 text-slate-400 cursor-not-allowed bg-slate-50' 
-                    : 'border-slate-200 hover:bg-slate-50 text-slate-600'
+                    ? 'border-slate-200 dark:border-slate-700 text-slate-400 cursor-not-allowed bg-slate-50' 
+                    : 'border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-300'
                 }`}
               >
                 <CreditCard className="w-3.5 h-3.5" />
@@ -274,10 +274,10 @@ export const Billing: React.FC = () => {
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
               
               {/* Left Column: Billing Details Table */}
-              <div className="lg:col-span-2 bg-white border border-slate-100 rounded-2xl p-5 shadow-sm space-y-5">
-                <div className="pb-3 border-b border-slate-50 flex justify-between items-center">
+              <div className="lg:col-span-2 bg-white dark:bg-slate-900 dark:bg-slate-900 border border-slate-100 dark:border-slate-800 dark:border-slate-800 rounded-2xl p-5 shadow-sm space-y-5">
+                <div className="pb-3 border-b border-slate-100 dark:border-slate-800 flex justify-between items-center">
                   <div>
-                    <h3 className="text-xs font-bold text-slate-700 uppercase tracking-wider flex items-center gap-1.5">
+                    <h3 className="text-xs font-bold text-slate-700 dark:text-slate-200 uppercase tracking-wider flex items-center gap-1.5">
                       <Smartphone className="w-4 h-4 text-blue-500" />
                       <span>Recent Repair Details</span>
                     </h3>
@@ -293,43 +293,43 @@ export const Billing: React.FC = () => {
                 </div>
 
                 {/* Device Spec Sub-Card */}
-                <div className="bg-slate-50 p-4 rounded-xl flex flex-col sm:flex-row justify-between gap-4 text-xs">
+                <div className="bg-slate-50 dark:bg-slate-800 p-4 rounded-xl flex flex-col sm:flex-row justify-between gap-4 text-xs">
                   <div className="space-y-1">
                     <p className="font-bold text-slate-400">Job ID: <span className="text-blue-600">#{activeRepair.id}</span></p>
-                    <p className="font-bold text-slate-700 text-sm mt-1">{activeRepair.device.brand} {activeRepair.device.model}</p>
+                    <p className="font-bold text-slate-700 dark:text-slate-200 text-sm mt-1">{activeRepair.device.brand} {activeRepair.device.model}</p>
                     <p className="text-[10px] text-slate-400 mt-1">IMEI: {activeRepair.device.imei || 'N/A'} • Serial: {activeRepair.device.serial || 'N/A'}</p>
                   </div>
                   <div className="space-y-1 sm:text-right">
-                    <p className="text-slate-400">Received: <span className="font-bold text-slate-600">{activeRepair.receivedAt}</span></p>
-                    <p className="text-slate-400 mt-0.5">Expected Delivery: <span className="font-bold text-slate-600">{activeRepair.expectedDelivery}</span></p>
-                    <p className="text-slate-400 mt-0.5">Technician: <span className="font-bold text-slate-600">{activeRepair.technician}</span></p>
+                    <p className="text-slate-400">Received: <span className="font-bold text-slate-600 dark:text-slate-300">{activeRepair.receivedAt}</span></p>
+                    <p className="text-slate-400 mt-0.5">Expected Delivery: <span className="font-bold text-slate-600 dark:text-slate-300">{activeRepair.expectedDelivery}</span></p>
+                    <p className="text-slate-400 mt-0.5">Technician: <span className="font-bold text-slate-600 dark:text-slate-300">{activeRepair.technician}</span></p>
                   </div>
                 </div>
 
                 {/* Problem Statement */}
                 <div className="text-xs">
                   <span className="font-bold text-slate-400 block uppercase tracking-wide text-[9px]">Problem Reported</span>
-                  <p className="font-bold text-slate-700 mt-1">{activeRepair.complaint}</p>
+                  <p className="font-bold text-slate-700 dark:text-slate-200 mt-1">{activeRepair.complaint}</p>
                 </div>
 
                 {/* Billing Items Table */}
                 <div className="space-y-3.5">
-                  <h4 className="text-[10px] font-bold text-slate-500 uppercase tracking-wide">Itemised Invoice Breakdown</h4>
+                  <h4 className="text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide">Itemised Invoice Breakdown</h4>
                   
-                  <div className="border border-slate-100 rounded-xl overflow-hidden">
+                  <div className="border border-slate-100 dark:border-slate-800 rounded-xl overflow-hidden">
                     <table className="w-full text-left border-collapse">
                       <thead>
-                        <tr className="bg-slate-50 text-[9px] font-bold uppercase tracking-wider text-slate-400 border-b border-slate-100">
+                        <tr className="bg-slate-50 dark:bg-slate-800 text-[9px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 border-b border-slate-100 dark:border-slate-800">
                           <th className="px-4 py-2.5">Item / Service</th>
                           <th className="px-4 py-2.5">Description</th>
                           <th className="px-4 py-2.5 text-right">Amount (₹)</th>
                         </tr>
                       </thead>
-                      <tbody className="divide-y divide-slate-50 text-xs font-semibold text-slate-700">
+                      <tbody className="divide-y divide-slate-100 dark:divide-slate-800 dark:divide-slate-800 text-xs font-semibold text-slate-700 dark:text-slate-200">
                         {activeRepair.billingItems.length > 0 ? (
                           activeRepair.billingItems.map(item => (
                             <tr key={item.id}>
-                              <td className="px-4 py-3 font-bold text-slate-800">{item.name}</td>
+                              <td className="px-4 py-3 font-bold text-slate-800 dark:text-slate-100">{item.name}</td>
                               <td className="px-4 py-3 text-slate-400 font-medium">{item.description}</td>
                               <td className="px-4 py-3 text-right font-bold">₹{item.amount.toLocaleString('en-IN')}</td>
                             </tr>
@@ -341,9 +341,9 @@ export const Billing: React.FC = () => {
                             </td>
                           </tr>
                         )}
-                        <tr className="bg-slate-50/50 font-bold border-t border-slate-150">
-                          <td colSpan={2} className="px-4 py-3 text-right text-slate-500">Total Amount</td>
-                          <td className="px-4 py-3 text-right text-slate-800 text-sm">₹{activeRepair.estimatedCost.toLocaleString('en-IN')}</td>
+                        <tr className="bg-slate-50/50 dark:bg-slate-800/30 font-bold border-t border-slate-150">
+                          <td colSpan={2} className="px-4 py-3 text-right text-slate-500 dark:text-slate-400">Total Amount</td>
+                          <td className="px-4 py-3 text-right text-slate-800 dark:text-slate-100 text-sm">₹{activeRepair.estimatedCost.toLocaleString('en-IN')}</td>
                         </tr>
                       </tbody>
                     </table>
@@ -354,27 +354,27 @@ export const Billing: React.FC = () => {
               {/* Right Column: Payment Summaries & History */}
               <div className="space-y-6">
                 {/* Panel 1: Payment Summary Card */}
-                <div className="bg-white border border-slate-100 rounded-2xl p-5 shadow-sm space-y-4">
-                  <h3 className="text-xs font-bold text-slate-700 uppercase tracking-wider border-b border-slate-50 pb-2">Payment Summary (This Repair)</h3>
+                <div className="bg-white dark:bg-slate-900 dark:bg-slate-900 border border-slate-100 dark:border-slate-800 dark:border-slate-800 rounded-2xl p-5 shadow-sm space-y-4">
+                  <h3 className="text-xs font-bold text-slate-700 dark:text-slate-200 uppercase tracking-wider border-b border-slate-100 dark:border-slate-800 pb-2">Payment Summary (This Repair)</h3>
                   <div className="space-y-3 text-xs font-semibold">
                     <div className="flex justify-between">
                       <span className="text-slate-400">Total Amount</span>
-                      <span className="text-slate-700 font-bold">₹{activeRepair.estimatedCost.toLocaleString('en-IN')}</span>
+                      <span className="text-slate-700 dark:text-slate-200 font-bold">₹{activeRepair.estimatedCost.toLocaleString('en-IN')}</span>
                     </div>
                     <div className="flex justify-between">
                       <span className="text-slate-400">Paid Amount</span>
                       <span className="text-green-600 font-bold">₹{activeRepair.advancePaid.toLocaleString('en-IN')}</span>
                     </div>
                     <div className="flex justify-between border-t border-slate-50 pt-3">
-                      <span className="text-slate-500 font-bold">Pending Amount</span>
+                      <span className="text-slate-500 dark:text-slate-400 font-bold">Pending Amount</span>
                       <span className="text-red-500 font-extrabold text-sm">₹{activeRepair.remainingBalance.toLocaleString('en-IN')}</span>
                     </div>
                   </div>
                 </div>
 
                 {/* Panel 2: Payment History Card */}
-                <div className="bg-white border border-slate-100 rounded-2xl p-5 shadow-sm space-y-4">
-                  <h3 className="text-xs font-bold text-slate-700 uppercase tracking-wider border-b border-slate-50 pb-2">Payment History (This Repair)</h3>
+                <div className="bg-white dark:bg-slate-900 dark:bg-slate-900 border border-slate-100 dark:border-slate-800 dark:border-slate-800 rounded-2xl p-5 shadow-sm space-y-4">
+                  <h3 className="text-xs font-bold text-slate-700 dark:text-slate-200 uppercase tracking-wider border-b border-slate-100 dark:border-slate-800 pb-2">Payment History (This Repair)</h3>
                   <div className="space-y-3">
                     {activeRepair.paymentHistory.length > 0 ? (
                       activeRepair.paymentHistory.map((pm, i) => (
@@ -382,11 +382,11 @@ export const Billing: React.FC = () => {
                           <div className="flex gap-2.5 items-start">
                             <CheckCircle2 className="w-4 h-4 text-green-500 shrink-0 mt-0.5" />
                             <div>
-                              <p className="font-bold text-slate-700">{pm.date}, {pm.time}</p>
+                              <p className="font-bold text-slate-700 dark:text-slate-200">{pm.date}, {pm.time}</p>
                               <p className="text-[10px] text-slate-400 font-medium mt-0.5">{pm.method}</p>
                             </div>
                           </div>
-                          <span className="font-extrabold text-slate-800">₹{pm.amount.toLocaleString('en-IN')}</span>
+                          <span className="font-extrabold text-slate-800 dark:text-slate-100">₹{pm.amount.toLocaleString('en-IN')}</span>
                         </div>
                       ))
                     ) : (
@@ -411,7 +411,7 @@ export const Billing: React.FC = () => {
           </div>
         </>
       ) : (
-        <div className="bg-white border border-slate-100 py-16 text-center rounded-2xl shadow-sm space-y-3">
+        <div className="bg-white dark:bg-slate-900 dark:bg-slate-900 border border-slate-100 dark:border-slate-800 dark:border-slate-800 py-16 text-center rounded-2xl shadow-sm space-y-3">
           <p className="text-sm font-semibold text-slate-400">Search customer number to preview billing dashboard.</p>
         </div>
       )}
@@ -419,10 +419,10 @@ export const Billing: React.FC = () => {
       {/* Receive Payment Modal */}
       {showPayModal && activeRepair && (
         <div className="fixed inset-0 bg-slate-900/40 backdrop-blur-xs flex items-center justify-center z-50">
-          <div className="w-full max-w-md bg-white rounded-2xl border border-slate-100 shadow-2xl overflow-hidden text-left animate-scale-up">
-            <div className="px-5 py-4 border-b border-slate-100 flex justify-between items-center">
-              <h3 className="text-sm font-bold text-slate-800">Add Payment Receipt</h3>
-              <button onClick={() => setShowPayModal(false)} className="text-slate-400 hover:text-slate-600"><X className="w-5 h-5" /></button>
+          <div className="w-full max-w-md bg-white dark:bg-slate-900 rounded-2xl border border-slate-100 dark:border-slate-800 shadow-2xl overflow-hidden text-left animate-scale-up">
+            <div className="px-5 py-4 border-b border-slate-100 dark:border-slate-800 flex justify-between items-center">
+              <h3 className="text-sm font-bold text-slate-800 dark:text-slate-100">Add Payment Receipt</h3>
+              <button onClick={() => setShowPayModal(false)} className="text-slate-400 hover:text-slate-600 dark:text-slate-300"><X className="w-5 h-5" /></button>
             </div>
             
             <form onSubmit={handleReceivePaymentSubmit} className="p-5 space-y-4">
@@ -431,9 +431,10 @@ export const Billing: React.FC = () => {
                 <input 
                   type="number" 
                   max={activeRepair.remainingBalance}
-                  value={payAmount}
-                  onChange={(e) => setPayAmount(parseInt(e.target.value) || 0)}
-                  className="w-full border border-slate-200 px-3 py-2 rounded-xl text-xs font-bold text-slate-700 focus:outline-none"
+                  value={payAmount === 0 ? '' : payAmount}
+                  onChange={(e) => setPayAmount(e.target.value === '' ? 0 : (parseInt(e.target.value) || 0))}
+                  placeholder="0"
+                  className="w-full border border-slate-200 dark:border-slate-700 px-3 py-2 rounded-xl text-xs font-bold text-slate-700 dark:text-slate-200 focus:outline-none"
                 />
                 <span className="text-[10px] text-slate-400 mt-1 block">Maximum allowed: ₹{activeRepair.remainingBalance}</span>
               </div>
@@ -443,7 +444,7 @@ export const Billing: React.FC = () => {
                 <select 
                   value={payMethod}
                   onChange={(e) => setPayMethod(e.target.value)}
-                  className="w-full bg-slate-50 border border-slate-200 px-3 py-2 rounded-xl text-xs focus:outline-none font-semibold text-slate-700"
+                  className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 px-3 py-2 rounded-xl text-xs focus:outline-none font-semibold text-slate-700 dark:text-slate-200"
                 >
                   <option value="UPI (PhonePe)">UPI (PhonePe)</option>
                   <option value="UPI (GPay)">UPI (GPay)</option>
@@ -457,7 +458,7 @@ export const Billing: React.FC = () => {
                 <button 
                   type="button" 
                   onClick={() => setShowPayModal(false)}
-                  className="px-4 py-2 border border-slate-200 rounded-xl hover:bg-slate-50 text-slate-600 font-semibold cursor-pointer"
+                  className="px-4 py-2 border border-slate-200 dark:border-slate-700 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-300 font-semibold cursor-pointer"
                 >
                   Cancel
                 </button>
@@ -478,18 +479,18 @@ export const Billing: React.FC = () => {
       {/* Bill / Invoice Print Preview Drawer/Modal */}
       {showReceipt && activeRepair && activeCustomer && (
         <div className="fixed inset-0 bg-slate-900/50 backdrop-blur-xs flex items-center justify-center z-50 print:static print:bg-white print:p-0">
-          <div className="w-full max-w-2xl bg-white rounded-2xl border border-slate-100 shadow-2xl p-8 max-h-[90vh] overflow-y-auto animate-scale-up text-xs print:p-0 print:border-none print:shadow-none print:max-w-full print:max-h-none print:overflow-visible">
-            <div className="flex justify-between items-start border-b border-slate-100 pb-5">
+          <div className="w-full max-w-2xl bg-white dark:bg-slate-900 rounded-2xl border border-slate-100 dark:border-slate-800 shadow-2xl p-8 max-h-[90vh] overflow-y-auto animate-scale-up text-xs print:p-0 print:border-none print:shadow-none print:max-w-full print:max-h-none print:overflow-visible">
+            <div className="flex justify-between items-start border-b border-slate-100 dark:border-slate-800 pb-5">
               <div>
-                <h3 className="text-xl font-extrabold text-blue-600 tracking-tight">RepairOS RMS</h3>
+                <h3 className="text-xl font-extrabold text-blue-600 tracking-tight">Reconnect Mobile</h3>
                 <p className="text-slate-400 mt-1 font-semibold">Regd: Raipur, Chhattisgarh</p>
                 <p className="text-slate-400 font-semibold">Phone: +91 9988776655</p>
               </div>
               <div className="text-right">
-                <h4 className="text-sm font-bold text-slate-800 uppercase tracking-wide">Invoice / Receipt</h4>
-                <p className="text-slate-400 font-bold mt-1">Invoice: <span className="text-slate-700">#INV-23910</span></p>
-                <p className="text-slate-400 font-bold">Date: <span className="text-slate-700">{activeRepair.receivedAt}</span></p>
-                <p className="text-slate-400 font-bold">Job ID: <span className="text-slate-700">#{activeRepair.id}</span></p>
+                <h4 className="text-sm font-bold text-slate-800 dark:text-slate-100 uppercase tracking-wide">Invoice / Receipt</h4>
+                <p className="text-slate-400 font-bold mt-1">Invoice: <span className="text-slate-700 dark:text-slate-200">#INV-23910</span></p>
+                <p className="text-slate-400 font-bold">Date: <span className="text-slate-700 dark:text-slate-200">{activeRepair.receivedAt}</span></p>
+                <p className="text-slate-400 font-bold">Job ID: <span className="text-slate-700 dark:text-slate-200">#{activeRepair.id}</span></p>
               </div>
             </div>
 
@@ -497,45 +498,45 @@ export const Billing: React.FC = () => {
             <div className="grid grid-cols-2 gap-4 py-5 font-semibold">
               <div>
                 <span className="text-[9px] font-bold text-slate-400 uppercase tracking-wider block">Customer Details</span>
-                <p className="font-bold text-slate-700 mt-1">{activeCustomer.name}</p>
+                <p className="font-bold text-slate-700 dark:text-slate-200 mt-1">{activeCustomer.name}</p>
                 <p className="text-slate-400 mt-0.5">+91 {activeCustomer.phone}</p>
                 <p className="text-slate-400">{activeCustomer.city}</p>
               </div>
               <div>
                 <span className="text-[9px] font-bold text-slate-400 uppercase tracking-wider block">Device Specifications</span>
-                <p className="font-bold text-slate-700 mt-1">{activeRepair.device.brand} {activeRepair.device.model}</p>
+                <p className="font-bold text-slate-700 dark:text-slate-200 mt-1">{activeRepair.device.brand} {activeRepair.device.model}</p>
                 <p className="text-slate-400 mt-0.5">IMEI: {activeRepair.device.imei || 'N/A'}</p>
                 <p className="text-slate-400">Serial: {activeRepair.device.serial || 'N/A'}</p>
               </div>
             </div>
 
             {/* Items table */}
-            <div className="border border-slate-100 rounded-xl overflow-hidden my-4">
+            <div className="border border-slate-100 dark:border-slate-800 rounded-xl overflow-hidden my-4">
               <table className="w-full text-left border-collapse">
                 <thead>
-                  <tr className="bg-slate-50 text-[9px] font-bold uppercase tracking-wider text-slate-400 border-b border-slate-100">
+                  <tr className="bg-slate-50 dark:bg-slate-800 text-[9px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 border-b border-slate-100 dark:border-slate-800">
                     <th className="px-4 py-2.5">Item / Service</th>
                     <th className="px-4 py-2.5">Description</th>
                     <th className="px-4 py-2.5 text-right">Amount</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-slate-50 font-semibold text-slate-700">
+                <tbody className="divide-y divide-slate-100 dark:divide-slate-800 dark:divide-slate-800 font-semibold text-slate-700 dark:text-slate-200">
                   {activeRepair.billingItems.map(item => (
                     <tr key={item.id}>
-                      <td className="px-4 py-3 font-bold text-slate-800">{item.name}</td>
+                      <td className="px-4 py-3 font-bold text-slate-800 dark:text-slate-100">{item.name}</td>
                       <td className="px-4 py-3 text-slate-400 font-medium">{item.description}</td>
                       <td className="px-4 py-3 text-right font-bold">₹{item.amount.toLocaleString('en-IN')}</td>
                     </tr>
                   ))}
-                  <tr className="bg-slate-50/50 font-bold border-t border-slate-150">
-                    <td colSpan={2} className="px-4 py-3 text-right text-slate-500">Total Invoice Amount</td>
-                    <td className="px-4 py-3 text-right text-slate-800 text-sm">₹{activeRepair.estimatedCost.toLocaleString('en-IN')}</td>
+                  <tr className="bg-slate-50/50 dark:bg-slate-800/30 font-bold border-t border-slate-150">
+                    <td colSpan={2} className="px-4 py-3 text-right text-slate-500 dark:text-slate-400">Total Invoice Amount</td>
+                    <td className="px-4 py-3 text-right text-slate-800 dark:text-slate-100 text-sm">₹{activeRepair.estimatedCost.toLocaleString('en-IN')}</td>
                   </tr>
-                  <tr className="bg-slate-50/50 font-bold">
+                  <tr className="bg-slate-50/50 dark:bg-slate-800/30 font-bold">
                     <td colSpan={2} className="px-4 py-3 text-right text-green-600">Total Paid</td>
                     <td className="px-4 py-3 text-right text-green-600">₹{activeRepair.advancePaid.toLocaleString('en-IN')}</td>
                   </tr>
-                  <tr className="bg-slate-50/50 font-bold">
+                  <tr className="bg-slate-50/50 dark:bg-slate-800/30 font-bold">
                     <td colSpan={2} className="px-4 py-3 text-right text-red-500">Balance Pending</td>
                     <td className="px-4 py-3 text-right text-red-500 text-sm">₹{activeRepair.remainingBalance.toLocaleString('en-IN')}</td>
                   </tr>
@@ -544,14 +545,14 @@ export const Billing: React.FC = () => {
             </div>
 
             {/* Disclaimers & Signatures */}
-            <div className="mt-8 border-t border-slate-100 pt-5 flex justify-between items-end text-slate-400 font-medium">
+            <div className="mt-8 border-t border-slate-100 dark:border-slate-800 pt-5 flex justify-between items-end text-slate-400 font-medium">
               <div className="space-y-1">
-                <p className="font-bold text-[10px] text-slate-500 uppercase tracking-wide">Terms & Conditions</p>
+                <p className="font-bold text-[10px] text-slate-500 dark:text-slate-400 uppercase tracking-wide">Terms & Conditions</p>
                 <p>1. 30-day warranty applies to screen and battery spares only.</p>
                 <p>2. Physical damages and liquid exposure void warranty terms.</p>
               </div>
               <div className="text-right space-y-6">
-                <div className="w-40 border-b border-slate-200 mt-8"></div>
+                <div className="w-40 border-b border-slate-200 dark:border-slate-700 mt-8"></div>
                 <span className="text-[9px] font-bold text-slate-400 uppercase tracking-wider block">Authorized Signatory</span>
               </div>
             </div>
@@ -560,7 +561,7 @@ export const Billing: React.FC = () => {
             <div className="mt-8 flex justify-end gap-2 text-xs print:hidden">
               <button 
                 onClick={() => setShowReceipt(false)}
-                className="px-5 py-2.5 border border-slate-200 hover:bg-slate-50 text-slate-600 font-bold rounded-xl transition cursor-pointer"
+                className="px-5 py-2.5 border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-300 font-bold rounded-xl transition cursor-pointer"
               >
                 Close Preview
               </button>
@@ -579,15 +580,15 @@ export const Billing: React.FC = () => {
       {/* Select Repair for Billing Modal Overlay */}
       {showSelectRepairModal && (
         <div className="fixed inset-0 bg-slate-900/40 backdrop-blur-xs flex items-center justify-center z-50">
-          <div className="w-full max-w-2xl bg-white rounded-2xl shadow-2xl border border-slate-100 overflow-hidden text-left animate-scale-up">
-            <div className="px-5 py-4 border-b border-slate-100 flex justify-between items-center bg-slate-50/50">
+          <div className="w-full max-w-2xl bg-white dark:bg-slate-900 rounded-2xl shadow-2xl border border-slate-100 dark:border-slate-800 overflow-hidden text-left animate-scale-up">
+            <div className="px-5 py-4 border-b border-slate-100 dark:border-slate-800 flex justify-between items-center bg-slate-50/50 dark:bg-slate-800/30">
               <div>
-                <h3 className="text-sm font-bold text-slate-800">Select Repair for Billing</h3>
+                <h3 className="text-sm font-bold text-slate-800 dark:text-slate-100">Select Repair for Billing</h3>
                 <p className="text-[10px] text-slate-400 font-semibold mt-0.5">Select a customer's active repair job to generate an invoice or record payments</p>
               </div>
               <button 
                 onClick={() => setShowSelectRepairModal(false)} 
-                className="text-slate-400 hover:text-slate-600 transition cursor-pointer"
+                className="text-slate-400 hover:text-slate-600 dark:text-slate-300 transition cursor-pointer"
               >
                 <X className="w-5 h-5" />
               </button>
@@ -599,10 +600,10 @@ export const Billing: React.FC = () => {
                   No repair jobs registered. Create a repair job first.
                 </div>
               ) : (
-                <div className="border border-slate-100 rounded-xl overflow-hidden">
-                  <table className="w-full text-left border-collapse text-xs font-semibold text-slate-700">
+                <div className="border border-slate-100 dark:border-slate-800 rounded-xl overflow-hidden">
+                  <table className="w-full text-left border-collapse text-xs font-semibold text-slate-700 dark:text-slate-200">
                     <thead>
-                      <tr className="bg-slate-50 text-[10px] font-bold uppercase tracking-wider text-slate-400 border-b border-slate-100">
+                      <tr className="bg-slate-50 dark:bg-slate-800 text-[10px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 border-b border-slate-100 dark:border-slate-800">
                         <th className="px-4 py-3">Job ID</th>
                         <th className="px-4 py-3">Customer</th>
                         <th className="px-4 py-3">Device</th>
@@ -611,14 +612,14 @@ export const Billing: React.FC = () => {
                         <th className="px-4 py-3 text-right">Action</th>
                       </tr>
                     </thead>
-                    <tbody className="divide-y divide-slate-100">
+                    <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
                       {repairs.map(rep => (
-                        <tr key={rep.id} className="hover:bg-slate-50/50 transition">
+                        <tr key={rep.id} className="hover:bg-slate-50/50 dark:hover:bg-slate-800/50 dark:bg-slate-800/30 transition">
                           <td className="px-4 py-3 font-mono font-bold text-blue-600">#{rep.id}</td>
-                          <td className="px-4 py-3 text-slate-800 font-bold">{getCustomerName(rep.customerId)}</td>
-                          <td className="px-4 py-3 text-slate-500">{rep.device.brand} {rep.device.model}</td>
+                          <td className="px-4 py-3 text-slate-800 dark:text-slate-100 font-bold">{getCustomerName(rep.customerId)}</td>
+                          <td className="px-4 py-3 text-slate-500 dark:text-slate-400">{rep.device.brand} {rep.device.model}</td>
                           <td className="px-4 py-3">
-                            <span className="px-2 py-0.5 bg-blue-50 text-blue-600 text-[9px] font-bold rounded uppercase">
+                            <span className="px-2 py-0.5 bg-blue-50 dark:bg-blue-900/30 text-blue-600 text-[9px] font-bold rounded uppercase">
                               {rep.status}
                             </span>
                           </td>
@@ -639,10 +640,10 @@ export const Billing: React.FC = () => {
               )}
             </div>
             
-            <div className="px-5 py-4 border-t border-slate-100 bg-slate-50/50 flex justify-end">
+            <div className="px-5 py-4 border-t border-slate-100 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-800/30 flex justify-end">
               <button 
                 onClick={() => setShowSelectRepairModal(false)}
-                className="px-4 py-2 border border-slate-200 hover:bg-white text-slate-600 font-bold text-xs rounded-xl cursor-pointer transition"
+                className="px-4 py-2 border border-slate-200 dark:border-slate-700 hover:bg-white text-slate-600 dark:text-slate-300 font-bold text-xs rounded-xl cursor-pointer transition"
               >
                 Close
               </button>

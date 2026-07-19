@@ -1,5 +1,7 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 @theme {
   --font-sans: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
 }
@@ -10,6 +12,12 @@ body {
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+html.dark body {
+  background-color: #020617; /* bg-slate-950 */
+  color: #f1f5f9; /* text-slate-100 */
 }
 
 /* Custom modern scrollbars */
@@ -27,6 +35,10 @@ body {
   border-radius: 10px;
 }
 
+html.dark ::-webkit-scrollbar-thumb {
+  background: rgba(71, 85, 105, 0.8); /* slate-600 dark */
+}
+
 ::-webkit-scrollbar-thumb:hover {
   background: rgba(148, 163, 184, 0.8); /* slate-400 */
 }
@@ -37,6 +49,11 @@ body {
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+html.dark .glass {
+  background: rgba(15, 23, 42, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 /* Pulse animation for active timers */
@@ -52,3 +69,42 @@ body {
 .pulse-soft {
   animation: soft-pulse 2s infinite ease-in-out;
 }
+
+/* ── Dark mode: form controls ──────────────────────────────── */
+html.dark input,
+html.dark select,
+html.dark textarea {
+  background-color: #1e293b; /* slate-800 */
+  color: #f1f5f9;            /* slate-100 */
+  border-color: #334155;     /* slate-700 */
+}
+
+html.dark input::placeholder,
+html.dark textarea::placeholder {
+  color: #64748b; /* slate-500 */
+}
+
+html.dark input:focus,
+html.dark select:focus,
+html.dark textarea:focus {
+  background-color: #1e293b;
+  border-color: #3b82f6; /* blue-500 */
+}
+
+/* ── Dark mode: modal overlay backdrop ─────────────────────── */
+html.dark .modal-overlay {
+  background-color: rgba(0, 0, 0, 0.75);
+}
+
+/* ── Dark mode: table rows ─────────────────────────────────── */
+html.dark tr:hover td {
+  background-color: rgba(30, 41, 59, 0.5); /* slate-800/50 */
+}
+
+/* ── Smooth transitions for all bg/text/border ─────────────── */
+*, *::before, *::after {
+  transition-property: background-color, border-color, color;
+  transition-duration: 200ms;
+  transition-timing-function: ease;
+}
+

@@ -24,6 +24,8 @@ interface AppContextType {
   session: any;
   setSession: (session: any) => void;
   logout: () => Promise<void>;
+  darkMode: boolean;
+  toggleDarkMode: () => void;
 }
 
 const AppContext = createContext<AppContextType | undefined>(undefined);
@@ -40,6 +42,21 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   const [activities, setActivities] = useState<ActivityLog[]>([]);
   const [notificationsCount, setNotificationsCount] = useState<number>(0);
   const [session, setSession] = useState<any>(null);
+  const [darkMode, setDarkMode] = useState<boolean>(() => {
+    const saved = localStorage.getItem('cfg_dark_mode');
+    return saved === 'true';
+  });
+
+  useEffect(() => {
+    if (darkMode) {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+    localStorage.setItem('cfg_dark_mode', String(darkMode));
+  }, [darkMode]);
+
+  const toggleDarkMode = () => setDarkMode(prev => !prev);
 
   const refreshData = async () => {
     try {
@@ -113,7 +130,9 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         clearNotifications,
         session,
         setSession,
-        logout
+        logout,
+        darkMode,
+        toggleDarkMode
       }}
     >
       {children}

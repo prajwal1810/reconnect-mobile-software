@@ -31,19 +31,19 @@ export const Sidebar: React.FC = () => {
 
   return (
     <aside 
-      className={`bg-white border-r border-slate-100 flex flex-col transition-all duration-300 print:hidden ${
+      className={`bg-white dark:bg-slate-900 border-r border-slate-100 dark:border-slate-800 dark:border-slate-800 flex flex-col transition-all duration-300 print:hidden ${
         isCollapsed ? 'w-20' : 'w-64'
       }`}
     >
       {/* Brand Header */}
-      <div className="h-16 px-6 border-b border-slate-100 flex items-center gap-3">
-        <div className="w-10 h-10 rounded-xl bg-blue-600 flex items-center justify-center text-white font-bold text-lg shadow-md shadow-blue-200 shrink-0">
-          R
+      <div className="h-16 px-6 border-b border-slate-100 dark:border-slate-800 flex items-center gap-3">
+        <div className="w-10 h-10 rounded-xl bg-blue-600 flex items-center justify-center text-white font-bold text-sm shadow-md shadow-blue-200 shrink-0">
+          RC
         </div>
         {!isCollapsed && (
           <div className="flex flex-col">
-            <span className="font-bold text-slate-800 tracking-tight text-lg">RepairOS</span>
-            <span className="text-xs text-slate-400 font-medium -mt-1">Repair Management System</span>
+            <span className="font-bold text-slate-800 dark:text-slate-100 tracking-tight text-base leading-tight">Reconnect Mobile</span>
+            <span className="text-xs text-slate-400 font-medium mt-0.5">Mobile Repair Shop</span>
           </div>
         )}
       </div>
@@ -59,8 +59,8 @@ export const Sidebar: React.FC = () => {
               onClick={() => setActiveTab(item.id as TabType)}
               className={`w-full flex items-center gap-3.5 px-4 py-3 rounded-xl font-medium text-sm transition-all duration-150 ${
                 isActive 
-                  ? 'bg-blue-50 text-blue-600 shadow-sm shadow-blue-50/20' 
-                  : 'text-slate-500 hover:bg-slate-50 hover:text-slate-700'
+                  ? 'bg-blue-50 dark:bg-blue-900/30 text-blue-600 shadow-sm shadow-blue-50/20' 
+                  : 'text-slate-500 dark:text-slate-400 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 dark:hover:bg-slate-800 hover:text-slate-700 dark:text-slate-200 dark:hover:text-slate-200'
               }`}
             >
               <Icon className={`w-5 h-5 shrink-0 ${isActive ? 'text-blue-600' : 'text-slate-400'}`} />
@@ -71,11 +71,11 @@ export const Sidebar: React.FC = () => {
       </nav>
 
       {/* Sidebar Control Footer */}
-      <div className="p-4 border-t border-slate-100 space-y-4">
+      <div className="p-4 border-t border-slate-100 dark:border-slate-800 dark:border-slate-800 space-y-4">
         {/* Toggle Collapse */}
         <button 
           onClick={() => setIsCollapsed(!isCollapsed)}
-          className="w-full flex items-center gap-3.5 px-4 py-2.5 rounded-xl text-slate-500 hover:bg-slate-50 hover:text-slate-700 transition-all font-medium text-sm"
+          className="w-full flex items-center gap-3.5 px-4 py-2.5 rounded-xl text-slate-500 dark:text-slate-400 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 dark:hover:bg-slate-800 hover:text-slate-700 dark:text-slate-200 transition-all font-medium text-sm"
         >
           {isCollapsed ? (
             <>
@@ -90,7 +90,7 @@ export const Sidebar: React.FC = () => {
         </button>
 
         {/* User Card */}
-        <div className="flex flex-col gap-2 p-2 rounded-xl bg-slate-50 border border-slate-100">
+        <div className="flex flex-col gap-2 p-2 rounded-xl bg-slate-50 dark:bg-slate-800 dark:bg-slate-800 border border-slate-100 dark:border-slate-800 dark:border-slate-700">
           <div className="flex items-center justify-between min-w-0">
             <div className="flex items-center gap-2.5 min-w-0">
               <div className="relative">
@@ -103,11 +103,11 @@ export const Sidebar: React.FC = () => {
               </div>
               {!isCollapsed && (
                 <div className="min-w-0 flex flex-col">
-                  <span className="text-xs font-bold text-slate-700 truncate leading-none mb-1">
+                  <span className="text-xs font-bold text-slate-700 dark:text-slate-200 truncate leading-none mb-1">
                     {session?.user?.user_metadata?.display_name || session?.user?.email?.split('@')[0] || 'Vishal Sharma'}
                   </span>
                   <span className="text-[9px] text-slate-400 font-semibold truncate leading-none">
-                    {session?.user?.email || 'owner@repairos.com'}
+                    {session?.user?.email || 'owner@reconnectmobile.in'}
                   </span>
                 </div>
               )}

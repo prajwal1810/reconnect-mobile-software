@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+﻿import React, { useState, useEffect } from 'react';
 import { useApp } from '../../context/AppContext';
 import { DatabaseService } from '../../services/dbAdapter';
 import { RepairJob } from '../../services/mockDb';
@@ -243,26 +243,26 @@ export const LiveTracking: React.FC = () => {
     } else {
       // Light Mode card backgrounds (Embedded)
       switch (status) {
-        case 'In Repair': return 'bg-white border-l-4 border-l-indigo-500 border-y border-r border-slate-100 shadow-xs';
-        case 'Waiting Approval': return 'bg-white border-l-4 border-l-amber-500 border-y border-r border-slate-100 shadow-xs animate-pulse';
-        case 'Testing': return 'bg-white border-l-4 border-l-purple-500 border-y border-r border-slate-100 shadow-xs';
+        case 'In Repair': return 'bg-white border-l-4 border-l-indigo-500 border-y border-r border-slate-100 dark:border-slate-800 shadow-xs';
+        case 'Waiting Approval': return 'bg-white border-l-4 border-l-amber-500 border-y border-r border-slate-100 dark:border-slate-800 shadow-xs animate-pulse';
+        case 'Testing': return 'bg-white border-l-4 border-l-purple-500 border-y border-r border-slate-100 dark:border-slate-800 shadow-xs';
         case 'Completed': 
-        case 'Ready': return 'bg-green-50/20 border-l-4 border-l-green-500 border-y border-r border-slate-100 shadow-xs';
-        default: return 'bg-white border-l-4 border-l-slate-300 border-y border-r border-slate-100 shadow-xs';
+        case 'Ready': return 'bg-green-50/20 border-l-4 border-l-green-500 border-y border-r border-slate-100 dark:border-slate-800 shadow-xs';
+        default: return 'bg-white border-l-4 border-l-slate-300 border-y border-r border-slate-100 dark:border-slate-800 shadow-xs';
       }
     }
   };
 
   const getStatusTextBadge = (status: string) => {
     switch (status) {
-      case 'Received': return <span className="px-2.5 py-0.5 bg-blue-50 text-blue-600 text-[9px] font-bold rounded-md uppercase tracking-wider">Received</span>;
+      case 'Received': return <span className="px-2.5 py-0.5 bg-blue-50 dark:bg-blue-900/30 text-blue-600 text-[9px] font-bold rounded-md uppercase tracking-wider">Received</span>;
       case 'Diagnosis': return <span className="px-2.5 py-0.5 bg-sky-50 text-sky-600 text-[9px] font-bold rounded-md uppercase tracking-wider">Diagnosis</span>;
       case 'Waiting Approval': return <span className="px-2.5 py-0.5 bg-amber-50 text-amber-600 text-[9px] font-bold rounded-md uppercase tracking-wider">Waiting Approval</span>;
       case 'In Repair': return <span className="px-2.5 py-0.5 bg-indigo-50 text-indigo-600 text-[9px] font-bold rounded-md uppercase tracking-wider">In Repair</span>;
       case 'Testing': return <span className="px-2.5 py-0.5 bg-purple-50 text-purple-600 text-[9px] font-bold rounded-md uppercase tracking-wider">Testing</span>;
       case 'Completed': 
       case 'Ready': return <span className="px-2.5 py-0.5 bg-green-50 text-green-600 text-[9px] font-bold rounded-md uppercase tracking-wider">Ready</span>;
-      default: return <span className="px-2.5 py-0.5 bg-slate-50 text-slate-600 text-[9px] font-bold rounded-md uppercase tracking-wider">{status}</span>;
+      default: return <span className="px-2.5 py-0.5 bg-slate-50 dark:bg-slate-800 text-slate-600 dark:text-slate-300 text-[9px] font-bold rounded-md uppercase tracking-wider">{status}</span>;
     }
   };
 
@@ -275,14 +275,14 @@ export const LiveTracking: React.FC = () => {
       }`}
     >
       {/* Wallboard Header */}
-      <div className={`flex items-center justify-between border-b pb-4 shrink-0 ${isFullScreen ? 'border-slate-800' : 'border-slate-100'}`}>
+      <div className={`flex items-center justify-between border-b pb-4 shrink-0 ${isFullScreen ? 'border-slate-800' : 'border-slate-100 dark:border-slate-800'}`}>
         <div className="flex items-center gap-3">
           <div className="w-10 h-10 rounded-xl bg-blue-600 flex items-center justify-center text-white font-bold text-lg shadow-md shadow-blue-200 shrink-0">
             TV
           </div>
           <div>
-            <h1 className={`text-xl font-bold tracking-tight ${isFullScreen ? 'text-white' : 'text-slate-800'}`}>
-              RepairOS Live Tracking Board
+            <h1 className={`text-xl font-bold tracking-tight ${isFullScreen ? 'text-white' : 'text-slate-800 dark:text-slate-100'}`}>
+              Reconnect Mobile Live Tracking Board
             </h1>
             <p className="text-xs font-semibold text-slate-450 mt-0.5">
               Realtime visual monitoring command console
@@ -293,7 +293,7 @@ export const LiveTracking: React.FC = () => {
         {/* Live Clock & Fullscreen Switcher */}
         <div className="flex items-center gap-3.5 relative">
 
-          <div className={`flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-semibold ${isFullScreen ? 'bg-slate-800 text-slate-300' : 'bg-white border border-slate-200 text-slate-600'}`}>
+          <div className={`flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-semibold ${isFullScreen ? 'bg-slate-800 text-slate-300' : 'bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 dark:border-slate-700 text-slate-600 dark:text-slate-300'}`}>
             <Clock className="w-4 h-4 text-blue-500 animate-pulse" />
             <span className="font-mono text-xs">{time.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' })}</span>
           </div>
@@ -308,7 +308,7 @@ export const LiveTracking: React.FC = () => {
             className={`p-2.5 rounded-xl border transition cursor-pointer ${
               isFullScreen 
                 ? 'bg-slate-850 border-slate-800 hover:bg-slate-800 text-white hover:border-slate-700' 
-                : 'bg-white border-slate-200 hover:bg-slate-50 text-slate-500'
+                : 'bg-white border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-500 dark:text-slate-400'
             }`}
           >
             {isFullScreen ? <Minimize2 className="w-4.5 h-4.5" /> : <Maximize2 className="w-4.5 h-4.5" />}
@@ -320,13 +320,13 @@ export const LiveTracking: React.FC = () => {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 flex-1 min-h-0 py-6">
         
         {/* Column Left: CS Queue */}
-        <div className={`rounded-2xl p-5 border flex flex-col min-h-0 ${isFullScreen ? 'bg-slate-850/50 border-slate-800' : 'bg-white border-slate-100 shadow-sm'}`}>
-          <div className="flex justify-between items-center pb-3 border-b border-slate-100/10 shrink-0">
+        <div className={`rounded-2xl p-5 border flex flex-col min-h-0 ${isFullScreen ? 'bg-slate-850/50 border-slate-800' : 'bg-white border-slate-100 dark:border-slate-800 shadow-sm'}`}>
+          <div className="flex justify-between items-center pb-3 border-b border-slate-100 dark:border-slate-800/10 shrink-0">
             <div className="flex items-center gap-2">
               <span className="w-6.5 h-6.5 rounded-lg bg-blue-600 text-white font-bold text-xs flex items-center justify-center">CS</span>
-              <h2 className={`font-extrabold text-sm ${isFullScreen ? 'text-white' : 'text-slate-700'}`}>Check & Service Queue</h2>
+              <h2 className={`font-extrabold text-sm ${isFullScreen ? 'text-white' : 'text-slate-700 dark:text-slate-200'}`}>Check & Service Queue</h2>
             </div>
-            <span className={`text-[10px] font-bold px-2 py-0.5 rounded-md ${isFullScreen ? 'bg-slate-800 text-slate-400' : 'bg-slate-50 text-slate-500'}`}>
+            <span className={`text-[10px] font-bold px-2 py-0.5 rounded-md ${isFullScreen ? 'bg-slate-800 text-slate-400' : 'bg-slate-50 text-slate-500 dark:text-slate-400'}`}>
               {csQueue.length} Active Jobs
             </span>
           </div>
@@ -335,23 +335,23 @@ export const LiveTracking: React.FC = () => {
           <div className={`grid grid-cols-5 gap-2 p-2 rounded-xl text-center shrink-0 mt-3 ${isFullScreen ? 'bg-slate-900/60 border border-slate-800 text-slate-400' : 'bg-slate-50 text-slate-550'}`}>
             <div>
               <p className="text-[9px] font-bold uppercase tracking-wide">Recd</p>
-              <p className={`text-xs font-extrabold mt-0.5 ${isFullScreen ? 'text-white' : 'text-slate-700'}`}>{csRecdCount}</p>
+              <p className={`text-xs font-extrabold mt-0.5 ${isFullScreen ? 'text-white' : 'text-slate-700 dark:text-slate-200'}`}>{csRecdCount}</p>
             </div>
             <div>
               <p className="text-[9px] font-bold uppercase tracking-wide">Diag</p>
-              <p className={`text-xs font-extrabold mt-0.5 ${isFullScreen ? 'text-white' : 'text-slate-700'}`}>{csDiagCount}</p>
+              <p className={`text-xs font-extrabold mt-0.5 ${isFullScreen ? 'text-white' : 'text-slate-700 dark:text-slate-200'}`}>{csDiagCount}</p>
             </div>
             <div>
               <p className="text-[9px] font-bold uppercase tracking-wide">Appr</p>
-              <p className={`text-xs font-extrabold mt-0.5 ${isFullScreen ? 'text-white' : 'text-slate-700'}`}>{csApprCount}</p>
+              <p className={`text-xs font-extrabold mt-0.5 ${isFullScreen ? 'text-white' : 'text-slate-700 dark:text-slate-200'}`}>{csApprCount}</p>
             </div>
             <div>
               <p className="text-[9px] font-bold uppercase tracking-wide">Repr</p>
-              <p className={`text-xs font-extrabold mt-0.5 ${isFullScreen ? 'text-white' : 'text-slate-700'}`}>{csReprCount}</p>
+              <p className={`text-xs font-extrabold mt-0.5 ${isFullScreen ? 'text-white' : 'text-slate-700 dark:text-slate-200'}`}>{csReprCount}</p>
             </div>
             <div>
               <p className="text-[9px] font-bold uppercase tracking-wide">Comp</p>
-              <p className={`text-xs font-extrabold mt-0.5 ${isFullScreen ? 'text-white' : 'text-slate-700'}`}>{csCompCount}</p>
+              <p className={`text-xs font-extrabold mt-0.5 ${isFullScreen ? 'text-white' : 'text-slate-700 dark:text-slate-200'}`}>{csCompCount}</p>
             </div>
           </div>
 
@@ -368,9 +368,9 @@ export const LiveTracking: React.FC = () => {
                 <div className="space-y-1.5 flex-1 min-w-0">
                   <div className="flex items-center gap-2">
                     <span className={`font-extrabold text-xs ${isFullScreen ? 'text-blue-400' : 'text-blue-600'}`}>#{job.id}</span>
-                    <span className={`text-[10px] font-bold ${isFullScreen ? 'text-slate-400' : 'text-slate-500'}`}>{job.device.brand} {job.device.model}</span>
+                    <span className={`text-[10px] font-bold ${isFullScreen ? 'text-slate-400' : 'text-slate-500 dark:text-slate-400'}`}>{job.device.brand} {job.device.model}</span>
                   </div>
-                  <p className={`font-bold text-xs truncate ${isFullScreen ? 'text-slate-205' : 'text-slate-800'}`}>Cust: {job.customerName}</p>
+                  <p className={`font-bold text-xs truncate ${isFullScreen ? 'text-slate-205' : 'text-slate-800 dark:text-slate-100'}`}>Cust: {job.customerName}</p>
                   <p className="text-[10px] text-slate-400 truncate">Complaint: {job.complaint}</p>
                   <div className="flex items-center gap-1.5 text-[10px] text-slate-400 pt-1">
                     <User className="w-3.5 h-3.5 shrink-0" />
@@ -394,13 +394,13 @@ export const LiveTracking: React.FC = () => {
         </div>
 
         {/* Column Right: DS Queue */}
-        <div className={`rounded-2xl p-5 border flex flex-col min-h-0 ${isFullScreen ? 'bg-slate-850/50 border-slate-800' : 'bg-white border-slate-100 shadow-sm'}`}>
-          <div className="flex justify-between items-center pb-3 border-b border-slate-100/10 shrink-0">
+        <div className={`rounded-2xl p-5 border flex flex-col min-h-0 ${isFullScreen ? 'bg-slate-850/50 border-slate-800' : 'bg-white border-slate-100 dark:border-slate-800 shadow-sm'}`}>
+          <div className="flex justify-between items-center pb-3 border-b border-slate-100 dark:border-slate-800/10 shrink-0">
             <div className="flex items-center gap-2">
               <span className="w-6.5 h-6.5 rounded-lg bg-green-600 text-white font-bold text-xs flex items-center justify-center">DS</span>
-              <h2 className={`font-extrabold text-sm ${isFullScreen ? 'text-white' : 'text-slate-700'}`}>Direct Service Queue</h2>
+              <h2 className={`font-extrabold text-sm ${isFullScreen ? 'text-white' : 'text-slate-700 dark:text-slate-200'}`}>Direct Service Queue</h2>
             </div>
-            <span className={`text-[10px] font-bold px-2 py-0.5 rounded-md ${isFullScreen ? 'bg-slate-800 text-slate-400' : 'bg-slate-50 text-slate-500'}`}>
+            <span className={`text-[10px] font-bold px-2 py-0.5 rounded-md ${isFullScreen ? 'bg-slate-800 text-slate-400' : 'bg-slate-50 text-slate-500 dark:text-slate-400'}`}>
               {dsQueue.length} Active Jobs
             </span>
           </div>
@@ -409,19 +409,19 @@ export const LiveTracking: React.FC = () => {
           <div className={`grid grid-cols-4 gap-2 p-2 rounded-xl text-center shrink-0 mt-3 ${isFullScreen ? 'bg-slate-900/60 border border-slate-800 text-slate-400' : 'bg-slate-50 text-slate-550'}`}>
             <div>
               <p className="text-[9px] font-bold uppercase tracking-wide">Waiting</p>
-              <p className={`text-xs font-extrabold mt-0.5 ${isFullScreen ? 'text-white' : 'text-slate-700'}`}>{dsWaitCount}</p>
+              <p className={`text-xs font-extrabold mt-0.5 ${isFullScreen ? 'text-white' : 'text-slate-700 dark:text-slate-200'}`}>{dsWaitCount}</p>
             </div>
             <div>
               <p className="text-[9px] font-bold uppercase tracking-wide">In Repair</p>
-              <p className={`text-xs font-extrabold mt-0.5 ${isFullScreen ? 'text-white' : 'text-slate-700'}`}>{dsReprCount}</p>
+              <p className={`text-xs font-extrabold mt-0.5 ${isFullScreen ? 'text-white' : 'text-slate-700 dark:text-slate-200'}`}>{dsReprCount}</p>
             </div>
             <div>
               <p className="text-[9px] font-bold uppercase tracking-wide">Testing</p>
-              <p className={`text-xs font-extrabold mt-0.5 ${isFullScreen ? 'text-white' : 'text-slate-700'}`}>{dsTestCount}</p>
+              <p className={`text-xs font-extrabold mt-0.5 ${isFullScreen ? 'text-white' : 'text-slate-700 dark:text-slate-200'}`}>{dsTestCount}</p>
             </div>
             <div>
               <p className="text-[9px] font-bold uppercase tracking-wide">Completed</p>
-              <p className={`text-xs font-extrabold mt-0.5 ${isFullScreen ? 'text-white' : 'text-slate-700'}`}>{dsCompCount}</p>
+              <p className={`text-xs font-extrabold mt-0.5 ${isFullScreen ? 'text-white' : 'text-slate-700 dark:text-slate-200'}`}>{dsCompCount}</p>
             </div>
           </div>
 
@@ -438,9 +438,9 @@ export const LiveTracking: React.FC = () => {
                 <div className="space-y-1.5 flex-1 min-w-0">
                   <div className="flex items-center gap-2">
                     <span className={`font-extrabold text-xs ${isFullScreen ? 'text-green-400' : 'text-green-600'}`}>#{job.id}</span>
-                    <span className={`text-[10px] font-bold ${isFullScreen ? 'text-slate-400' : 'text-slate-500'}`}>{job.device.brand} {job.device.model}</span>
+                    <span className={`text-[10px] font-bold ${isFullScreen ? 'text-slate-400' : 'text-slate-500 dark:text-slate-400'}`}>{job.device.brand} {job.device.model}</span>
                   </div>
-                  <p className={`font-bold text-xs truncate ${isFullScreen ? 'text-slate-205' : 'text-slate-800'}`}>Cust: {job.customerName}</p>
+                  <p className={`font-bold text-xs truncate ${isFullScreen ? 'text-slate-205' : 'text-slate-800 dark:text-slate-100'}`}>Cust: {job.customerName}</p>
                   <p className="text-[10px] text-slate-400 truncate">Complaint: {job.complaint}</p>
                   <div className="flex items-center gap-1.5 text-[10px] text-slate-400 pt-1">
                     <User className="w-3.5 h-3.5 shrink-0" />
@@ -466,7 +466,7 @@ export const LiveTracking: React.FC = () => {
       </div>
 
       {/* Wallboard footer stats - shrink-0 to prevent overlapping */}
-      <div className={`grid grid-cols-2 md:grid-cols-5 gap-4 p-4.5 rounded-2xl shrink-0 mt-auto ${isFullScreen ? 'bg-slate-850/50 text-slate-350 border border-slate-800' : 'bg-slate-50 border border-slate-100'}`}>
+      <div className={`grid grid-cols-2 md:grid-cols-5 gap-4 p-4.5 rounded-2xl shrink-0 mt-auto ${isFullScreen ? 'bg-slate-850/50 text-slate-350 border border-slate-800' : 'bg-slate-50 border border-slate-100 dark:border-slate-800'}`}>
         <div className="text-center">
           <span className="text-[9px] font-bold uppercase tracking-wider block text-slate-400">Active Queue</span>
           <span className={`text-base font-extrabold mt-1 block ${isFullScreen ? 'text-white' : 'text-slate-850'}`}>
@@ -521,14 +521,14 @@ export const LiveTracking: React.FC = () => {
           />
 
           {/* Slide-out Panel */}
-          <div className="fixed right-0 top-0 h-full w-[460px] max-w-full bg-slate-50 border-l border-slate-200 shadow-2xl z-50 flex flex-col animate-slide-in text-left text-xs text-slate-700">
+          <div className="fixed right-0 top-0 h-full w-[460px] max-w-full bg-slate-50 dark:bg-slate-800 border-l border-slate-200 dark:border-slate-700 shadow-2xl z-50 flex flex-col animate-slide-in text-left text-xs text-slate-700 dark:text-slate-200">
             {/* Drawer Header */}
-            <div className="p-4 bg-white border-b border-slate-200 flex justify-between items-center shrink-0">
+            <div className="p-4 bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-700 flex justify-between items-center shrink-0">
               <div>
                 <div className="flex items-center gap-2">
-                  <h3 className="font-extrabold text-slate-800 text-sm">Job: #{activeRepair.id}</h3>
+                  <h3 className="font-extrabold text-slate-800 dark:text-slate-100 text-sm">Job: #{activeRepair.id}</h3>
                   <span className={`px-2 py-0.5 rounded text-[9px] font-bold uppercase ${
-                    activeRepair.type === 'CS' ? 'bg-blue-50 text-blue-600' : 'bg-green-50 text-green-600'
+                    activeRepair.type === 'CS' ? 'bg-blue-50 dark:bg-blue-900/30 text-blue-600' : 'bg-green-50 text-green-600'
                   }`}>
                     {activeRepair.type === 'CS' ? 'CS' : 'DS'}
                   </span>
@@ -538,12 +538,12 @@ export const LiveTracking: React.FC = () => {
               
               <div className="flex items-center gap-3">
                 {/* Timer */}
-                <div className="flex items-center gap-1.5 bg-slate-50 border border-slate-100 px-2 py-1 rounded-lg">
+                <div className="flex items-center gap-1.5 bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-800 px-2 py-1 rounded-lg">
                   <Clock className="w-3.5 h-3.5 text-slate-400" />
-                  <span className="font-mono text-[11px] font-bold text-slate-700">{formatTimer(timerSeconds)}</span>
+                  <span className="font-mono text-[11px] font-bold text-slate-700 dark:text-slate-200">{formatTimer(timerSeconds)}</span>
                   <button 
                     onClick={() => setTimerActive(!timerActive)}
-                    className="w-5 h-5 rounded bg-white border border-slate-200 flex items-center justify-center text-slate-500 hover:text-slate-750 transition cursor-pointer"
+                    className="w-5 h-5 rounded bg-white dark:bg-slate-900 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 dark:border-slate-700 flex items-center justify-center text-slate-500 dark:text-slate-400 hover:text-slate-750 transition cursor-pointer"
                   >
                     {timerActive ? <Pause className="w-2.5 h-2.5" /> : <Play className="w-2.5 h-2.5" />}
                   </button>
@@ -551,7 +551,7 @@ export const LiveTracking: React.FC = () => {
                 
                 <button 
                   onClick={() => setActiveRepairId(null)}
-                  className="p-1.5 rounded-lg border border-slate-200 hover:bg-slate-50 text-slate-400 hover:text-slate-650 transition cursor-pointer"
+                  className="p-1.5 rounded-lg border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-400 hover:text-slate-650 transition cursor-pointer"
                   title="Deselect Repair"
                 >
                   <X className="w-3.5 h-3.5" />
@@ -563,8 +563,8 @@ export const LiveTracking: React.FC = () => {
             <div className="p-4 overflow-y-auto flex-1 space-y-4">
               
               {/* Specs */}
-              <div className="bg-white border border-slate-100 rounded-xl p-3.5 space-y-2.5 shadow-2xs">
-                <span className="font-bold text-slate-705 uppercase tracking-wider text-[9px] block border-b border-slate-50 pb-1.5">Intake Specifications</span>
+              <div className="bg-white dark:bg-slate-900 dark:bg-slate-900 border border-slate-100 dark:border-slate-800 dark:border-slate-800 rounded-xl p-3.5 space-y-2.5 shadow-2xs">
+                <span className="font-bold text-slate-705 uppercase tracking-wider text-[9px] block border-b border-slate-100 dark:border-slate-800 pb-1.5">Intake Specifications</span>
                 <div className="grid grid-cols-2 gap-2 text-xs font-semibold text-slate-650">
                   <div>
                     <span className="text-[9px] text-slate-400 font-bold block">Brand Model</span>
@@ -576,14 +576,14 @@ export const LiveTracking: React.FC = () => {
                   </div>
                   <div className="col-span-2 p-2 bg-red-50/20 border border-red-50 rounded-lg">
                     <span className="text-[8px] font-bold text-red-500 uppercase tracking-wider block">Complaint</span>
-                    <span className="font-bold text-slate-700 mt-0.5 block leading-normal">{activeRepair.complaint}</span>
+                    <span className="font-bold text-slate-700 dark:text-slate-200 mt-0.5 block leading-normal">{activeRepair.complaint}</span>
                   </div>
                 </div>
               </div>
 
               {/* Status workflow */}
-              <div className="bg-white border border-slate-100 rounded-xl p-3.5 space-y-2.5 shadow-2xs">
-                <span className="font-bold text-slate-705 uppercase tracking-wider text-[9px] block border-b border-slate-50 pb-1.5">Repair Status Workflow</span>
+              <div className="bg-white dark:bg-slate-900 dark:bg-slate-900 border border-slate-100 dark:border-slate-800 dark:border-slate-800 rounded-xl p-3.5 space-y-2.5 shadow-2xs">
+                <span className="font-bold text-slate-705 uppercase tracking-wider text-[9px] block border-b border-slate-100 dark:border-slate-800 pb-1.5">Repair Status Workflow</span>
                 <div className="grid grid-cols-2 gap-1.5">
                   {['Received', 'Diagnosis', 'Waiting Approval', 'In Repair', 'Testing'].map(stage => {
                     const isCurrent = activeRepair.status === stage;
@@ -594,7 +594,7 @@ export const LiveTracking: React.FC = () => {
                         className={`px-3 py-1.5 rounded-lg font-bold text-[10px] text-left transition flex items-center justify-between cursor-pointer border ${
                           isCurrent 
                             ? 'bg-blue-600 border-blue-600 text-white shadow-sm' 
-                            : 'bg-slate-50 border-slate-150/40 hover:bg-slate-105 text-slate-600'
+                            : 'bg-slate-50 border-slate-150/40 hover:bg-slate-105 text-slate-600 dark:text-slate-300'
                         }`}
                       >
                         <span>{stage}</span>
@@ -613,8 +613,8 @@ export const LiveTracking: React.FC = () => {
               </div>
 
               {/* Diagnosis Form */}
-              <div className="bg-white border border-slate-100 rounded-xl p-3.5 space-y-3 shadow-2xs">
-                <span className="font-bold text-slate-705 uppercase tracking-wider text-[9px] block border-b border-slate-50 pb-1.5">Technical Diagnosis</span>
+              <div className="bg-white dark:bg-slate-900 dark:bg-slate-900 border border-slate-100 dark:border-slate-800 dark:border-slate-800 rounded-xl p-3.5 space-y-3 shadow-2xs">
+                <span className="font-bold text-slate-705 uppercase tracking-wider text-[9px] block border-b border-slate-100 dark:border-slate-800 pb-1.5">Technical Diagnosis</span>
                 <div className="space-y-2.5 text-xs font-semibold text-slate-650">
                   <div>
                     <label className="block text-[9px] text-slate-455 font-bold mb-1">Observed Issue *</label>
@@ -623,7 +623,7 @@ export const LiveTracking: React.FC = () => {
                       value={observedIssue}
                       onChange={e => setObservedIssue(e.target.value)}
                       placeholder="Observed issue description"
-                      className="w-full border border-slate-200 px-3 py-1.5 rounded-lg text-slate-750 focus:outline-none"
+                      className="w-full border border-slate-200 dark:border-slate-700 px-3 py-1.5 rounded-lg text-slate-750 focus:outline-none"
                     />
                   </div>
                   <div>
@@ -633,7 +633,7 @@ export const LiveTracking: React.FC = () => {
                       value={rootCause}
                       onChange={e => setRootCause(e.target.value)}
                       placeholder="Root cause description"
-                      className="w-full border border-slate-200 px-3 py-1.5 rounded-lg text-slate-755 focus:outline-none"
+                      className="w-full border border-slate-200 dark:border-slate-700 px-3 py-1.5 rounded-lg text-slate-755 focus:outline-none"
                     />
                   </div>
                   <div>
@@ -643,7 +643,7 @@ export const LiveTracking: React.FC = () => {
                       value={diagNotes}
                       onChange={e => setDiagNotes(e.target.value)}
                       placeholder="Motherboard voltage patterns, reballing profiles..."
-                      className="w-full border border-slate-200 p-2 rounded-lg text-slate-750 focus:outline-none resize-none font-medium text-[11px]"
+                      className="w-full border border-slate-200 dark:border-slate-700 p-2 rounded-lg text-slate-750 focus:outline-none resize-none font-medium text-[11px]"
                     />
                   </div>
                   <button 
@@ -656,14 +656,14 @@ export const LiveTracking: React.FC = () => {
               </div>
 
               {/* QA Checklist */}
-              <div className="bg-white border border-slate-100 rounded-xl p-3.5 space-y-2.5 shadow-2xs">
-                <span className="font-bold text-slate-705 uppercase tracking-wider text-[9px] block border-b border-slate-50 pb-1.5">QA Testing Checklist</span>
+              <div className="bg-white dark:bg-slate-900 dark:bg-slate-900 border border-slate-100 dark:border-slate-800 dark:border-slate-800 rounded-xl p-3.5 space-y-2.5 shadow-2xs">
+                <span className="font-bold text-slate-705 uppercase tracking-wider text-[9px] block border-b border-slate-100 dark:border-slate-800 pb-1.5">QA Testing Checklist</span>
                 <div className="grid grid-cols-2 gap-2">
                   {tests.map(test => (
                     <div key={test.name} className="flex justify-between items-center text-xs font-bold text-slate-705">
                       <span>{test.name}</span>
                       
-                      <div className="flex gap-1 p-0.5 bg-slate-50 border border-slate-100 rounded-md shrink-0">
+                      <div className="flex gap-1 p-0.5 bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-800 rounded-md shrink-0">
                         <button 
                           onClick={() => handleTestChange(test.name, 'pass')}
                           className={`px-1.5 py-0.5 rounded text-[8px] transition cursor-pointer ${
@@ -695,14 +695,14 @@ export const LiveTracking: React.FC = () => {
               </div>
 
               {/* Spare Parts deduction */}
-              <div className="bg-white border border-slate-100 rounded-xl p-3.5 space-y-2.5 shadow-2xs">
-                <span className="font-bold text-slate-705 uppercase tracking-wider text-[9px] block border-b border-slate-50 pb-1.5">Spare Parts Consumption</span>
+              <div className="bg-white dark:bg-slate-900 dark:bg-slate-900 border border-slate-100 dark:border-slate-800 dark:border-slate-800 rounded-xl p-3.5 space-y-2.5 shadow-2xs">
+                <span className="font-bold text-slate-705 uppercase tracking-wider text-[9px] block border-b border-slate-100 dark:border-slate-800 pb-1.5">Spare Parts Consumption</span>
                 <form onSubmit={handleAddPart} className="flex gap-1.5">
                   <div className="flex-1">
                     <select 
                       value={selectedPartId}
                       onChange={e => setSelectedPartId(e.target.value)}
-                      className="w-full bg-slate-50 border border-slate-200 px-2 py-1.5 rounded-lg text-[9px] font-bold text-slate-705 focus:outline-none"
+                      className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 px-2 py-1.5 rounded-lg text-[9px] font-bold text-slate-705 focus:outline-none"
                     >
                       <option value="">-- Choose Spare --</option>
                       {inventory.filter(item => (item.location || 'Main Stock') === 'Main Stock').map(item => (
@@ -723,7 +723,7 @@ export const LiveTracking: React.FC = () => {
                       min={1}
                       value={partQty}
                       onChange={e => setPartQty(parseInt(e.target.value) || 1)}
-                      className="w-full border border-slate-200 px-1 py-1.5 rounded-lg text-[9px] font-bold text-center focus:outline-none"
+                      className="w-full border border-slate-200 dark:border-slate-700 px-1 py-1.5 rounded-lg text-[9px] font-bold text-center focus:outline-none"
                     />
                   </div>
 
@@ -733,7 +733,7 @@ export const LiveTracking: React.FC = () => {
                     className={`px-2.5 py-1.5 text-[9px] font-bold rounded-lg cursor-pointer transition ${
                       selectedPartId 
                         ? 'bg-green-600 hover:bg-green-700 text-white shadow-xs' 
-                        : 'bg-slate-100 text-slate-450 cursor-not-allowed border border-slate-200'
+                        : 'bg-slate-100 text-slate-450 cursor-not-allowed border border-slate-200 dark:border-slate-700'
                     }`}
                   >
                     Add
@@ -743,14 +743,14 @@ export const LiveTracking: React.FC = () => {
                 {/* List of currently consumed parts */}
                 <div className="space-y-1 text-xs font-semibold text-slate-650 pt-1">
                   <p className="text-[8px] font-bold text-slate-400 uppercase tracking-wider">Consumed Spares</p>
-                  <div className="divide-y divide-slate-50 max-h-32 overflow-y-auto pr-1">
+                  <div className="divide-y divide-slate-100 dark:divide-slate-800 dark:divide-slate-800 max-h-32 overflow-y-auto pr-1">
                     {activeRepair.billingItems.filter(item => item.id.startsWith('BILL-') || item.name !== 'Labour Charges').map((item, i) => (
                       <div key={i} className="py-1 flex justify-between items-center text-[11px]">
                         <div>
-                          <p className="font-bold text-slate-800">{item.name}</p>
+                          <p className="font-bold text-slate-800 dark:text-slate-100">{item.name}</p>
                           <p className="text-[8px] text-slate-400 mt-0.5">{item.description}</p>
                         </div>
-                        <span className="font-extrabold text-slate-800 text-[10px]">₹{item.amount}</span>
+                        <span className="font-extrabold text-slate-800 dark:text-slate-100 text-[10px]">₹{item.amount}</span>
                       </div>
                     ))}
                   </div>

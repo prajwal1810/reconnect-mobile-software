@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
+﻿import React, { useState, useEffect } from 'react';
 import { useApp } from '../context/AppContext';
 import { DatabaseService } from '../services/dbAdapter';
-import { Search, Bell, Calendar, ChevronDown, CheckCircle2, AlertTriangle, Info, RefreshCw } from 'lucide-react';
+import { Search, Bell, Calendar, ChevronDown, CheckCircle2, AlertTriangle, Info, RefreshCw, Moon, Sun } from 'lucide-react';
 
 export const Header: React.FC = () => {
   const { 
@@ -16,7 +16,9 @@ export const Header: React.FC = () => {
     customers,
     repairs,
     inventory,
-    session
+    session,
+    darkMode,
+    toggleDarkMode
   } = useApp();
 
   const [showNotifications, setShowNotifications] = useState(false);
@@ -46,7 +48,7 @@ export const Header: React.FC = () => {
       case 'reports': return 'Business Reports & Insights';
       case 'tracking': return 'Live Monitoring Wallboard';
       case 'settings': return 'System Settings';
-      default: return 'RepairOS';
+      default: return 'Reconnect Mobile';
     }
   };
 
@@ -189,7 +191,7 @@ export const Header: React.FC = () => {
   const activeNotifications = getDynamicNotifications();
 
   return (
-    <header className="h-16 bg-white border-b border-slate-100 px-6 flex items-center justify-between sticky top-0 z-40 print:hidden">
+    <header className="h-16 bg-white dark:bg-slate-900 dark:bg-slate-900 border-b border-slate-100 dark:border-slate-800 dark:border-slate-800 px-6 flex items-center justify-between sticky top-0 z-40 print:hidden transition-colors duration-300">
       {/* Left Search Bar */}
       <div 
         className="flex-1 max-w-md relative"
@@ -202,7 +204,7 @@ export const Header: React.FC = () => {
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
           placeholder="Search jobs, invoices, customers, IMEI..." 
-          className="w-full bg-slate-50/70 border border-slate-100 hover:border-slate-200 focus:border-blue-500 focus:bg-white text-slate-700 placeholder-slate-400 pl-10 pr-12 py-2 rounded-xl text-sm transition-all focus:outline-none focus:ring-1 focus:ring-blue-500"
+          className="w-full bg-slate-50/70 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-800 hover:border-slate-200 dark:border-slate-700 focus:border-blue-500 focus:bg-white dark:focus:bg-slate-800 text-slate-700 dark:text-slate-200 placeholder-slate-400 dark:placeholder-slate-500 dark:bg-slate-800 pl-10 pr-12 py-2 rounded-xl text-sm transition-all focus:outline-none focus:ring-1 focus:ring-blue-500"
         />
         <div className="absolute right-3.5 top-1/2 -translate-y-1/2 px-1.5 py-0.5 bg-slate-200/50 rounded text-[10px] font-bold text-slate-400 uppercase select-none">
           ⌘ K
@@ -210,7 +212,7 @@ export const Header: React.FC = () => {
 
         {/* Suggestion Dropdown panel */}
         {showSearchDropdown && searchResults && (
-          <div className="absolute left-0 right-0 mt-2 bg-white border border-slate-100 shadow-xl rounded-2xl overflow-hidden z-50 text-xs font-semibold divide-y divide-slate-50 max-h-[350px] overflow-y-auto">
+          <div className="absolute left-0 right-0 mt-2 bg-white dark:bg-slate-900 dark:bg-slate-900 border border-slate-100 dark:border-slate-800 dark:border-slate-800 shadow-xl rounded-2xl overflow-hidden z-50 text-xs font-semibold divide-y divide-slate-100 dark:divide-slate-800 dark:divide-slate-800 max-h-[350px] overflow-y-auto">
             {searchResults.repairs.length > 0 && (
               <div className="p-3 space-y-1">
                 <span className="text-[10px] text-slate-400 font-bold uppercase tracking-wider block px-1">Repair Jobs</span>
@@ -222,13 +224,13 @@ export const Header: React.FC = () => {
                       setActiveTab('customers');
                       setSearchQuery('');
                     }}
-                    className="w-full text-left p-2 hover:bg-slate-50 rounded-xl flex justify-between items-center transition cursor-pointer"
+                    className="w-full text-left p-2 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-xl flex justify-between items-center transition cursor-pointer"
                   >
                     <div>
-                      <p className="text-slate-800 font-bold">#{r.id} • {r.device.brand} {r.device.model}</p>
+                      <p className="text-slate-800 dark:text-slate-100 font-bold">#{r.id} • {r.device.brand} {r.device.model}</p>
                       <p className="text-[10px] text-slate-400 font-medium mt-0.5">Cust: {r.customerName} • Tech: {r.technician}</p>
                     </div>
-                    <span className="px-2 py-0.5 bg-blue-50 text-blue-600 text-[9px] font-bold rounded">{r.status}</span>
+                    <span className="px-2 py-0.5 bg-blue-50 dark:bg-blue-900/30 text-blue-600 text-[9px] font-bold rounded">{r.status}</span>
                   </button>
                 ))}
               </div>
@@ -245,10 +247,10 @@ export const Header: React.FC = () => {
                       setActiveTab('customers');
                       setSearchQuery('');
                     }}
-                    className="w-full text-left p-2 hover:bg-slate-50 rounded-xl flex justify-between items-center transition cursor-pointer"
+                    className="w-full text-left p-2 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-xl flex justify-between items-center transition cursor-pointer"
                   >
                     <div>
-                      <p className="text-slate-800 font-bold">{c.name}</p>
+                      <p className="text-slate-800 dark:text-slate-100 font-bold">{c.name}</p>
                       <p className="text-[10px] text-slate-400 font-medium mt-0.5">Phone: +91 {c.phone} • {c.city}</p>
                     </div>
                     <span className="text-[10px] text-slate-400 font-bold">Details →</span>
@@ -267,10 +269,10 @@ export const Header: React.FC = () => {
                       setActiveTab('inventory');
                       setSearchQuery('');
                     }}
-                    className="w-full text-left p-2 hover:bg-slate-50 rounded-xl flex justify-between items-center transition cursor-pointer"
+                    className="w-full text-left p-2 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-xl flex justify-between items-center transition cursor-pointer"
                   >
                     <div>
-                      <p className="text-slate-800 font-bold">{i.name}</p>
+                      <p className="text-slate-800 dark:text-slate-100 font-bold">{i.name}</p>
                       <p className="text-[10px] text-slate-400 font-medium mt-0.5">Part: {i.partNumber} • Model: {i.brand} {i.model}</p>
                     </div>
                     <span className="px-2 py-0.5 bg-green-50 text-green-600 text-[9px] font-bold rounded">{i.status}</span>
@@ -314,10 +316,19 @@ export const Header: React.FC = () => {
         {renderPrimaryAction()}
 
         {/* Date Display */}
-        <div className="flex items-center gap-2 px-3 py-2 bg-slate-50 border border-slate-100 rounded-xl text-xs font-semibold text-slate-600">
+        <div className="flex items-center gap-2 px-3 py-2 bg-slate-50 dark:bg-slate-800 dark:bg-slate-800 border border-slate-100 dark:border-slate-800 dark:border-slate-700 rounded-xl text-xs font-semibold text-slate-600 dark:text-slate-300 dark:text-slate-300">
           <Calendar className="w-3.5 h-3.5 text-slate-400" />
           <span>Today, {new Date().toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' })}</span>
         </div>
+
+        {/* Dark Mode Toggle */}
+        <button
+          onClick={toggleDarkMode}
+          title={darkMode ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
+          className="w-10 h-10 rounded-xl bg-slate-50 dark:bg-slate-800 dark:bg-slate-800 border border-slate-100 dark:border-slate-800 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-700 dark:hover:bg-slate-700 flex items-center justify-center text-slate-500 dark:text-slate-400 dark:text-slate-300 transition-all cursor-pointer"
+        >
+          {darkMode ? <Sun className="w-4.5 h-4.5 text-amber-400" /> : <Moon className="w-4.5 h-4.5" />}
+        </button>
 
         {/* Notifications Icon */}
         <div className="relative">
@@ -326,11 +337,11 @@ export const Header: React.FC = () => {
               setShowNotifications(!showNotifications);
               if (notificationsCount > 0) clearNotifications();
             }}
-            className="w-10 h-10 rounded-xl bg-slate-50 border border-slate-100 hover:bg-slate-100 flex items-center justify-center text-slate-500 transition-all cursor-pointer relative"
+            className="w-10 h-10 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 flex items-center justify-center text-slate-500 dark:text-slate-400 transition-all cursor-pointer relative"
           >
             <Bell className="w-5 h-5" />
             {activeNotifications.length > 0 && (
-              <span className="absolute -top-1.5 -right-1.5 w-5 h-5 bg-red-500 text-white text-[10px] font-bold rounded-full flex items-center justify-center ring-2 ring-white">
+              <span className="absolute -top-1.5 -right-1.5 w-5 h-5 bg-red-500 text-white text-[10px] font-bold rounded-full flex items-center justify-center ring-2 ring-white dark:ring-slate-900">
                 {activeNotifications.length}
               </span>
             )}
@@ -338,9 +349,9 @@ export const Header: React.FC = () => {
 
           {/* Notifications Dropdown */}
           {showNotifications && (
-            <div className="absolute right-0 mt-2 w-80 bg-white rounded-2xl border border-slate-100 shadow-xl overflow-hidden z-50">
-              <div className="px-4 py-3 bg-slate-50 border-b border-slate-100 flex items-center justify-between">
-                <span className="text-xs font-bold text-slate-700">Recent Notifications</span>
+            <div className="absolute right-0 mt-2 w-80 bg-white dark:bg-slate-900 rounded-2xl border border-slate-100 dark:border-slate-800 shadow-xl overflow-hidden z-50">
+              <div className="px-4 py-3 bg-slate-50 dark:bg-slate-800 border-b border-slate-100 dark:border-slate-800 flex items-center justify-between">
+                <span className="text-xs font-bold text-slate-700 dark:text-slate-200">Recent Notifications</span>
                 <button 
                   onClick={() => setShowNotifications(false)}
                   className="text-[10px] font-semibold text-blue-600 hover:text-blue-700"
@@ -348,20 +359,20 @@ export const Header: React.FC = () => {
                   Close
                 </button>
               </div>
-              <div className="divide-y divide-slate-50 max-h-80 overflow-y-auto">
+              <div className="divide-y divide-slate-100 dark:divide-slate-800 dark:divide-slate-800 max-h-80 overflow-y-auto">
                 {activeNotifications.length === 0 ? (
                   <div className="p-6 text-center text-slate-400 text-xs font-semibold">
                     No new alerts or notifications.
                   </div>
                 ) : (
                   activeNotifications.map((notif) => (
-                    <div key={notif.id} className="p-4 hover:bg-slate-50/50 flex gap-3 text-left">
+                    <div key={notif.id} className="p-4 hover:bg-slate-50/50 dark:hover:bg-slate-800/50 dark:bg-slate-800/30 flex gap-3 text-left">
                       {notif.type === 'warning' && <AlertTriangle className="w-4 h-4 text-amber-500 shrink-0 mt-0.5" />}
                       {notif.type === 'success' && <CheckCircle2 className="w-4 h-4 text-green-500 shrink-0 mt-0.5" />}
                       {notif.type === 'info' && <Info className="w-4 h-4 text-blue-500 shrink-0 mt-0.5" />}
                       <div className="flex-1 min-w-0">
-                        <p className="text-xs font-bold text-slate-800 leading-tight mb-0.5">{notif.title}</p>
-                        <p className="text-xs text-slate-500 truncate leading-tight">{notif.text}</p>
+                        <p className="text-xs font-bold text-slate-800 dark:text-slate-100 leading-tight mb-0.5">{notif.title}</p>
+                        <p className="text-xs text-slate-500 dark:text-slate-400 truncate leading-tight">{notif.text}</p>
                         <span className="text-[10px] text-slate-400 font-medium mt-1 inline-block">{notif.time}</span>
                       </div>
                     </div>
@@ -380,10 +391,10 @@ export const Header: React.FC = () => {
           <img 
             src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=100&q=80" 
             alt="User avatar" 
-            className="w-9 h-9 rounded-full object-cover border border-slate-100"
+            className="w-9 h-9 rounded-full object-cover border border-slate-100 dark:border-slate-800"
           />
           <div className="hidden xl:flex flex-col text-left">
-            <span className="text-xs font-bold text-slate-700">
+            <span className="text-xs font-bold text-slate-700 dark:text-slate-200">
               {session?.user?.user_metadata?.display_name || session?.user?.email?.split('@')[0] || 'Vishal Sharma'}
             </span>
             <span className="text-[10px] text-slate-450 font-semibold truncate max-w-[120px]">

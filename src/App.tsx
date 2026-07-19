@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+﻿import React, { useState } from 'react';
 import { AppProvider, useApp } from './context/AppContext';
 import { Sidebar } from './components/Sidebar';
 import { Header } from './components/Header';
@@ -41,7 +41,7 @@ const AppContent: React.FC = () => {
   };
 
   return (
-    <div className="flex h-screen w-screen overflow-hidden bg-slate-50 text-slate-800">
+    <div className="flex h-screen w-screen overflow-hidden bg-slate-50 dark:bg-slate-800 dark:bg-slate-950 text-slate-800 dark:text-slate-100 dark:text-slate-100 transition-colors duration-300">
       {/* Sidebar navigation */}
       <Sidebar />
 
@@ -51,7 +51,7 @@ const AppContent: React.FC = () => {
         <Header />
 
         {/* Scrollable views */}
-        <main className="flex-1 overflow-y-auto p-6 bg-slate-50/50">
+        <main className="flex-1 overflow-y-auto p-6 bg-slate-50/50 dark:bg-slate-800/30 dark:bg-slate-950">
           {renderActiveScreen()}
         </main>
       </div>

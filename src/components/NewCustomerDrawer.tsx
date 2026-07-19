@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+﻿import React, { useState, useEffect } from 'react';
 import { useApp } from '../context/AppContext';
 import { DatabaseService } from '../services/dbAdapter';
 import { X, AlertCircle, CheckCircle2 } from 'lucide-react';
@@ -87,13 +87,13 @@ export const NewCustomerDrawer: React.FC = () => {
 
   return (
     <div className="fixed inset-0 bg-slate-900/40 backdrop-blur-xs flex justify-end z-50 transition-all duration-300">
-      <div className="w-full max-w-lg bg-white h-full shadow-2xl flex flex-col animate-slide-in">
+      <div className="w-full max-w-lg bg-white dark:bg-slate-900 h-full shadow-2xl flex flex-col animate-slide-in">
         {/* Header */}
-        <div className="px-6 py-5 border-b border-slate-100 flex items-center justify-between">
-          <h2 className="text-lg font-bold text-slate-800">Add New Customer</h2>
+        <div className="px-6 py-5 border-b border-slate-100 dark:border-slate-800 flex items-center justify-between">
+          <h2 className="text-lg font-bold text-slate-800 dark:text-slate-100">Add New Customer</h2>
           <button 
             onClick={() => setIsOpen(false)}
-            className="p-1 rounded-lg text-slate-400 hover:bg-slate-50 hover:text-slate-600 transition"
+            className="p-1 rounded-lg text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 hover:text-slate-600 dark:text-slate-300 transition"
           >
             <X className="w-5 h-5" />
           </button>
@@ -117,7 +117,7 @@ export const NewCustomerDrawer: React.FC = () => {
 
           {/* Phone Field */}
           <div>
-            <label className="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">Phone Number *</label>
+            <label className="block text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2">Phone Number *</label>
             <div className="relative">
               <span className="absolute left-3.5 top-1/2 -translate-y-1/2 text-sm font-semibold text-slate-400">+91</span>
               <input 
@@ -127,7 +127,7 @@ export const NewCustomerDrawer: React.FC = () => {
                 value={phone}
                 onChange={(e) => handlePhoneChange(e.target.value)}
                 placeholder="Enter 10-digit mobile number"
-                className="w-full border border-slate-200 focus:border-blue-500 pl-12 pr-4 py-2.5 rounded-xl text-sm font-medium focus:outline-none transition"
+                className="w-full border border-slate-200 dark:border-slate-700 focus:border-blue-500 pl-12 pr-4 py-2.5 rounded-xl text-sm font-medium focus:outline-none transition"
               />
             </div>
           </div>
@@ -142,13 +142,13 @@ export const NewCustomerDrawer: React.FC = () => {
                   <p className="text-[11px] text-amber-700">A customer is already registered with this phone number.</p>
                 </div>
               </div>
-              <div className="bg-white border border-amber-100/50 rounded-xl p-3 flex justify-between items-center text-xs">
+              <div className="bg-white dark:bg-slate-900 border border-amber-100/50 rounded-xl p-3 flex justify-between items-center text-xs">
                 <div>
-                  <p className="font-bold text-slate-700">{duplicateCustomer.name}</p>
+                  <p className="font-bold text-slate-700 dark:text-slate-200">{duplicateCustomer.name}</p>
                   <p className="text-[10px] text-slate-400 mt-0.5">{duplicateCustomer.city} • Visit: {duplicateCustomer.lastVisit}</p>
                 </div>
                 <div className="text-right">
-                  <span className="px-2 py-0.5 bg-blue-50 text-blue-600 text-[10px] font-bold rounded-md">Existing</span>
+                  <span className="px-2 py-0.5 bg-blue-50 dark:bg-blue-900/30 text-blue-600 text-[10px] font-bold rounded-md">Existing</span>
                 </div>
               </div>
             </div>
@@ -156,43 +156,43 @@ export const NewCustomerDrawer: React.FC = () => {
 
           {/* Full Name */}
           <div>
-            <label className="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">Full Name *</label>
+            <label className="block text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2">Full Name *</label>
             <input 
               type="text" 
               required
               value={name}
               onChange={(e) => setName(e.target.value)}
               placeholder="e.g. Rahul Sharma"
-              className="w-full border border-slate-200 focus:border-blue-500 px-4 py-2.5 rounded-xl text-sm font-medium focus:outline-none transition"
+              className="w-full border border-slate-200 dark:border-slate-700 focus:border-blue-500 px-4 py-2.5 rounded-xl text-sm font-medium focus:outline-none transition"
             />
           </div>
 
           {/* Email */}
           <div>
-            <label className="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">Email Address</label>
+            <label className="block text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2">Email Address</label>
             <input 
               type="email" 
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="e.g. rahul@example.com"
-              className="w-full border border-slate-200 focus:border-blue-500 px-4 py-2.5 rounded-xl text-sm font-medium focus:outline-none transition"
+              className="w-full border border-slate-200 dark:border-slate-700 focus:border-blue-500 px-4 py-2.5 rounded-xl text-sm font-medium focus:outline-none transition"
             />
           </div>
 
           {/* City / State */}
           <div>
-            <label className="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">Location/City</label>
+            <label className="block text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2">Location/City</label>
             <input 
               type="text" 
               value={city}
               onChange={(e) => setCity(e.target.value)}
               placeholder="e.g. Raipur, Chhattisgarh"
-              className="w-full border border-slate-200 focus:border-blue-500 px-4 py-2.5 rounded-xl text-sm font-medium focus:outline-none transition"
+              className="w-full border border-slate-200 dark:border-slate-700 focus:border-blue-500 px-4 py-2.5 rounded-xl text-sm font-medium focus:outline-none transition"
             />
           </div>
 
           {/* VIP Customer */}
-          <div className="flex items-center gap-3 bg-slate-50 border border-slate-100 p-4.5 rounded-2xl">
+          <div className="flex items-center gap-3 bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-800 p-4.5 rounded-2xl">
             <input 
               type="checkbox" 
               id="vip"
@@ -201,18 +201,18 @@ export const NewCustomerDrawer: React.FC = () => {
               className="w-4.5 h-4.5 text-blue-600 rounded-md border-slate-300 focus:ring-blue-500"
             />
             <label htmlFor="vip" className="select-none cursor-pointer">
-              <span className="block text-xs font-bold text-slate-700">VIP Customer Designation</span>
+              <span className="block text-xs font-bold text-slate-700 dark:text-slate-200">VIP Customer Designation</span>
               <span className="block text-[10px] text-slate-400 mt-0.5">Flags customer profiles to prioritize queue assignment.</span>
             </label>
           </div>
         </form>
 
         {/* Footer */}
-        <div className="px-6 py-4 border-t border-slate-100 flex items-center justify-between bg-slate-50/70">
+        <div className="px-6 py-4 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between bg-slate-50/70 dark:bg-slate-800/50">
           <button 
             type="button"
             onClick={() => setIsOpen(false)}
-            className="px-4.5 py-2.5 bg-white border border-slate-200 hover:bg-slate-50 text-slate-600 font-semibold text-xs rounded-xl transition cursor-pointer"
+            className="px-4.5 py-2.5 bg-white dark:bg-slate-900 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-300 font-semibold text-xs rounded-xl transition cursor-pointer"
           >
             Cancel
           </button>

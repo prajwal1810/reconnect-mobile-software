@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+﻿import React, { useState, useEffect } from 'react';
 import { useApp } from '../context/AppContext';
 import { DatabaseService } from '../services/dbAdapter';
 import { Customer } from '../services/mockDb';
@@ -191,18 +191,18 @@ export const NewRepairDrawer: React.FC = () => {
 
   return (
     <div className="fixed inset-0 bg-slate-900/40 backdrop-blur-xs flex justify-end z-50 transition-all duration-300">
-      <div className="w-full max-w-2xl bg-white h-full shadow-2xl flex flex-col animate-slide-in">
+      <div className="w-full max-w-2xl bg-white dark:bg-slate-900 h-full shadow-2xl flex flex-col animate-slide-in">
         {/* Header */}
-        <div className="px-6 py-5 border-b border-slate-100 flex items-center justify-between bg-slate-50/50">
+        <div className="px-6 py-5 border-b border-slate-100 dark:border-slate-800 flex items-center justify-between bg-slate-50/50 dark:bg-slate-800/30">
           <div>
-            <h2 className="text-lg font-bold text-slate-800">
+            <h2 className="text-lg font-bold text-slate-800 dark:text-slate-100">
               Create New Job Card: {repairType === 'CS' ? 'Check & Service' : 'Direct Service'}
             </h2>
             <p className="text-xs text-slate-400 font-medium">Standardized repair intake wizard</p>
           </div>
           <button 
             onClick={() => setIsOpen(false)}
-            className="p-1 rounded-lg text-slate-400 hover:bg-slate-50 hover:text-slate-600 transition"
+            className="p-1 rounded-lg text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 hover:text-slate-600 dark:text-slate-300 transition"
           >
             <X className="w-5 h-5" />
           </button>
@@ -225,8 +225,8 @@ export const NewRepairDrawer: React.FC = () => {
           )}
 
           {/* Repair Type Selector */}
-          <div className="bg-slate-50 border border-slate-100 p-4.5 rounded-2xl space-y-3">
-            <h3 className="text-xs font-bold text-slate-700 uppercase tracking-wider">Repair Job Type</h3>
+          <div className="bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-800 p-4.5 rounded-2xl space-y-3">
+            <h3 className="text-xs font-bold text-slate-700 dark:text-slate-200 uppercase tracking-wider">Repair Job Type</h3>
             <div className="grid grid-cols-2 gap-2 bg-slate-200/50 p-1 rounded-xl">
               <button
                 type="button"
@@ -234,7 +234,7 @@ export const NewRepairDrawer: React.FC = () => {
                 className={`py-2 rounded-lg text-xs font-bold transition cursor-pointer ${
                   repairType === 'CS'
                     ? 'bg-blue-600 text-white shadow-xs'
-                    : 'text-slate-500 hover:text-slate-700'
+                    : 'text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:text-slate-200'
                 }`}
               >
                 Check & Service (CS)
@@ -245,7 +245,7 @@ export const NewRepairDrawer: React.FC = () => {
                 className={`py-2 rounded-lg text-xs font-bold transition cursor-pointer ${
                   repairType === 'DS'
                     ? 'bg-green-600 text-white shadow-xs'
-                    : 'text-slate-500 hover:text-slate-700'
+                    : 'text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:text-slate-200'
                 }`}
               >
                 Direct Service (DS)
@@ -254,58 +254,58 @@ export const NewRepairDrawer: React.FC = () => {
           </div>
 
           {/* Section 1: Customer Information */}
-          <div className="bg-slate-50 border border-slate-100 p-4.5 rounded-2xl space-y-4">
-            <h3 className="text-xs font-bold text-slate-700 uppercase tracking-wider">1. Customer Information</h3>
+          <div className="bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-800 p-4.5 rounded-2xl space-y-4">
+            <h3 className="text-xs font-bold text-slate-700 dark:text-slate-200 uppercase tracking-wider">1. Customer Information</h3>
             
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               <div className="space-y-1.5 text-left">
-                <label className="block text-[11px] font-bold text-slate-500">Customer Name *</label>
+                <label className="block text-[11px] font-bold text-slate-500 dark:text-slate-400">Customer Name *</label>
                 <input 
                   type="text" 
                   value={qcName}
                   onChange={(e) => setQcName(e.target.value)}
                   placeholder="e.g. John Doe"
-                  className="w-full bg-white border border-slate-200 px-3 py-2 rounded-xl text-xs focus:outline-none"
+                  className="w-full bg-white dark:bg-slate-900 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 dark:border-slate-700 px-3 py-2 rounded-xl text-xs focus:outline-none"
                   required
                 />
               </div>
 
               <div className="space-y-1.5 text-left">
-                <label className="block text-[11px] font-bold text-slate-500">Phone Number *</label>
+                <label className="block text-[11px] font-bold text-slate-500 dark:text-slate-400">Phone Number *</label>
                 <input 
                   type="text" 
                   value={qcPhone}
                   onChange={(e) => setQcPhone(e.target.value)}
                   placeholder="e.g. 9876543210"
-                  className="w-full bg-white border border-slate-200 px-3 py-2 rounded-xl text-xs focus:outline-none"
+                  className="w-full bg-white dark:bg-slate-900 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 dark:border-slate-700 px-3 py-2 rounded-xl text-xs focus:outline-none"
                   required
                 />
               </div>
 
               <div className="space-y-1.5 text-left">
-                <label className="block text-[11px] font-bold text-slate-500">City / Area</label>
+                <label className="block text-[11px] font-bold text-slate-500 dark:text-slate-400">City / Area</label>
                 <input 
                   type="text" 
                   value={qcCity}
                   onChange={(e) => setQcCity(e.target.value)}
                   placeholder="e.g. Raipur"
-                  className="w-full bg-white border border-slate-200 px-3 py-2 rounded-xl text-xs focus:outline-none"
+                  className="w-full bg-white dark:bg-slate-900 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 dark:border-slate-700 px-3 py-2 rounded-xl text-xs focus:outline-none"
                 />
               </div>
             </div>
           </div>
 
           {/* Section 2: Device details */}
-          <div className="bg-slate-50 border border-slate-100 p-4.5 rounded-2xl space-y-4">
-            <h3 className="text-xs font-bold text-slate-700 uppercase tracking-wider">2. Device Specifications</h3>
+          <div className="bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-800 p-4.5 rounded-2xl space-y-4">
+            <h3 className="text-xs font-bold text-slate-700 dark:text-slate-200 uppercase tracking-wider">2. Device Specifications</h3>
             
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <label className="block text-[11px] font-bold text-slate-500 mb-1.5">Brand *</label>
+                <label className="block text-[11px] font-bold text-slate-500 dark:text-slate-400 mb-1.5">Brand *</label>
                 <select 
                   value={brand}
                   onChange={(e) => setBrand(e.target.value)}
-                  className="w-full bg-white border border-slate-200 px-3 py-2 rounded-xl text-xs focus:outline-none"
+                  className="w-full bg-white dark:bg-slate-900 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 dark:border-slate-700 px-3 py-2 rounded-xl text-xs focus:outline-none"
                 >
                   <option value="Samsung">Samsung</option>
                   <option value="Apple">Apple</option>
@@ -320,52 +320,52 @@ export const NewRepairDrawer: React.FC = () => {
                 </select>
               </div>
               <div>
-                <label className="block text-[11px] font-bold text-slate-500 mb-1.5">Model *</label>
+                <label className="block text-[11px] font-bold text-slate-500 dark:text-slate-400 mb-1.5">Model *</label>
                 <input 
                   type="text" 
                   required
                   placeholder="e.g. S24 Ultra, iPhone 13" 
                   value={model}
                   onChange={(e) => setModel(e.target.value)}
-                  className="w-full bg-white border border-slate-200 px-3 py-2 rounded-xl text-xs focus:outline-none"
+                  className="w-full bg-white dark:bg-slate-900 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 dark:border-slate-700 px-3 py-2 rounded-xl text-xs focus:outline-none"
                 />
               </div>
               <div>
-                <label className="block text-[11px] font-bold text-slate-500 mb-1.5">Color</label>
+                <label className="block text-[11px] font-bold text-slate-500 dark:text-slate-400 mb-1.5">Color</label>
                 <input 
                   type="text" 
                   placeholder="e.g. Space Gray" 
                   value={color}
                   onChange={(e) => setColor(e.target.value)}
-                  className="w-full bg-white border border-slate-200 px-3 py-2 rounded-xl text-xs focus:outline-none"
+                  className="w-full bg-white dark:bg-slate-900 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 dark:border-slate-700 px-3 py-2 rounded-xl text-xs focus:outline-none"
                 />
               </div>
               <div>
-                <label className="block text-[11px] font-bold text-slate-500 mb-1.5">IMEI Number (Optional)</label>
+                <label className="block text-[11px] font-bold text-slate-500 dark:text-slate-400 mb-1.5">IMEI Number (Optional)</label>
                 <input 
                   type="text" 
                   placeholder="15-digit IMEI" 
                   value={imei}
                   onChange={(e) => setImei(e.target.value)}
-                  className="w-full bg-white border border-slate-200 px-3 py-2 rounded-xl text-xs focus:outline-none"
+                  className="w-full bg-white dark:bg-slate-900 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 dark:border-slate-700 px-3 py-2 rounded-xl text-xs focus:outline-none"
                 />
               </div>
               <div className="col-span-2">
-                <label className="block text-[11px] font-bold text-slate-500 mb-1.5">Serial Number (Optional)</label>
+                <label className="block text-[11px] font-bold text-slate-500 dark:text-slate-400 mb-1.5">Serial Number (Optional)</label>
                 <input 
                   type="text" 
                   placeholder="Device Serial Number" 
                   value={serial}
                   onChange={(e) => setSerial(e.target.value)}
-                  className="w-full bg-white border border-slate-200 px-3 py-2 rounded-xl text-xs focus:outline-none"
+                  className="w-full bg-white dark:bg-slate-900 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 dark:border-slate-700 px-3 py-2 rounded-xl text-xs focus:outline-none"
                 />
               </div>
             </div>
           </div>
 
           {/* Section 3: Complaint */}
-          <div className="bg-slate-50 border border-slate-100 p-4.5 rounded-2xl space-y-4">
-            <h3 className="text-xs font-bold text-slate-700 uppercase tracking-wider">3. Problem Reported</h3>
+          <div className="bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-800 p-4.5 rounded-2xl space-y-4">
+            <h3 className="text-xs font-bold text-slate-700 dark:text-slate-200 uppercase tracking-wider">3. Problem Reported</h3>
             
             <div className="flex flex-wrap gap-2">
               {commonComplaints.map(item => {
@@ -378,7 +378,7 @@ export const NewRepairDrawer: React.FC = () => {
                     className={`px-3 py-1.5 rounded-full text-[11px] font-semibold border transition cursor-pointer ${
                       isSelected 
                         ? 'bg-blue-50 border-blue-200 text-blue-600' 
-                        : 'bg-white border-slate-200 text-slate-500 hover:border-slate-300'
+                        : 'bg-white border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400 hover:border-slate-300'
                     }`}
                   >
                     {item}
@@ -388,42 +388,42 @@ export const NewRepairDrawer: React.FC = () => {
             </div>
 
             <div>
-              <label className="block text-[11px] font-bold text-slate-500 mb-1.5">Additional Observations / Notes</label>
+              <label className="block text-[11px] font-bold text-slate-500 dark:text-slate-400 mb-1.5">Additional Observations / Notes</label>
               <textarea 
                 rows={2}
                 value={complaintText}
                 onChange={(e) => setComplaintText(e.target.value)}
                 placeholder="Describe any specific issues..."
-                className="w-full bg-white border border-slate-200 px-3 py-2 rounded-xl text-xs focus:outline-none resize-none"
+                className="w-full bg-white dark:bg-slate-900 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 dark:border-slate-700 px-3 py-2 rounded-xl text-xs focus:outline-none resize-none"
               />
             </div>
           </div>
 
           {/* Section 4: Device Visual Condition */}
-          <div className="bg-slate-50 border border-slate-100 p-4.5 rounded-2xl space-y-4">
-            <h3 className="text-xs font-bold text-slate-700 uppercase tracking-wider">4. Intake Device Condition</h3>
+          <div className="bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-800 p-4.5 rounded-2xl space-y-4">
+            <h3 className="text-xs font-bold text-slate-700 dark:text-slate-200 uppercase tracking-wider">4. Intake Device Condition</h3>
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <label className="block text-[11px] font-bold text-slate-500 mb-1.5">Screen Condition</label>
-                <input type="text" value={displayCond} onChange={e => setDisplayCond(e.target.value)} className="w-full bg-white border border-slate-200 px-3 py-2 rounded-xl text-xs focus:outline-none" />
+                <label className="block text-[11px] font-bold text-slate-500 dark:text-slate-400 mb-1.5">Screen Condition</label>
+                <input type="text" value={displayCond} onChange={e => setDisplayCond(e.target.value)} className="w-full bg-white dark:bg-slate-900 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 dark:border-slate-700 px-3 py-2 rounded-xl text-xs focus:outline-none" />
               </div>
               <div>
-                <label className="block text-[11px] font-bold text-slate-500 mb-1.5">Scratches / Scuffs</label>
-                <input type="text" value={scratches} onChange={e => setScratches(e.target.value)} className="w-full bg-white border border-slate-200 px-3 py-2 rounded-xl text-xs focus:outline-none" />
+                <label className="block text-[11px] font-bold text-slate-500 dark:text-slate-400 mb-1.5">Scratches / Scuffs</label>
+                <input type="text" value={scratches} onChange={e => setScratches(e.target.value)} className="w-full bg-white dark:bg-slate-900 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 dark:border-slate-700 px-3 py-2 rounded-xl text-xs focus:outline-none" />
               </div>
               <div>
-                <label className="block text-[11px] font-bold text-slate-500 mb-1.5">Dents / Frames</label>
-                <input type="text" value={dents} onChange={e => setDents(e.target.value)} className="w-full bg-white border border-slate-200 px-3 py-2 rounded-xl text-xs focus:outline-none" />
+                <label className="block text-[11px] font-bold text-slate-500 dark:text-slate-400 mb-1.5">Dents / Frames</label>
+                <input type="text" value={dents} onChange={e => setDents(e.target.value)} className="w-full bg-white dark:bg-slate-900 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 dark:border-slate-700 px-3 py-2 rounded-xl text-xs focus:outline-none" />
               </div>
               <div>
-                <label className="block text-[11px] font-bold text-slate-500 mb-1.5">Back Glass</label>
-                <input type="text" value={backGlassCond} onChange={e => setBackGlassCond(e.target.value)} className="w-full bg-white border border-slate-200 px-3 py-2 rounded-xl text-xs focus:outline-none" />
+                <label className="block text-[11px] font-bold text-slate-500 dark:text-slate-400 mb-1.5">Back Glass</label>
+                <input type="text" value={backGlassCond} onChange={e => setBackGlassCond(e.target.value)} className="w-full bg-white dark:bg-slate-900 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 dark:border-slate-700 px-3 py-2 rounded-xl text-xs focus:outline-none" />
               </div>
             </div>
 
             {/* Accessories checklist */}
             <div>
-              <label className="block text-[11px] font-bold text-slate-500 mb-2">Accessories Received with Device</label>
+              <label className="block text-[11px] font-bold text-slate-500 dark:text-slate-400 mb-2">Accessories Received with Device</label>
               <div className="grid grid-cols-3 gap-2">
                 {accessoryOptions.map(item => {
                   const isChecked = accessories.includes(item);
@@ -435,7 +435,7 @@ export const NewRepairDrawer: React.FC = () => {
                       className={`px-3 py-2 text-left rounded-xl text-[11px] font-semibold border transition flex items-center gap-2 cursor-pointer ${
                         isChecked 
                           ? 'bg-blue-50 border-blue-200 text-blue-600' 
-                          : 'bg-white border-slate-100 text-slate-500 hover:border-slate-200'
+                          : 'bg-white border-slate-100 dark:border-slate-800 text-slate-500 dark:text-slate-400 hover:border-slate-200 dark:border-slate-700'
                       }`}
                     >
                       <input type="checkbox" checked={isChecked} readOnly className="rounded border-slate-300" />
@@ -448,26 +448,26 @@ export const NewRepairDrawer: React.FC = () => {
           </div>
 
           {/* Section 5: Assignment & Estimates */}
-          <div className="bg-slate-50 border border-slate-100 p-4.5 rounded-2xl space-y-4">
-            <h3 className="text-xs font-bold text-slate-700 uppercase tracking-wider">5. Work Routing & Estimates</h3>
+          <div className="bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-800 p-4.5 rounded-2xl space-y-4">
+            <h3 className="text-xs font-bold text-slate-700 dark:text-slate-200 uppercase tracking-wider">5. Work Routing & Estimates</h3>
             
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <label className="block text-[11px] font-bold text-slate-500 mb-1.5">Assign Technician</label>
+                <label className="block text-[11px] font-bold text-slate-500 dark:text-slate-400 mb-1.5">Assign Technician</label>
                 <select 
                   value={technician}
                   onChange={(e) => setTechnician(e.target.value)}
-                  className="w-full bg-white border border-slate-200 px-3 py-2 rounded-xl text-xs focus:outline-none"
+                  className="w-full bg-white dark:bg-slate-900 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 dark:border-slate-700 px-3 py-2 rounded-xl text-xs focus:outline-none"
                 >
                   {techniciansList.map(t => <option key={t} value={t}>{t}</option>)}
                 </select>
               </div>
               <div>
-                <label className="block text-[11px] font-bold text-slate-500 mb-1.5">Priority Level</label>
+                <label className="block text-[11px] font-bold text-slate-500 dark:text-slate-400 mb-1.5">Priority Level</label>
                 <select 
                   value={priority}
                   onChange={(e) => setPriority(e.target.value as any)}
-                  className="w-full bg-white border border-slate-200 px-3 py-2 rounded-xl text-xs focus:outline-none font-semibold text-slate-700"
+                  className="w-full bg-white dark:bg-slate-900 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 dark:border-slate-700 px-3 py-2 rounded-xl text-xs focus:outline-none font-semibold text-slate-700 dark:text-slate-200"
                 >
                   <option value="Low">Low</option>
                   <option value="Medium">Medium</option>
@@ -476,39 +476,41 @@ export const NewRepairDrawer: React.FC = () => {
                 </select>
               </div>
               <div>
-                <label className="block text-[11px] font-bold text-slate-500 mb-1.5">Expected Delivery (Days)</label>
+                <label className="block text-[11px] font-bold text-slate-500 dark:text-slate-400 mb-1.5">Expected Delivery (Days)</label>
                 <input 
                   type="number" 
                   min={1}
                   value={expectedDays}
                   onChange={(e) => setExpectedDays(parseInt(e.target.value) || 1)}
-                  className="w-full bg-white border border-slate-200 px-3 py-2 rounded-xl text-xs focus:outline-none"
+                  className="w-full bg-white dark:bg-slate-900 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 dark:border-slate-700 px-3 py-2 rounded-xl text-xs focus:outline-none"
                 />
               </div>
               <div>
-                <label className="block text-[11px] font-bold text-slate-500 mb-1.5">Estimated Cost (₹)</label>
+                <label className="block text-[11px] font-bold text-slate-500 dark:text-slate-400 mb-1.5">Estimated Cost (₹)</label>
                 <input 
                   type="number" 
-                  value={estimatedCost}
-                  onChange={(e) => setEstimatedCost(parseInt(e.target.value) || 0)}
-                  className="w-full bg-white border border-slate-200 px-3 py-2 rounded-xl text-xs focus:outline-none font-bold text-slate-700"
+                  value={estimatedCost === 0 ? '' : estimatedCost}
+                  onChange={(e) => setEstimatedCost(e.target.value === '' ? 0 : (parseInt(e.target.value) || 0))}
+                  placeholder="0"
+                  className="w-full bg-white dark:bg-slate-900 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 dark:border-slate-700 px-3 py-2 rounded-xl text-xs focus:outline-none font-bold text-slate-700 dark:text-slate-200"
                 />
               </div>
               <div>
-                <label className="block text-[11px] font-bold text-slate-500 mb-1.5">Advance Paid (₹)</label>
+                <label className="block text-[11px] font-bold text-slate-500 dark:text-slate-400 mb-1.5">Advance Paid (₹)</label>
                 <input 
                   type="number" 
-                  value={advancePaid}
-                  onChange={(e) => setAdvancePaid(parseInt(e.target.value) || 0)}
-                  className="w-full bg-white border border-slate-200 px-3 py-2 rounded-xl text-xs focus:outline-none font-bold text-green-600"
+                  value={advancePaid === 0 ? '' : advancePaid}
+                  onChange={(e) => setAdvancePaid(e.target.value === '' ? 0 : (parseInt(e.target.value) || 0))}
+                  placeholder="0"
+                  className="w-full bg-white dark:bg-slate-900 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 dark:border-slate-700 px-3 py-2 rounded-xl text-xs focus:outline-none font-bold text-green-600"
                 />
               </div>
               <div>
-                <label className="block text-[11px] font-bold text-slate-500 mb-1.5">Payment Method</label>
+                <label className="block text-[11px] font-bold text-slate-500 dark:text-slate-400 mb-1.5">Payment Method</label>
                 <select 
                   value={paymentMethod}
                   onChange={(e) => setPaymentMethod(e.target.value)}
-                  className="w-full bg-white border border-slate-200 px-3 py-2 rounded-xl text-xs focus:outline-none"
+                  className="w-full bg-white dark:bg-slate-900 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 dark:border-slate-700 px-3 py-2 rounded-xl text-xs focus:outline-none"
                 >
                   <option value="UPI">UPI (PhonePe/GPay)</option>
                   <option value="Cash">Cash</option>
@@ -520,11 +522,11 @@ export const NewRepairDrawer: React.FC = () => {
         </div>
 
         {/* Footer */}
-        <div className="px-6 py-4 border-t border-slate-100 flex items-center justify-between bg-slate-50/70">
+        <div className="px-6 py-4 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between bg-slate-50/70 dark:bg-slate-800/50">
           <button 
             type="button"
             onClick={() => setIsOpen(false)}
-            className="px-4.5 py-2.5 bg-white border border-slate-200 hover:bg-slate-50 text-slate-600 font-semibold text-xs rounded-xl transition cursor-pointer"
+            className="px-4.5 py-2.5 bg-white dark:bg-slate-900 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-300 font-semibold text-xs rounded-xl transition cursor-pointer"
           >
             Cancel
           </button>

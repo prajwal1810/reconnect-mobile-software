@@ -14,7 +14,7 @@ async function run() {
     console.log('Connecting to remote Supabase PostgreSQL...');
     await client.connect();
     console.log('Truncating all tables...');
-    await client.query('TRUNCATE TABLE activity_logs, timeline_events, payments, billing_items, repairs, inventory, customers CASCADE;');
+    await client.query('TRUNCATE TABLE activity_logs, timeline_events, payments, billing_items, repairs, inventory, customers, suppliers, inventory_movements CASCADE;');
     console.log('All dummy data successfully erased from remote database!');
   } catch (err) {
     console.error('Truncation failed:', err);

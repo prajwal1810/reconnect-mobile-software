@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+﻿import React, { useState, useEffect } from 'react';
 import { 
   Sliders, 
   Shield, 
@@ -20,7 +20,7 @@ export const Settings: React.FC = () => {
   const [activeTab, setActiveTab] = useState<'general' | 'roles' | 'supabase' | 'whatsapp'>('general');
 
   // General configuration state
-  const [shopName, setShopName] = useState('RepairOS Headquarters');
+  const [shopName, setShopName] = useState('Reconnect Mobile');
   const [supportPhone, setSupportPhone] = useState('+91 9988776655');
   const [shopAddress, setShopAddress] = useState('VIP Road, Near Magneto Mall, Raipur, Chhattisgarh');
   const [gstin, setGstin] = useState('22AAAAA0000A1Z5');
@@ -37,8 +37,19 @@ export const Settings: React.FC = () => {
   // WhatsApp Alert state
   const [whatsappIntakeAlert, setWhatsappIntakeAlert] = useState(true);
   const [whatsappDeliveryAlert, setWhatsappDeliveryAlert] = useState(true);
-  const [whatsappGateway, setWhatsappGateway] = useState('Twilio API');
+  const [whatsappGateway, setWhatsappGateway] = useState('Meta Cloud API');
   const [whatsappTemplate, setWhatsappTemplate] = useState('Hello {customer_name}, your device {device_model} has been received for diagnostics under Job ID #{job_id}. Track it here: http://localhost:5173/');
+
+  // Meta Cloud API specific config
+  const [waPhoneNumberId, setWaPhoneNumberId] = useState('');
+  const [waAccessToken, setWaAccessToken] = useState('');
+  const [waTemplateIntake, setWaTemplateIntake] = useState('repair_intake_alert');
+  const [waTemplateDiag, setWaTemplateDiag] = useState('repair_diagnosis_alert');
+  const [waTemplateReady, setWaTemplateReady] = useState('repair_ready_alert');
+
+  // Custom HTTP API specific config
+  const [waCustomUrl, setWaCustomUrl] = useState('');
+  const [waCustomToken, setWaCustomToken] = useState('');
 
   // Load configured settings from localStorage if present
   useEffect(() => {
@@ -55,6 +66,24 @@ export const Settings: React.FC = () => {
     setTechEditPrice(localStorage.getItem('cfg_tech_edit_price') === 'true');
     setRequireAdminDiscount(localStorage.getItem('cfg_require_admin_discount') !== 'false');
     setEnableShiftLogs(localStorage.getItem('cfg_enable_shift_logs') === 'true');
+
+    const savedGateway = localStorage.getItem('cfg_wa_gateway');
+    const savedPhoneId = localStorage.getItem('cfg_wa_phone_number_id');
+    const savedToken = localStorage.getItem('cfg_wa_access_token');
+    const savedTplIntake = localStorage.getItem('cfg_wa_tpl_intake');
+    const savedTplDiag = localStorage.getItem('cfg_wa_tpl_diag');
+    const savedTplReady = localStorage.getItem('cfg_wa_tpl_ready');
+    const savedCustomUrl = localStorage.getItem('cfg_wa_custom_url');
+    const savedCustomToken = localStorage.getItem('cfg_wa_custom_token');
+
+    if (savedGateway) setWhatsappGateway(savedGateway);
+    if (savedPhoneId) setWaPhoneNumberId(savedPhoneId);
+    if (savedToken) setWaAccessToken(savedToken);
+    if (savedTplIntake) setWaTemplateIntake(savedTplIntake || 'repair_intake_alert');
+    if (savedTplDiag) setWaTemplateDiag(savedTplDiag || 'repair_diagnosis_alert');
+    if (savedTplReady) setWaTemplateReady(savedTplReady || 'repair_ready_alert');
+    if (savedCustomUrl) setWaCustomUrl(savedCustomUrl);
+    if (savedCustomToken) setWaCustomToken(savedCustomToken);
   }, []);
 
   const handleSaveGeneral = () => {
@@ -73,7 +102,15 @@ export const Settings: React.FC = () => {
   };
 
   const handleSaveWhatsApp = () => {
-    alert('WhatsApp notification alerts and message templates updated!');
+    localStorage.setItem('cfg_wa_gateway', whatsappGateway);
+    localStorage.setItem('cfg_wa_phone_number_id', waPhoneNumberId);
+    localStorage.setItem('cfg_wa_access_token', waAccessToken);
+    localStorage.setItem('cfg_wa_tpl_intake', waTemplateIntake);
+    localStorage.setItem('cfg_wa_tpl_diag', waTemplateDiag);
+    localStorage.setItem('cfg_wa_tpl_ready', waTemplateReady);
+    localStorage.setItem('cfg_wa_custom_url', waCustomUrl);
+    localStorage.setItem('cfg_wa_custom_token', waCustomToken);
+    alert('WhatsApp API Gateway configurations saved successfully!');
   };
 
   const handleExportBackup = () => {
@@ -122,18 +159,18 @@ export const Settings: React.FC = () => {
     <div className="space-y-6 max-w-[1200px] mx-auto pb-10 text-left animate-fade-in">
       {/* Title */}
       <div>
-        <h1 className="text-xl font-bold text-slate-800 tracking-tight">System Settings</h1>
-        <p className="text-xs text-slate-400 font-medium mt-1">Configure RepairOS system options and branch configs</p>
+        <h1 className="text-xl font-bold text-slate-800 dark:text-slate-100 tracking-tight">System Settings</h1>
+        <p className="text-xs text-slate-400 font-medium mt-1">Configure Reconnect Mobile system options and branch configs</p>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         
         {/* Left Navigation Tabs list */}
-        <div className="bg-white border border-slate-100 rounded-2xl p-4 shadow-sm space-y-1 font-semibold text-xs text-slate-600 self-start">
+        <div className="bg-white dark:bg-slate-900 dark:bg-slate-900 border border-slate-100 dark:border-slate-800 dark:border-slate-800 rounded-2xl p-4 shadow-sm space-y-1 font-semibold text-xs text-slate-600 dark:text-slate-300 self-start">
           <button 
             onClick={() => setActiveTab('general')}
             className={`w-full text-left p-3 rounded-xl flex items-center gap-2 transition-all cursor-pointer ${
-              activeTab === 'general' ? 'bg-blue-50 text-blue-600' : 'hover:bg-slate-50 text-slate-600'
+              activeTab === 'general' ? 'bg-blue-50 dark:bg-blue-900/30 text-blue-600' : 'hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-300'
             }`}
           >
             <Sliders className="w-4 h-4" />
@@ -143,7 +180,7 @@ export const Settings: React.FC = () => {
           <button 
             onClick={() => setActiveTab('roles')}
             className={`w-full text-left p-3 rounded-xl flex items-center gap-2 transition-all cursor-pointer ${
-              activeTab === 'roles' ? 'bg-blue-50 text-blue-600' : 'hover:bg-slate-50 text-slate-600'
+              activeTab === 'roles' ? 'bg-blue-50 dark:bg-blue-900/30 text-blue-600' : 'hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-300'
             }`}
           >
             <Shield className="w-4 h-4" />
@@ -153,7 +190,7 @@ export const Settings: React.FC = () => {
           <button 
             onClick={() => setActiveTab('supabase')}
             className={`w-full text-left p-3 rounded-xl flex items-center gap-2 transition-all cursor-pointer ${
-              activeTab === 'supabase' ? 'bg-blue-50 text-blue-600' : 'hover:bg-slate-50 text-slate-600'
+              activeTab === 'supabase' ? 'bg-blue-50 dark:bg-blue-900/30 text-blue-600' : 'hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-300'
             }`}
           >
             <Database className="w-4 h-4" />
@@ -163,7 +200,7 @@ export const Settings: React.FC = () => {
           <button 
             onClick={() => setActiveTab('whatsapp')}
             className={`w-full text-left p-3 rounded-xl flex items-center gap-2 transition-all cursor-pointer ${
-              activeTab === 'whatsapp' ? 'bg-blue-50 text-blue-600' : 'hover:bg-slate-50 text-slate-600'
+              activeTab === 'whatsapp' ? 'bg-blue-50 dark:bg-blue-900/30 text-blue-600' : 'hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-300'
             }`}
           >
             <BellRing className="w-4 h-4" />
@@ -172,12 +209,12 @@ export const Settings: React.FC = () => {
         </div>
 
         {/* Right Settings panel details */}
-        <div className="md:col-span-2 bg-white border border-slate-100 rounded-2xl p-6 shadow-sm space-y-6 text-xs text-slate-700">
+        <div className="md:col-span-2 bg-white dark:bg-slate-900 dark:bg-slate-900 border border-slate-100 dark:border-slate-800 dark:border-slate-800 rounded-2xl p-6 shadow-sm space-y-6 text-xs text-slate-700 dark:text-slate-200">
           
           {activeTab === 'general' && (
             <div className="space-y-6">
-              <div className="border-b border-slate-50 pb-4">
-                <h3 className="text-sm font-bold text-slate-800">General Shop Profile</h3>
+              <div className="border-b border-slate-100 dark:border-slate-800 pb-4">
+                <h3 className="text-sm font-bold text-slate-800 dark:text-slate-100">General Shop Profile</h3>
                 <p className="text-[10px] text-slate-400 font-semibold mt-1">Global receipt headers and shop name specifications</p>
               </div>
 
@@ -188,7 +225,7 @@ export const Settings: React.FC = () => {
                     type="text" 
                     value={shopName}
                     onChange={(e) => setShopName(e.target.value)}
-                    className="w-full border border-slate-200 px-3.5 py-2.5 rounded-xl text-xs font-semibold text-slate-700 focus:outline-none" 
+                    className="w-full border border-slate-200 dark:border-slate-700 px-3.5 py-2.5 rounded-xl text-xs font-semibold text-slate-700 dark:text-slate-200 focus:outline-none" 
                   />
                 </div>
                 <div>
@@ -197,7 +234,7 @@ export const Settings: React.FC = () => {
                     type="text" 
                     value={supportPhone}
                     onChange={(e) => setSupportPhone(e.target.value)}
-                    className="w-full border border-slate-200 px-3.5 py-2.5 rounded-xl text-xs font-semibold text-slate-700 focus:outline-none" 
+                    className="w-full border border-slate-200 dark:border-slate-700 px-3.5 py-2.5 rounded-xl text-xs font-semibold text-slate-700 dark:text-slate-200 focus:outline-none" 
                   />
                 </div>
                 <div className="col-span-2">
@@ -206,7 +243,7 @@ export const Settings: React.FC = () => {
                     type="text" 
                     value={shopAddress}
                     onChange={(e) => setShopAddress(e.target.value)}
-                    className="w-full border border-slate-200 px-3.5 py-2.5 rounded-xl text-xs font-semibold text-slate-700 focus:outline-none" 
+                    className="w-full border border-slate-200 dark:border-slate-700 px-3.5 py-2.5 rounded-xl text-xs font-semibold text-slate-700 dark:text-slate-200 focus:outline-none" 
                   />
                 </div>
                 <div>
@@ -215,7 +252,7 @@ export const Settings: React.FC = () => {
                     type="text" 
                     defaultValue="INR (₹)" 
                     disabled 
-                    className="w-full bg-slate-50 border border-slate-200 px-3 py-2.5 rounded-xl text-xs font-semibold text-slate-450 focus:outline-none cursor-not-allowed" 
+                    className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 px-3 py-2.5 rounded-xl text-xs font-semibold text-slate-450 focus:outline-none cursor-not-allowed" 
                   />
                 </div>
                 <div>
@@ -224,7 +261,7 @@ export const Settings: React.FC = () => {
                     type="text" 
                     value={gstin}
                     onChange={(e) => setGstin(e.target.value)}
-                    className="w-full border border-slate-200 px-3.5 py-2.5 rounded-xl text-xs font-semibold text-slate-700 focus:outline-none" 
+                    className="w-full border border-slate-200 dark:border-slate-700 px-3.5 py-2.5 rounded-xl text-xs font-semibold text-slate-700 dark:text-slate-200 focus:outline-none" 
                   />
                 </div>
               </div>
@@ -243,32 +280,32 @@ export const Settings: React.FC = () => {
 
           {activeTab === 'roles' && (
             <div className="space-y-6 animate-fade-in">
-              <div className="border-b border-slate-50 pb-4">
-                <h3 className="text-sm font-bold text-slate-800">User Roles & Permissions</h3>
+              <div className="border-b border-slate-100 dark:border-slate-800 pb-4">
+                <h3 className="text-sm font-bold text-slate-800 dark:text-slate-100">User Roles & Permissions</h3>
                 <p className="text-[10px] text-slate-400 font-semibold mt-1">Configure dashboard features and technician permissions controls</p>
               </div>
 
               {/* Roles listing */}
               <div className="space-y-3">
                 <h4 className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Defined System Roles</h4>
-                <div className="divide-y divide-slate-50 border border-slate-100 rounded-xl overflow-hidden bg-slate-50/50">
+                <div className="divide-y divide-slate-100 dark:divide-slate-800 dark:divide-slate-800 border border-slate-100 dark:border-slate-800 rounded-xl overflow-hidden bg-slate-50/50 dark:bg-slate-800/30">
                   <div className="p-3.5 flex justify-between items-center text-xs">
                     <div>
-                      <p className="font-extrabold text-slate-800">Administrator</p>
+                      <p className="font-extrabold text-slate-800 dark:text-slate-100">Administrator</p>
                       <p className="text-[10px] text-slate-400 font-medium mt-0.5">Full access to billing, inventory, settings and user management.</p>
                     </div>
-                    <span className="px-2 py-0.5 bg-blue-50 text-blue-600 text-[9px] font-bold rounded-md uppercase">Owner</span>
+                    <span className="px-2 py-0.5 bg-blue-50 dark:bg-blue-900/30 text-blue-600 text-[9px] font-bold rounded-md uppercase">Owner</span>
                   </div>
                   <div className="p-3.5 flex justify-between items-center text-xs">
                     <div>
-                      <p className="font-extrabold text-slate-800">Shop Manager</p>
+                      <p className="font-extrabold text-slate-800 dark:text-slate-100">Shop Manager</p>
                       <p className="text-[10px] text-slate-400 font-medium mt-0.5">Lookup invoices, view billing/payments, add parts to stock.</p>
                     </div>
                     <span className="px-2 py-0.5 bg-green-50 text-green-600 text-[9px] font-bold rounded-md uppercase">Staff</span>
                   </div>
                   <div className="p-3.5 flex justify-between items-center text-xs">
                     <div>
-                      <p className="font-extrabold text-slate-800">Repair Technician</p>
+                      <p className="font-extrabold text-slate-800 dark:text-slate-100">Repair Technician</p>
                       <p className="text-[10px] text-slate-400 font-medium mt-0.5">Access tracking board, log diagnosis notes and consume repair parts.</p>
                     </div>
                     <span className="px-2 py-0.5 bg-indigo-50 text-indigo-600 text-[9px] font-bold rounded-md uppercase">Tech</span>
@@ -288,7 +325,7 @@ export const Settings: React.FC = () => {
                       className="mt-0.5 rounded border-slate-300 text-blue-600 focus:ring-blue-500 w-4 h-4 cursor-pointer"
                     />
                     <div>
-                      <p className="font-bold text-slate-700">Allow Technicians to edit parts pricing</p>
+                      <p className="font-bold text-slate-700 dark:text-slate-200">Allow Technicians to edit parts pricing</p>
                       <p className="text-[10px] text-slate-400 font-medium mt-0.5">Technicians can override spare part costs directly inside workspace drawers.</p>
                     </div>
                   </label>
@@ -301,7 +338,7 @@ export const Settings: React.FC = () => {
                       className="mt-0.5 rounded border-slate-300 text-blue-600 focus:ring-blue-500 w-4 h-4 cursor-pointer"
                     />
                     <div>
-                      <p className="font-bold text-slate-700">Require Administrator approval for major discounts</p>
+                      <p className="font-bold text-slate-700 dark:text-slate-200">Require Administrator approval for major discounts</p>
                       <p className="text-[10px] text-slate-400 font-medium mt-0.5">Prompts billing desk to input admin override key if total discount exceeds 10%.</p>
                     </div>
                   </label>
@@ -314,7 +351,7 @@ export const Settings: React.FC = () => {
                       className="mt-0.5 rounded border-slate-300 text-blue-600 focus:ring-blue-500 w-4 h-4 cursor-pointer"
                     />
                     <div>
-                      <p className="font-bold text-slate-700">Enable shift logging and check-in console</p>
+                      <p className="font-bold text-slate-700 dark:text-slate-200">Enable shift logging and check-in console</p>
                       <p className="text-[10px] text-slate-400 font-medium mt-0.5">Forces staff to check-in/out to log technician hours in telemetry records.</p>
                     </div>
                   </label>
@@ -335,8 +372,8 @@ export const Settings: React.FC = () => {
 
           {activeTab === 'supabase' && (
             <div className="space-y-6 animate-fade-in">
-              <div className="border-b border-slate-50 pb-4">
-                <h3 className="text-sm font-bold text-slate-800">Supabase Sync & Backups</h3>
+              <div className="border-b border-slate-100 dark:border-slate-800 pb-4">
+                <h3 className="text-sm font-bold text-slate-800 dark:text-slate-100">Supabase Sync & Backups</h3>
                 <p className="text-[10px] text-slate-400 font-semibold mt-1">Configure cloud database endpoints or manage local backup imports</p>
               </div>
 
@@ -350,7 +387,7 @@ export const Settings: React.FC = () => {
                       type="text" 
                       value={supabaseUrl}
                       onChange={(e) => setSupabaseUrl(e.target.value)}
-                      className="w-full border border-slate-200 px-3.5 py-2.5 rounded-xl text-xs font-semibold text-slate-700 focus:outline-none" 
+                      className="w-full border border-slate-200 dark:border-slate-700 px-3.5 py-2.5 rounded-xl text-xs font-semibold text-slate-700 dark:text-slate-200 focus:outline-none" 
                     />
                   </div>
                   <div>
@@ -359,7 +396,7 @@ export const Settings: React.FC = () => {
                       type="password" 
                       value={supabaseKey}
                       onChange={(e) => setSupabaseKey(e.target.value)}
-                      className="w-full border border-slate-200 px-3.5 py-2.5 rounded-xl text-xs font-semibold text-slate-700 focus:outline-none" 
+                      className="w-full border border-slate-200 dark:border-slate-700 px-3.5 py-2.5 rounded-xl text-xs font-semibold text-slate-700 dark:text-slate-200 focus:outline-none" 
                     />
                   </div>
                 </div>
@@ -373,20 +410,20 @@ export const Settings: React.FC = () => {
                 <div className="grid grid-cols-2 gap-4 pt-2">
                   <button 
                     onClick={handleExportBackup}
-                    className="p-4 border border-slate-200 hover:border-slate-350 bg-slate-50/50 hover:bg-slate-50 rounded-xl flex items-center justify-between text-left cursor-pointer transition-all"
+                    className="p-4 border border-slate-200 dark:border-slate-700 hover:border-slate-350 bg-slate-50/50 dark:bg-slate-800/30 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-xl flex items-center justify-between text-left cursor-pointer transition-all"
                   >
                     <div>
-                      <p className="font-extrabold text-slate-800">Export Backup JSON</p>
+                      <p className="font-extrabold text-slate-800 dark:text-slate-100">Export Backup JSON</p>
                       <p className="text-[9px] text-slate-400 mt-0.5">Download full snapshot file</p>
                     </div>
                     <Download className="w-5 h-5 text-blue-500" />
                   </button>
 
                   <label 
-                    className="p-4 border border-slate-200 hover:border-slate-350 bg-slate-50/50 hover:bg-slate-50 rounded-xl flex items-center justify-between text-left cursor-pointer transition-all"
+                    className="p-4 border border-slate-200 dark:border-slate-700 hover:border-slate-350 bg-slate-50/50 dark:bg-slate-800/30 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-xl flex items-center justify-between text-left cursor-pointer transition-all"
                   >
                     <div>
-                      <p className="font-extrabold text-slate-800">Import Backup JSON</p>
+                      <p className="font-extrabold text-slate-800 dark:text-slate-100">Import Backup JSON</p>
                       <p className="text-[9px] text-slate-400 mt-0.5">Restore database from file</p>
                     </div>
                     <Upload className="w-5 h-5 text-green-500" />
@@ -414,8 +451,8 @@ export const Settings: React.FC = () => {
 
           {activeTab === 'whatsapp' && (
             <div className="space-y-6 animate-fade-in">
-              <div className="border-b border-slate-50 pb-4">
-                <h3 className="text-sm font-bold text-slate-800">WhatsApp Notifications Alert</h3>
+              <div className="border-b border-slate-100 dark:border-slate-800 pb-4">
+                <h3 className="text-sm font-bold text-slate-800 dark:text-slate-100">WhatsApp Notifications Alert</h3>
                 <p className="text-[10px] text-slate-400 font-semibold mt-1">Configure automated text alerts to notify customers about repair milestones</p>
               </div>
 
@@ -430,7 +467,7 @@ export const Settings: React.FC = () => {
                       className="mt-0.5 rounded border-slate-300 text-blue-600 focus:ring-blue-500 w-4 h-4 cursor-pointer"
                     />
                     <div>
-                      <p className="font-bold text-slate-700">Send WhatsApp confirmation on Job Intake</p>
+                      <p className="font-bold text-slate-700 dark:text-slate-200">Send WhatsApp confirmation on Job Intake</p>
                       <p className="text-[10px] text-slate-400 font-medium mt-0.5">Triggers SMS confirmation message to client as soon as a new repair is initialized.</p>
                     </div>
                   </label>
@@ -443,7 +480,7 @@ export const Settings: React.FC = () => {
                       className="mt-0.5 rounded border-slate-300 text-blue-600 focus:ring-blue-500 w-4 h-4 cursor-pointer"
                     />
                     <div>
-                      <p className="font-bold text-slate-700">Send WhatsApp alert on Ready for Delivery</p>
+                      <p className="font-bold text-slate-700 dark:text-slate-200">Send WhatsApp alert on Ready for Delivery</p>
                       <p className="text-[10px] text-slate-400 font-medium mt-0.5">Sends notification with total invoice amount as soon as status becomes Ready or Completed.</p>
                     </div>
                   </label>
@@ -452,28 +489,112 @@ export const Settings: React.FC = () => {
 
               <div className="space-y-4 pt-3.5 border-t border-slate-50">
                 <h4 className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Gateway Configuration</h4>
-                <div className="grid grid-cols-2 gap-4">
+                <div className="grid grid-cols-2 gap-4 text-xs font-semibold">
                   <div className="col-span-2">
                     <label className="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-2">WhatsApp API Gateway Provider</label>
                     <select 
                       value={whatsappGateway}
                       onChange={(e) => setWhatsappGateway(e.target.value)}
-                      className="w-full bg-slate-50 border border-slate-200 px-3 py-2.5 rounded-xl text-xs font-semibold text-slate-700 focus:outline-none"
+                      className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 px-3 py-2.5 rounded-xl text-xs font-semibold text-slate-700 dark:text-slate-200 focus:outline-none"
                     >
+                      <option value="Meta Cloud API">Meta Cloud API (Official Developer Portal)</option>
+                      <option value="Custom Webhook">Custom Webhook Gateway (AiSensy, Wati, Wassenger, Custom API)</option>
                       <option value="Twilio API">Twilio API Gateway</option>
-                      <option value="Interakt API">Interakt API Console</option>
-                      <option value="Custom HTTP API">Custom Webhook Integration</option>
+                      <option value="Manual Redirect">Manual App Link Redirect (Free)</option>
                     </select>
                   </div>
-                  <div className="col-span-2">
-                    <label className="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-2">Client Notification Message Template</label>
-                    <textarea 
-                      rows={3}
-                      value={whatsappTemplate}
-                      onChange={(e) => setWhatsappTemplate(e.target.value)}
-                      className="w-full border border-slate-200 p-3 rounded-xl focus:outline-none resize-none font-semibold text-slate-700 leading-normal" 
-                    />
-                  </div>
+
+                  {whatsappGateway === 'Meta Cloud API' && (
+                    <>
+                      <div>
+                        <label className="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1.5">Meta Phone Number ID *</label>
+                        <input 
+                          type="text" 
+                          value={waPhoneNumberId}
+                          onChange={(e) => setWaPhoneNumberId(e.target.value)}
+                          placeholder="e.g. 109848729103984"
+                          className="w-full border border-slate-200 dark:border-slate-700 px-3.5 py-2 rounded-xl text-xs font-semibold text-slate-700 dark:text-slate-200 focus:outline-none" 
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1.5">Meta Permanent Access Token *</label>
+                        <input 
+                          type="password" 
+                          value={waAccessToken}
+                          onChange={(e) => setWaAccessToken(e.target.value)}
+                          placeholder="EAAW..."
+                          className="w-full border border-slate-200 dark:border-slate-700 px-3.5 py-2 rounded-xl text-xs font-semibold text-slate-700 dark:text-slate-200 focus:outline-none" 
+                        />
+                      </div>
+                      <div className="col-span-2 bg-blue-50/50 border border-blue-100 p-3 rounded-xl flex items-start gap-2.5">
+                        <Info className="w-4 h-4 text-blue-600 shrink-0 mt-0.5" />
+                        <span className="text-[10px] text-blue-700 font-medium leading-relaxed">
+                          Enter your Meta Developers WhatsApp Cloud API settings. Ensure you have pre-approved templates in your Meta Business Suite corresponding to these alert codes below.
+                        </span>
+                      </div>
+                      <div>
+                        <label className="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1.5">Intake Template Name</label>
+                        <input 
+                          type="text" 
+                          value={waTemplateIntake}
+                          onChange={(e) => setWaTemplateIntake(e.target.value)}
+                          className="w-full border border-slate-200 dark:border-slate-700 px-3.5 py-2 rounded-xl text-xs font-mono text-slate-700 dark:text-slate-200 focus:outline-none" 
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1.5">Ready for Collection Template Name</label>
+                        <input 
+                          type="text" 
+                          value={waTemplateReady}
+                          onChange={(e) => setWaTemplateReady(e.target.value)}
+                          className="w-full border border-slate-200 dark:border-slate-700 px-3.5 py-2 rounded-xl text-xs font-mono text-slate-700 dark:text-slate-200 focus:outline-none" 
+                        />
+                      </div>
+                    </>
+                  )}
+
+                  {whatsappGateway === 'Custom Webhook' && (
+                    <>
+                      <div className="col-span-2">
+                        <label className="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1.5">Webhook Endpoint URL *</label>
+                        <input 
+                          type="text" 
+                          value={waCustomUrl}
+                          onChange={(e) => setWaCustomUrl(e.target.value)}
+                          placeholder="https://api.yourgateway.com/v1/send-message"
+                          className="w-full border border-slate-200 dark:border-slate-700 px-3.5 py-2.5 rounded-xl text-xs font-semibold text-slate-700 dark:text-slate-200 focus:outline-none" 
+                        />
+                      </div>
+                      <div className="col-span-2">
+                        <label className="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1.5">API Authorization Token (Bearer or Header API Key)</label>
+                        <input 
+                          type="password" 
+                          value={waCustomToken}
+                          onChange={(e) => setWaCustomToken(e.target.value)}
+                          placeholder="Your API secret key or authorization token"
+                          className="w-full border border-slate-200 dark:border-slate-700 px-3.5 py-2.5 rounded-xl text-xs font-semibold text-slate-700 dark:text-slate-200 focus:outline-none" 
+                        />
+                      </div>
+                      <div className="col-span-2 bg-blue-50/50 border border-blue-100 p-3.5 rounded-xl flex items-start gap-2.5">
+                        <Info className="w-4.5 h-4.5 text-blue-600 shrink-0 mt-0.5" />
+                        <span className="text-[10px] text-blue-700 font-medium leading-relaxed">
+                          When a job is created or completed, a POST request will be triggered to this URL with a JSON body containing `recipient`, `type` ("intake" or "ready"), `jobId`, `customerName`, `device`, `advancePaid`, `estimatedCost`, and `remainingBalance`.
+                        </span>
+                      </div>
+                    </>
+                  )}
+
+                  {whatsappGateway !== 'Meta Cloud API' && whatsappGateway !== 'Custom Webhook' && (
+                    <div className="col-span-2">
+                      <label className="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-2">Fallback Message Template Text</label>
+                      <textarea 
+                        rows={3}
+                        value={whatsappTemplate}
+                        onChange={(e) => setWhatsappTemplate(e.target.value)}
+                        className="w-full border border-slate-200 dark:border-slate-700 p-3 rounded-xl focus:outline-none resize-none font-semibold text-slate-700 dark:text-slate-200 leading-normal" 
+                      />
+                    </div>
+                  )}
                 </div>
               </div>
 
