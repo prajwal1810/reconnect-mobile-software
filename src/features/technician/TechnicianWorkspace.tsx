@@ -1,7 +1,8 @@
-﻿import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useApp } from '../../context/AppContext';
 import { DatabaseService } from '../../services/dbAdapter';
 import { RepairJob, InventoryItem } from '../../services/mockDb';
+import { SopInlineSection } from '../../components/SopInlineSection';
 import { 
   Play, 
   Pause, 
@@ -14,13 +15,16 @@ import {
   X, 
   CheckCircle,
   Activity,
-  CheckCircle2
+  CheckCircle2,
+  Wrench,
+  BookOpen
 } from 'lucide-react';
 
 export const TechnicianWorkspace: React.FC = () => {
   const { repairs, inventory, refreshData, selectedRepairId, setSelectedRepairId } = useApp();
 
   const [activeRepair, setActiveRepair] = useState<RepairJob | null>(null);
+  const [showSopModal, setShowSopModal] = useState(false);
 
   // Timer state
   const [timerSeconds, setTimerSeconds] = useState(0);
@@ -314,18 +318,18 @@ export const TechnicianWorkspace: React.FC = () => {
 
             {/* Timer Panel */}
             <div className="flex items-center gap-3 bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-800 px-4 py-2.5 rounded-xl">
-              <Clock className="w-5 h-5 text-slate-400" />
-              <div className="text-left">
-                <span className="text-[9px] font-bold text-slate-400 uppercase tracking-wider block">Elapsed Repair Time</span>
-                <span className="font-mono text-sm font-extrabold text-slate-800 dark:text-slate-100 tracking-tight">{formatTimer(timerSeconds)}</span>
+                <Clock className="w-5 h-5 text-slate-400" />
+                <div className="text-left">
+                  <span className="text-[9px] font-bold text-slate-400 uppercase tracking-wider block">Elapsed Repair Time</span>
+                  <span className="font-mono text-sm font-extrabold text-slate-800 dark:text-slate-100 tracking-tight">{formatTimer(timerSeconds)}</span>
+                </div>
+                <button 
+                  onClick={() => setTimerActive(!timerActive)}
+                  className="w-7.5 h-7.5 rounded-lg bg-white dark:bg-slate-900 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 dark:border-slate-700 flex items-center justify-center text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:text-slate-200 transition cursor-pointer shrink-0"
+                >
+                  {timerActive ? <Pause className="w-3.5 h-3.5" /> : <Play className="w-3.5 h-3.5" />}
+                </button>
               </div>
-              <button 
-                onClick={() => setTimerActive(!timerActive)}
-                className="w-7.5 h-7.5 rounded-lg bg-white dark:bg-slate-900 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 dark:border-slate-700 flex items-center justify-center text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:text-slate-200 transition cursor-pointer shrink-0"
-              >
-                {timerActive ? <Pause className="w-3.5 h-3.5" /> : <Play className="w-3.5 h-3.5" />}
-              </button>
-            </div>
           </div>
 
           {/* Details split grids */}
@@ -415,6 +419,12 @@ export const TechnicianWorkspace: React.FC = () => {
                   </button>
                 </div>
               </div>
+
+              {/* Embedded Technician SOP Section */}
+              <SopInlineSection 
+                complaint={activeRepair.complaint}
+                deviceModel={`${activeRepair.device.brand} ${activeRepair.device.model}`}
+              />
 
               {/* Box 3: Parts consumed */}
               <div className="bg-white dark:bg-slate-900 dark:bg-slate-900 border border-slate-100 dark:border-slate-800 dark:border-slate-800 rounded-2xl p-5 shadow-xs space-y-4">

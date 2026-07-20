@@ -1,4 +1,4 @@
-﻿import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useApp } from '../../context/AppContext';
 import { DatabaseService } from '../../services/dbAdapter';
 import { InventoryItem, InventoryMovement } from '../../services/mockDb';
@@ -22,6 +22,7 @@ export const Inventory: React.FC = () => {
   const { inventory, refreshData, searchQuery, setSearchQuery, session } = useApp();
   const [selectedCategory, setSelectedCategory] = useState<string>('All');
   const [selectedLocation, setSelectedLocation] = useState<string>('All');
+  const [showSidebar, setShowSidebar] = useState(true);
 
   // View mode
   const [activeView, setActiveView] = useState<'list' | 'movements' | 'suppliers'>('list');
@@ -524,42 +525,51 @@ export const Inventory: React.FC = () => {
         </div>
 
         {/* View switcher tabs */}
-        <div className="flex gap-2 border-b border-slate-100 dark:border-slate-800 pb-1 shrink-0">
+        <div className="flex justify-between items-center border-b border-slate-100 dark:border-slate-800 pb-1 shrink-0">
+          <div className="flex gap-2">
+            <button
+              onClick={() => setActiveView('list')}
+              className={`pb-2.5 px-4 text-xs font-bold transition border-b-2 cursor-pointer ${
+                activeView === 'list' 
+                  ? 'border-blue-600 text-blue-600' 
+                  : 'border-transparent text-slate-400 hover:text-slate-600 dark:text-slate-300'
+              }`}
+            >
+              Inventory Items
+            </button>
+            <button
+              onClick={() => {
+                setActiveView('movements');
+                fetchMovements();
+              }}
+              className={`pb-2.5 px-4 text-xs font-bold transition border-b-2 cursor-pointer ${
+                activeView === 'movements' 
+                  ? 'border-blue-600 text-blue-600' 
+                  : 'border-transparent text-slate-400 hover:text-slate-600 dark:text-slate-300'
+              }`}
+            >
+              Inventory Movements
+            </button>
+            <button
+              onClick={() => {
+                setActiveView('suppliers');
+                fetchSuppliers();
+              }}
+              className={`pb-2.5 px-4 text-xs font-bold transition border-b-2 cursor-pointer ${
+                activeView === 'suppliers' 
+                  ? 'border-blue-600 text-blue-600' 
+                  : 'border-transparent text-slate-400 hover:text-slate-600 dark:text-slate-300'
+              }`}
+            >
+              Suppliers
+            </button>
+          </div>
+
           <button
-            onClick={() => setActiveView('list')}
-            className={`pb-2.5 px-4 text-xs font-bold transition border-b-2 cursor-pointer ${
-              activeView === 'list' 
-                ? 'border-blue-600 text-blue-600' 
-                : 'border-transparent text-slate-400 hover:text-slate-600 dark:text-slate-300'
-            }`}
+            onClick={() => setShowSidebar(!showSidebar)}
+            className="pb-2 px-3 text-xs font-bold text-blue-600 hover:text-blue-750 dark:text-blue-400 cursor-pointer flex items-center gap-1.5 transition-all select-none"
           >
-            Inventory Items
-          </button>
-          <button
-            onClick={() => {
-              setActiveView('movements');
-              fetchMovements();
-            }}
-            className={`pb-2.5 px-4 text-xs font-bold transition border-b-2 cursor-pointer ${
-              activeView === 'movements' 
-                ? 'border-blue-600 text-blue-600' 
-                : 'border-transparent text-slate-400 hover:text-slate-600 dark:text-slate-300'
-            }`}
-          >
-            Inventory Movements
-          </button>
-          <button
-            onClick={() => {
-              setActiveView('suppliers');
-              fetchSuppliers();
-            }}
-            className={`pb-2.5 px-4 text-xs font-bold transition border-b-2 cursor-pointer ${
-              activeView === 'suppliers' 
-                ? 'border-blue-600 text-blue-600' 
-                : 'border-transparent text-slate-400 hover:text-slate-600 dark:text-slate-300'
-            }`}
-          >
-            Suppliers
+            {showSidebar ? "Hide Summary ➔" : "◀ Show Summary"}
           </button>
         </div>
 
@@ -684,7 +694,7 @@ export const Inventory: React.FC = () => {
               {activeView === 'list' ? (
                 <>
                   <thead>
-                    <tr className="bg-slate-50/50 dark:bg-slate-800/30 text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 border-b border-slate-100 dark:border-slate-800">
+                    <tr className="bg-slate-50/50 dark:bg-slate-800/30 text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 border-b border-slate-100 dark:border-slate-800 whitespace-nowrap">
                       <th className="px-6 py-5">Item Details</th>
                       <th className="px-6 py-5">Category</th>
                       <th className="px-6 py-5">Part Number</th>
@@ -707,7 +717,7 @@ export const Inventory: React.FC = () => {
                       </tr>
                     ) : (
                       paginatedInventory.map(item => (
-                        <tr key={item.id} className="hover:bg-slate-50/50 dark:hover:bg-slate-800/50 dark:bg-slate-800/30 transition">
+                        <tr key={item.id} className="hover:bg-slate-50/50 dark:hover:bg-slate-800/50 dark:bg-slate-800/30 transition whitespace-nowrap">
                           <td className="px-6 py-5">
                             <div className="flex items-center gap-3.5">
                               <div className="w-9 h-9 rounded-lg bg-blue-50 border border-blue-100 text-blue-500 flex items-center justify-center shrink-0">
@@ -786,7 +796,7 @@ export const Inventory: React.FC = () => {
               ) : activeView === 'movements' ? (
                 <>
                   <thead>
-                    <tr className="bg-slate-50/50 dark:bg-slate-800/30 text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 border-b border-slate-100 dark:border-slate-800">
+                    <tr className="bg-slate-50/50 dark:bg-slate-800/30 text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 border-b border-slate-100 dark:border-slate-800 whitespace-nowrap">
                       <th className="px-6 py-5">Date</th>
                       <th className="px-6 py-5">Item Name</th>
                       <th className="px-6 py-5 text-center">Quantity</th>
@@ -811,7 +821,7 @@ export const Inventory: React.FC = () => {
                       </tr>
                     ) : (
                       paginatedMovements.map(mov => (
-                        <tr key={mov.id} className="hover:bg-slate-50/50 dark:hover:bg-slate-800/50 dark:bg-slate-800/30 transition">
+                        <tr key={mov.id} className="hover:bg-slate-50/50 dark:hover:bg-slate-800/50 dark:bg-slate-800/30 transition whitespace-nowrap">
                           <td className="px-6 py-4 text-slate-500 dark:text-slate-400">{mov.createdAt}</td>
                           <td className="px-6 py-4 font-bold text-slate-800 dark:text-slate-100">{mov.itemName}</td>
                           <td className="px-6 py-4 text-center font-bold text-slate-700 dark:text-slate-200">{mov.quantity}</td>
@@ -832,7 +842,7 @@ export const Inventory: React.FC = () => {
               ) : (
                 <>
                   <thead>
-                    <tr className="bg-slate-50/50 dark:bg-slate-800/30 text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 border-b border-slate-100 dark:border-slate-800">
+                    <tr className="bg-slate-50/50 dark:bg-slate-800/30 text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 border-b border-slate-100 dark:border-slate-800 whitespace-nowrap">
                       <th className="px-6 py-5">Supplier Name</th>
                       <th className="px-6 py-5">Contact Person</th>
                       <th className="px-6 py-5">Phone Number</th>
@@ -856,7 +866,7 @@ export const Inventory: React.FC = () => {
                       </tr>
                     ) : (
                       paginatedSuppliers.map(sup => (
-                        <tr key={sup.id} className="hover:bg-slate-50/50 dark:hover:bg-slate-800/50 dark:bg-slate-800/30 transition">
+                        <tr key={sup.id} className="hover:bg-slate-50/50 dark:hover:bg-slate-800/50 dark:bg-slate-800/30 transition whitespace-nowrap">
                           <td className="px-6 py-4 font-bold text-slate-800 dark:text-slate-100">{sup.name}</td>
                           <td className="px-6 py-4">{sup.contactPerson || '--'}</td>
                           <td className="px-6 py-4 font-mono text-slate-500 dark:text-slate-400">{sup.phone || '--'}</td>
@@ -921,7 +931,8 @@ export const Inventory: React.FC = () => {
       </div>
 
       {/* Right Sidebar Widgets Panel */}
-      <div className="w-[360px] border-l border-slate-100 dark:border-slate-800 bg-white dark:bg-slate-900 h-full shadow-2xl flex flex-col text-left">
+      {showSidebar && (
+        <div className="w-[360px] border-l border-slate-100 dark:border-slate-800 bg-white dark:bg-slate-900 h-full shadow-2xl flex flex-col text-left">
         
         {/* Buttons Header */}
         {activeView === 'suppliers' && (
@@ -1049,6 +1060,7 @@ export const Inventory: React.FC = () => {
           </div>
         </div>
       </div>
+      )}
 
       {/* Stock Adjustment Dialog Modal */}
       {showAdjustModal && (

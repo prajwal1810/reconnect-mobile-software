@@ -1381,6 +1381,23 @@ export class DatabaseService {
       }
     }
   }
+
+  static async clearAllData() {
+    if (isSupabaseConfigured && supabase) {
+      try {
+        await supabase.from('timeline_events').delete().neq('id', '0');
+        await supabase.from('billing_items').delete().neq('id', '0');
+        await supabase.from('payments').delete().neq('id', '0');
+        await supabase.from('repairs').delete().neq('id', '0');
+        await supabase.from('inventory').delete().neq('id', '0');
+        await supabase.from('customers').delete().neq('id', '0');
+        await supabase.from('suppliers').delete().neq('id', '0');
+      } catch (e) {
+        console.error('Cloud clear error', e);
+      }
+    }
+    MockDatabase.clearAllData();
+  }
 }
 
 // Initialize adapter states

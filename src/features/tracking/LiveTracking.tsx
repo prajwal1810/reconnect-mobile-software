@@ -1,7 +1,9 @@
-﻿import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useApp } from '../../context/AppContext';
 import { DatabaseService } from '../../services/dbAdapter';
 import { RepairJob } from '../../services/mockDb';
+import { SopInlineSection } from '../../components/SopInlineSection';
+import { ThermalReceiptModal } from '../../components/ThermalReceiptModal';
 import { 
   Tv, 
   Clock, 
@@ -16,13 +18,17 @@ import {
   Play,
   Pause,
   X,
-  CheckCircle
+  CheckCircle,
+  BookOpen,
+  Printer
 } from 'lucide-react';
 
 export const LiveTracking: React.FC = () => {
   const { repairs, inventory, refreshData } = useApp();
   const [time, setTime] = useState(new Date());
   const [isFullScreen, setIsFullScreen] = useState(false);
+  const [queueFilter, setQueueFilter] = useState<'ALL' | 'CS' | 'DS'>('ALL');
+  const [showPrintReceipt, setShowPrintReceipt] = useState(false);
 
   useEffect(() => {
     const timer = setInterval(() => setTime(new Date()), 1000);
@@ -290,10 +296,48 @@ export const LiveTracking: React.FC = () => {
           </div>
         </div>
 
-        {/* Live Clock & Fullscreen Switcher */}
-        <div className="flex items-center gap-3.5 relative">
+        {/* Live Clock, Queue Filter & Fullscreen Switcher */}
+        <div className="flex items-center gap-3 relative">
+          {/* CS / DS Queue View Toggle Filter */}
+          <div className={`flex items-center p-1 rounded-xl text-xs font-bold border ${isFullScreen ? 'bg-slate-800 border-slate-700' : 'bg-slate-100 dark:bg-slate-800 border-slate-200 dark:border-slate-700'}`}>
+            <button 
+              type="button"
+              onClick={() => setQueueFilter('ALL')}
+              className={`px-3 py-1.5 rounded-lg transition cursor-pointer ${
+                queueFilter === 'ALL'
+                  ? 'bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-100 shadow-xs font-extrabold'
+                  : 'text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200'
+              }`}
+            >
+              Both (CS + DS)
+            </button>
+            <button 
+              type="button"
+              onClick={() => setQueueFilter('CS')}
+              className={`px-3 py-1.5 rounded-lg transition cursor-pointer flex items-center gap-1.5 ${
+                queueFilter === 'CS'
+                  ? 'bg-blue-600 text-white shadow-xs font-extrabold'
+                  : 'text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200'
+              }`}
+            >
+              <span className="w-2 h-2 rounded-full bg-blue-400"></span>
+              CS Only
+            </button>
+            <button 
+              type="button"
+              onClick={() => setQueueFilter('DS')}
+              className={`px-3 py-1.5 rounded-lg transition cursor-pointer flex items-center gap-1.5 ${
+                queueFilter === 'DS'
+                  ? 'bg-green-600 text-white shadow-xs font-extrabold'
+                  : 'text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200'
+              }`}
+            >
+              <span className="w-2 h-2 rounded-full bg-green-400"></span>
+              DS Only
+            </button>
+          </div>
 
-          <div className={`flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-semibold ${isFullScreen ? 'bg-slate-800 text-slate-300' : 'bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 dark:border-slate-700 text-slate-600 dark:text-slate-300'}`}>
+          <div className={`flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-semibold ${isFullScreen ? 'bg-slate-800 text-slate-300' : 'bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300'}`}>
             <Clock className="w-4 h-4 text-blue-500 animate-pulse" />
             <span className="font-mono text-xs">{time.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' })}</span>
           </div>
@@ -316,94 +360,125 @@ export const LiveTracking: React.FC = () => {
         </div>
       </div>
 
-      {/* Main Dual Columns Queue View - flex-1 min-h-0 to lock heights */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 flex-1 min-h-0 py-6">
+      {/* Main Queue View - flex-1 min-h-0 to lock heights */}
+      <div className={`grid gap-6 flex-1 min-h-0 py-6 ${
+        queueFilter === 'ALL' ? 'grid-cols-1 lg:grid-cols-2' : 'grid-cols-1'
+      }`}>
         
         {/* Column Left: CS Queue */}
-        <div className={`rounded-2xl p-5 border flex flex-col min-h-0 ${isFullScreen ? 'bg-slate-850/50 border-slate-800' : 'bg-white border-slate-100 dark:border-slate-800 shadow-sm'}`}>
-          <div className="flex justify-between items-center pb-3 border-b border-slate-100 dark:border-slate-800/10 shrink-0">
-            <div className="flex items-center gap-2">
-              <span className="w-6.5 h-6.5 rounded-lg bg-blue-600 text-white font-bold text-xs flex items-center justify-center">CS</span>
-              <h2 className={`font-extrabold text-sm ${isFullScreen ? 'text-white' : 'text-slate-700 dark:text-slate-200'}`}>Check & Service Queue</h2>
-            </div>
-            <span className={`text-[10px] font-bold px-2 py-0.5 rounded-md ${isFullScreen ? 'bg-slate-800 text-slate-400' : 'bg-slate-50 text-slate-500 dark:text-slate-400'}`}>
-              {csQueue.length} Active Jobs
-            </span>
-          </div>
-
-          {/* Counts metrics */}
-          <div className={`grid grid-cols-5 gap-2 p-2 rounded-xl text-center shrink-0 mt-3 ${isFullScreen ? 'bg-slate-900/60 border border-slate-800 text-slate-400' : 'bg-slate-50 text-slate-550'}`}>
-            <div>
-              <p className="text-[9px] font-bold uppercase tracking-wide">Recd</p>
-              <p className={`text-xs font-extrabold mt-0.5 ${isFullScreen ? 'text-white' : 'text-slate-700 dark:text-slate-200'}`}>{csRecdCount}</p>
-            </div>
-            <div>
-              <p className="text-[9px] font-bold uppercase tracking-wide">Diag</p>
-              <p className={`text-xs font-extrabold mt-0.5 ${isFullScreen ? 'text-white' : 'text-slate-700 dark:text-slate-200'}`}>{csDiagCount}</p>
-            </div>
-            <div>
-              <p className="text-[9px] font-bold uppercase tracking-wide">Appr</p>
-              <p className={`text-xs font-extrabold mt-0.5 ${isFullScreen ? 'text-white' : 'text-slate-700 dark:text-slate-200'}`}>{csApprCount}</p>
-            </div>
-            <div>
-              <p className="text-[9px] font-bold uppercase tracking-wide">Repr</p>
-              <p className={`text-xs font-extrabold mt-0.5 ${isFullScreen ? 'text-white' : 'text-slate-700 dark:text-slate-200'}`}>{csReprCount}</p>
-            </div>
-            <div>
-              <p className="text-[9px] font-bold uppercase tracking-wide">Comp</p>
-              <p className={`text-xs font-extrabold mt-0.5 ${isFullScreen ? 'text-white' : 'text-slate-700 dark:text-slate-200'}`}>{csCompCount}</p>
-            </div>
-          </div>
-
-          {/* Card list container - flex-1 overflow-y-auto to handle scrollbar locally */}
-          <div className="space-y-3.5 overflow-y-auto flex-1 min-h-0 pr-1 mt-4">
-            {csQueue.map(job => (
+        {(queueFilter === 'ALL' || queueFilter === 'CS') && (
+          <div className={`rounded-2xl p-5 border flex flex-col min-h-0 ${isFullScreen ? 'bg-slate-850/50 border-slate-800' : 'bg-white border-slate-100 dark:border-slate-800 shadow-sm'}`}>
+            <div className="flex justify-between items-center pb-3 border-b border-slate-100 dark:border-slate-800/10 shrink-0">
               <div 
-                key={job.id} 
-                onClick={() => {
-                  setActiveRepairId(job.id);
-                }}
-                className={`p-4.5 rounded-2xl flex justify-between gap-4 transition hover:scale-[1.01] cursor-pointer ${getCardBgStyle(job.status, isFullScreen)}`}
+                className="flex items-center gap-2 cursor-pointer group"
+                onClick={() => setQueueFilter(queueFilter === 'CS' ? 'ALL' : 'CS')}
+                title="Click to focus on CS Queue"
               >
-                <div className="space-y-1.5 flex-1 min-w-0">
-                  <div className="flex items-center gap-2">
-                    <span className={`font-extrabold text-xs ${isFullScreen ? 'text-blue-400' : 'text-blue-600'}`}>#{job.id}</span>
-                    <span className={`text-[10px] font-bold ${isFullScreen ? 'text-slate-400' : 'text-slate-500 dark:text-slate-400'}`}>{job.device.brand} {job.device.model}</span>
-                  </div>
-                  <p className={`font-bold text-xs truncate ${isFullScreen ? 'text-slate-205' : 'text-slate-800 dark:text-slate-100'}`}>Cust: {job.customerName}</p>
-                  <p className="text-[10px] text-slate-400 truncate">Complaint: {job.complaint}</p>
-                  <div className="flex items-center gap-1.5 text-[10px] text-slate-400 pt-1">
-                    <User className="w-3.5 h-3.5 shrink-0" />
-                    <span>Tech: {job.technician}</span>
-                  </div>
-                </div>
-
-                <div className="text-right flex flex-col justify-between items-end shrink-0">
-                  {getStatusTextBadge(job.status)}
-                  <div className="flex items-center gap-1.5 text-[10px] font-bold text-slate-400 mt-2">
-                    <Clock className="w-3.5 h-3.5 shrink-0" />
-                    <span>T: {job.time}</span>
-                  </div>
-                </div>
+                <span className="w-6.5 h-6.5 rounded-lg bg-blue-600 text-white font-bold text-xs flex items-center justify-center group-hover:scale-105 transition">CS</span>
+                <h2 className={`font-extrabold text-sm ${isFullScreen ? 'text-white' : 'text-slate-700 dark:text-slate-200'}`}>Check & Service Queue</h2>
               </div>
-            ))}
-            {csQueue.length === 0 && (
-              <p className="text-center py-20 text-slate-400 text-xs font-semibold">No Check & Service repairs live.</p>
-            )}
+              <div className="flex items-center gap-2">
+                <button 
+                  type="button"
+                  onClick={() => setQueueFilter(queueFilter === 'CS' ? 'ALL' : 'CS')}
+                  className="text-[10px] font-bold px-2 py-0.5 rounded-md bg-blue-50 text-blue-600 hover:bg-blue-100 transition cursor-pointer"
+                >
+                  {queueFilter === 'CS' ? 'Show Both' : 'Only CS'}
+                </button>
+                <span className={`text-[10px] font-bold px-2 py-0.5 rounded-md ${isFullScreen ? 'bg-slate-800 text-slate-400' : 'bg-slate-50 text-slate-500 dark:text-slate-400'}`}>
+                  {csQueue.length} Active Jobs
+                </span>
+              </div>
+            </div>
+
+            {/* Counts metrics */}
+            <div className={`grid grid-cols-5 gap-2 p-2 rounded-xl text-center shrink-0 mt-3 ${isFullScreen ? 'bg-slate-900/60 border border-slate-800 text-slate-400' : 'bg-slate-50 text-slate-550'}`}>
+              <div>
+                <p className="text-[9px] font-bold uppercase tracking-wide">Recd</p>
+                <p className={`text-xs font-extrabold mt-0.5 ${isFullScreen ? 'text-white' : 'text-slate-700 dark:text-slate-200'}`}>{csRecdCount}</p>
+              </div>
+              <div>
+                <p className="text-[9px] font-bold uppercase tracking-wide">Diag</p>
+                <p className={`text-xs font-extrabold mt-0.5 ${isFullScreen ? 'text-white' : 'text-slate-700 dark:text-slate-200'}`}>{csDiagCount}</p>
+              </div>
+              <div>
+                <p className="text-[9px] font-bold uppercase tracking-wide">Appr</p>
+                <p className={`text-xs font-extrabold mt-0.5 ${isFullScreen ? 'text-white' : 'text-slate-700 dark:text-slate-200'}`}>{csApprCount}</p>
+              </div>
+              <div>
+                <p className="text-[9px] font-bold uppercase tracking-wide">Repr</p>
+                <p className={`text-xs font-extrabold mt-0.5 ${isFullScreen ? 'text-white' : 'text-slate-700 dark:text-slate-200'}`}>{csReprCount}</p>
+              </div>
+              <div>
+                <p className="text-[9px] font-bold uppercase tracking-wide">Comp</p>
+                <p className={`text-xs font-extrabold mt-0.5 ${isFullScreen ? 'text-white' : 'text-slate-700 dark:text-slate-200'}`}>{csCompCount}</p>
+              </div>
+            </div>
+
+            {/* Card list container - flex-1 overflow-y-auto to handle scrollbar locally */}
+            <div className="space-y-3.5 overflow-y-auto flex-1 min-h-0 pr-1 mt-4">
+              {csQueue.map(job => (
+                <div 
+                  key={job.id} 
+                  onClick={() => {
+                    setActiveRepairId(job.id);
+                  }}
+                  className={`p-4.5 rounded-2xl flex justify-between gap-4 transition hover:scale-[1.01] cursor-pointer ${getCardBgStyle(job.status, isFullScreen)}`}
+                >
+                  <div className="space-y-1.5 flex-1 min-w-0">
+                    <div className="flex items-center gap-2">
+                      <span className={`font-extrabold text-xs ${isFullScreen ? 'text-blue-400' : 'text-blue-600'}`}>#{job.id}</span>
+                      <span className={`text-[10px] font-bold ${isFullScreen ? 'text-slate-400' : 'text-slate-500 dark:text-slate-400'}`}>{job.device.brand} {job.device.model}</span>
+                    </div>
+                    <p className={`font-bold text-xs truncate ${isFullScreen ? 'text-slate-205' : 'text-slate-800 dark:text-slate-100'}`}>Cust: {job.customerName}</p>
+                    <p className="text-[10px] text-slate-400 truncate">Complaint: {job.complaint}</p>
+                    <div className="flex items-center gap-1.5 text-[10px] text-slate-400 pt-1">
+                      <User className="w-3.5 h-3.5 shrink-0" />
+                      <span>Tech: {job.technician}</span>
+                    </div>
+                  </div>
+
+                  <div className="text-right flex flex-col justify-between items-end shrink-0">
+                    {getStatusTextBadge(job.status)}
+                    <div className="flex items-center gap-1.5 text-[10px] font-bold text-slate-400 mt-2">
+                      <Clock className="w-3.5 h-3.5 shrink-0" />
+                      <span>T: {job.time}</span>
+                    </div>
+                  </div>
+                </div>
+              ))}
+              {csQueue.length === 0 && (
+                <p className="text-center py-20 text-slate-400 text-xs font-semibold">No Check & Service repairs live.</p>
+              )}
+            </div>
           </div>
-        </div>
+        )}
 
         {/* Column Right: DS Queue */}
-        <div className={`rounded-2xl p-5 border flex flex-col min-h-0 ${isFullScreen ? 'bg-slate-850/50 border-slate-800' : 'bg-white border-slate-100 dark:border-slate-800 shadow-sm'}`}>
-          <div className="flex justify-between items-center pb-3 border-b border-slate-100 dark:border-slate-800/10 shrink-0">
-            <div className="flex items-center gap-2">
-              <span className="w-6.5 h-6.5 rounded-lg bg-green-600 text-white font-bold text-xs flex items-center justify-center">DS</span>
-              <h2 className={`font-extrabold text-sm ${isFullScreen ? 'text-white' : 'text-slate-700 dark:text-slate-200'}`}>Direct Service Queue</h2>
+        {(queueFilter === 'ALL' || queueFilter === 'DS') && (
+          <div className={`rounded-2xl p-5 border flex flex-col min-h-0 ${isFullScreen ? 'bg-slate-850/50 border-slate-800' : 'bg-white border-slate-100 dark:border-slate-800 shadow-sm'}`}>
+            <div className="flex justify-between items-center pb-3 border-b border-slate-100 dark:border-slate-800/10 shrink-0">
+              <div 
+                className="flex items-center gap-2 cursor-pointer group"
+                onClick={() => setQueueFilter(queueFilter === 'DS' ? 'ALL' : 'DS')}
+                title="Click to focus on DS Queue"
+              >
+                <span className="w-6.5 h-6.5 rounded-lg bg-green-600 text-white font-bold text-xs flex items-center justify-center group-hover:scale-105 transition">DS</span>
+                <h2 className={`font-extrabold text-sm ${isFullScreen ? 'text-white' : 'text-slate-700 dark:text-slate-200'}`}>Direct Service Queue</h2>
+              </div>
+              <div className="flex items-center gap-2">
+                <button 
+                  type="button"
+                  onClick={() => setQueueFilter(queueFilter === 'DS' ? 'ALL' : 'DS')}
+                  className="text-[10px] font-bold px-2 py-0.5 rounded-md bg-green-50 text-green-600 hover:bg-green-100 transition cursor-pointer"
+                >
+                  {queueFilter === 'DS' ? 'Show Both' : 'Only DS'}
+                </button>
+                <span className={`text-[10px] font-bold px-2 py-0.5 rounded-md ${isFullScreen ? 'bg-slate-800 text-slate-400' : 'bg-slate-50 text-slate-500 dark:text-slate-400'}`}>
+                  {dsQueue.length} Active Jobs
+                </span>
+              </div>
             </div>
-            <span className={`text-[10px] font-bold px-2 py-0.5 rounded-md ${isFullScreen ? 'bg-slate-800 text-slate-400' : 'bg-slate-50 text-slate-500 dark:text-slate-400'}`}>
-              {dsQueue.length} Active Jobs
-            </span>
-          </div>
 
           {/* Counts metrics */}
           <div className={`grid grid-cols-4 gap-2 p-2 rounded-xl text-center shrink-0 mt-3 ${isFullScreen ? 'bg-slate-900/60 border border-slate-800 text-slate-400' : 'bg-slate-50 text-slate-550'}`}>
@@ -462,6 +537,7 @@ export const LiveTracking: React.FC = () => {
             )}
           </div>
         </div>
+        )}
 
       </div>
 
@@ -536,7 +612,17 @@ export const LiveTracking: React.FC = () => {
                 <p className="text-[10px] text-slate-400 font-semibold mt-0.5">Technician: {activeRepair.technician}</p>
               </div>
               
-              <div className="flex items-center gap-3">
+              <div className="flex items-center gap-2">
+                <button
+                  type="button"
+                  onClick={() => setShowPrintReceipt(true)}
+                  className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-blue-50 text-blue-600 dark:bg-blue-900/30 dark:text-blue-300 font-bold text-[11px] hover:bg-blue-100 transition cursor-pointer border border-blue-100 dark:border-blue-800"
+                  title="Print POS Thermal Slip"
+                >
+                  <Printer className="w-3.5 h-3.5" />
+                  <span>Print Receipt</span>
+                </button>
+
                 {/* Timer */}
                 <div className="flex items-center gap-1.5 bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-800 px-2 py-1 rounded-lg">
                   <Clock className="w-3.5 h-3.5 text-slate-400" />
@@ -580,6 +666,12 @@ export const LiveTracking: React.FC = () => {
                   </div>
                 </div>
               </div>
+
+              {/* Embedded Technician SOP Checklist */}
+              <SopInlineSection 
+                complaint={activeRepair.complaint}
+                deviceModel={`${activeRepair.device.brand} ${activeRepair.device.model}`}
+              />
 
               {/* Status workflow */}
               <div className="bg-white dark:bg-slate-900 dark:bg-slate-900 border border-slate-100 dark:border-slate-800 dark:border-slate-800 rounded-xl p-3.5 space-y-2.5 shadow-2xs">
@@ -761,6 +853,13 @@ export const LiveTracking: React.FC = () => {
           </div>
         </>
       )}
+
+      {/* Thermal Receipt Print Modal */}
+      <ThermalReceiptModal 
+        isOpen={showPrintReceipt}
+        onClose={() => setShowPrintReceipt(false)}
+        repair={activeRepair}
+      />
     </div>
   );
 };

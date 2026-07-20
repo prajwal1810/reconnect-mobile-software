@@ -1,4 +1,4 @@
-﻿import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { 
   Sliders, 
   Shield, 
@@ -11,9 +11,11 @@ import {
   Lock,
   Smartphone,
   ChevronRight,
-  Info
+  Info,
+  Trash2
 } from 'lucide-react';
 import { useApp } from '../../context/AppContext';
+import { DatabaseService } from '../../services/dbAdapter';
 
 export const Settings: React.FC = () => {
   const { refreshData } = useApp();
@@ -152,6 +154,15 @@ export const Settings: React.FC = () => {
           alert('Failed to parse backup JSON. Please check file formatting.');
         }
       };
+    }
+  };
+
+  const handleEraseData = async () => {
+    if (window.confirm('⚠️ ARE YOU SURE YOU WANT TO ERASE ALL SYSTEM DATA?\n\nThis will permanently delete all Customer records, Repair Jobs, Inventory items, and Activity Logs.')) {
+      await DatabaseService.clearAllData();
+      refreshData();
+      alert('All system data has been completely erased.');
+      window.location.reload();
     }
   };
 
@@ -435,6 +446,26 @@ export const Settings: React.FC = () => {
                     />
                   </label>
                 </div>
+              </div>
+
+              {/* Danger Zone: Erase All Data */}
+              <div className="space-y-3 pt-4 border-t border-red-100 dark:border-red-900/30">
+                <h4 className="text-[10px] font-bold text-red-500 uppercase tracking-wider">Danger Zone — Erase System Data</h4>
+                <p className="text-[10px] text-slate-400 font-medium">Permanently clear all local and cloud repair jobs, customer profiles, inventory items, and logs.</p>
+                
+                <button 
+                  onClick={handleEraseData}
+                  className="px-5 py-3 border border-red-200 dark:border-red-900/50 bg-red-50/70 dark:bg-red-950/40 hover:bg-red-100 dark:hover:bg-red-900/60 rounded-xl flex items-center justify-between text-left cursor-pointer transition-all w-full text-red-600 dark:text-red-400 font-extrabold text-xs"
+                >
+                  <div className="flex items-center gap-2.5">
+                    <Trash2 className="w-4.5 h-4.5 text-red-600 dark:text-red-400" />
+                    <div>
+                      <p className="font-extrabold text-red-700 dark:text-red-300">Erase All System Data</p>
+                      <p className="text-[9px] text-red-500 font-medium mt-0.5">Wipe all customer, repair job & inventory records completely</p>
+                    </div>
+                  </div>
+                  <span className="px-3 py-1 bg-red-600 text-white font-bold text-[10px] rounded-lg">Wipe Database</span>
+                </button>
               </div>
 
               <div className="pt-4 border-t border-slate-50 flex justify-end">

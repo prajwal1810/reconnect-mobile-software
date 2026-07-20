@@ -1,4 +1,4 @@
-﻿import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useApp } from '../../context/AppContext';
 import { 
   TrendingUp, 
@@ -1167,43 +1167,29 @@ export const Reports: React.FC = () => {
 
       {/* Overview Cards Row */}
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
-        <div className="bg-white dark:bg-slate-900 dark:bg-slate-900 border border-slate-100 dark:border-slate-800 dark:border-slate-800 p-4.5 rounded-2xl shadow-sm text-left">
+        <div className="bg-white dark:bg-slate-900 dark:bg-slate-900 border border-slate-100 dark:border-slate-800 dark:border-slate-800 p-4.5 rounded-2xl shadow-sm text-center">
           <span className="text-[9px] font-bold text-slate-400 uppercase tracking-wider block">Total Revenue</span>
           <span className="text-lg font-extrabold text-slate-800 dark:text-slate-100 mt-1 block">₹{totalRevenue.toLocaleString('en-IN')}</span>
-          <span className="text-[9px] text-green-600 font-bold flex items-center gap-0.5 mt-1.5">
-            <TrendingUp className="w-3 h-3" /> +18.6% vs last 7 days
-          </span>
         </div>
-        <div className="bg-white dark:bg-slate-900 dark:bg-slate-900 border border-slate-100 dark:border-slate-800 dark:border-slate-800 p-4.5 rounded-2xl shadow-sm text-left">
+        <div className="bg-white dark:bg-slate-900 dark:bg-slate-900 border border-slate-100 dark:border-slate-800 dark:border-slate-800 p-4.5 rounded-2xl shadow-sm text-center">
           <span className="text-[9px] font-bold text-slate-400 uppercase tracking-wider block">Total Jobs</span>
           <span className="text-lg font-extrabold text-slate-800 dark:text-slate-100 mt-1 block">{totalJobs}</span>
-          <span className="text-[9px] text-green-600 font-bold flex items-center gap-0.5 mt-1.5">
-            <TrendingUp className="w-3 h-3" /> +12.3% vs last 7 days
-          </span>
         </div>
-        <div className="bg-white dark:bg-slate-900 dark:bg-slate-900 border border-slate-100 dark:border-slate-800 dark:border-slate-800 p-4.5 rounded-2xl shadow-sm text-left">
+        <div className="bg-white dark:bg-slate-900 dark:bg-slate-900 border border-slate-100 dark:border-slate-800 dark:border-slate-800 p-4.5 rounded-2xl shadow-sm text-center">
           <span className="text-[9px] font-bold text-slate-400 uppercase tracking-wider block">Completed Jobs</span>
           <span className="text-lg font-extrabold text-slate-800 dark:text-slate-100 mt-1 block">{completedJobs}</span>
-          <span className="text-[9px] text-green-600 font-bold mt-1.5 block">{completionRate}% Completion Rate</span>
         </div>
-        <div className="bg-white dark:bg-slate-900 dark:bg-slate-900 border border-slate-100 dark:border-slate-800 dark:border-slate-800 p-4.5 rounded-2xl shadow-sm text-left">
+        <div className="bg-white dark:bg-slate-900 dark:bg-slate-900 border border-slate-100 dark:border-slate-800 dark:border-slate-800 p-4.5 rounded-2xl shadow-sm text-center">
           <span className="text-[9px] font-bold text-slate-400 uppercase tracking-wider block">Pending Jobs</span>
           <span className="text-lg font-extrabold text-slate-800 dark:text-slate-100 mt-1 block text-amber-500">{pendingJobs}</span>
-          <span className="text-[9px] text-amber-600 font-bold mt-1.5 block">{pendingRate}% Pending</span>
         </div>
-        <div className="bg-white dark:bg-slate-900 dark:bg-slate-900 border border-slate-100 dark:border-slate-800 dark:border-slate-800 p-4.5 rounded-2xl shadow-sm text-left">
+        <div className="bg-white dark:bg-slate-900 dark:bg-slate-900 border border-slate-100 dark:border-slate-800 dark:border-slate-800 p-4.5 rounded-2xl shadow-sm text-center">
           <span className="text-[9px] font-bold text-slate-400 uppercase tracking-wider block">Average Order Value</span>
           <span className="text-lg font-extrabold text-slate-800 dark:text-slate-100 mt-1 block">₹{avgOrderValue.toLocaleString('en-IN')}</span>
-          <span className="text-[9px] text-green-600 font-bold flex items-center gap-0.5 mt-1.5">
-            <TrendingUp className="w-3 h-3" /> +8.4% vs last 7 days
-          </span>
         </div>
-        <div className="bg-white dark:bg-slate-900 dark:bg-slate-900 border border-slate-100 dark:border-slate-800 dark:border-slate-800 p-4.5 rounded-2xl shadow-sm text-left">
+        <div className="bg-white dark:bg-slate-900 dark:bg-slate-900 border border-slate-100 dark:border-slate-800 dark:border-slate-800 p-4.5 rounded-2xl shadow-sm text-center">
           <span className="text-[9px] font-bold text-slate-400 uppercase tracking-wider block">Total Customers</span>
           <span className="text-lg font-extrabold text-slate-800 dark:text-slate-100 mt-1 block">{totalCustomers}</span>
-          <span className="text-[9px] text-green-600 font-bold flex items-center gap-0.5 mt-1.5">
-            <TrendingUp className="w-3 h-3" /> +14.5% vs last 7 days
-          </span>
         </div>
       </div>
 

@@ -636,4 +636,19 @@ export class MockDatabase {
     }
     this.saveActivities(list);
   }
+
+  static clearAllData() {
+    this.saveCustomers([]);
+    this.saveRepairs([]);
+    this.saveInventory([]);
+    this.saveActivities([]);
+    this.saveSuppliers([]);
+    this.setStored('r_inventory_movements', []);
+    localStorage.removeItem('r_customers');
+    localStorage.removeItem('r_repairs');
+    localStorage.removeItem('r_inventory');
+    localStorage.removeItem('r_activities');
+    localStorage.removeItem('r_inventory_movements');
+    localStorage.removeItem('r_suppliers');
+  }
 }
